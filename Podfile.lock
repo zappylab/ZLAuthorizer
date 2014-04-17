@@ -1,0 +1,10 @@
+PODS:
+  - Lockbox (1.4.8)
+
+DEPENDENCIES:
+  - Lockbox
+
+SPEC CHECKSUMS:
+  Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
+
+COCOAPODS: 0.32.1

@@ -16,6 +16,8 @@
 @property (strong) NSString *userName;
 @property (strong) NSString *password;
 
+-(void) wipeOutExistingCredentials;
+
 @end
 
 /////////////////////////////////////////////////////
