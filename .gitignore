@@ -1,0 +1,13 @@
+# Pods
+Pods/*
+
+*.orig*
+
+# MacOS
+*.DS_Store
+
+# AppCode
+*.idea
+
+# xcodeproj internals
+*xcuserdata
