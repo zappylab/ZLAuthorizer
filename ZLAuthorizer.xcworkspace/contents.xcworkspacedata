@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:Authorizer"
+      name = "Authorizer">
+      <Group
+         location = "group:Authorizer"
+         name = "Authorizer">
+         <FileRef
+            location = "group:AuthorizationDataParser.h">
+         </FileRef>
+         <FileRef
+            location = "group:AuthorizationDataParser.m">
+         </FileRef>
+         <FileRef
+            location = "group:AuthorizationRequestsPerformer.h">
+         </FileRef>
+         <FileRef
+            location = "group:AuthorizationRequestsPerformer.m">
+         </FileRef>
+         <FileRef
+            location = "group:Authorizer.h">
+         </FileRef>
+         <FileRef
+            location = "group:Authorizer.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:CredentialsStorage"
+         name = "CredentialsStorage">
+         <FileRef
+            location = "group:CredentialsStorage.h">
+         </FileRef>
+         <FileRef
+            location = "group:CredentialsStorage.m">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
       location = "group:AuthorizerExample/AuthorizerExample.xcodeproj">
    </FileRef>

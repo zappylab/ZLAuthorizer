@@ -16,6 +16,10 @@
 		BD46903219006D53003EEC0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD46903019006D53003EEC0E /* Main.storyboard */; };
 		BD46903519006D53003EEC0E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD46903419006D53003EEC0E /* ViewController.m */; };
 		BD46903719006D53003EEC0E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD46903619006D53003EEC0E /* Images.xcassets */; };
+		BDA78E1D190071E1001484C5 /* AuthorizationDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */; };
+		BDA78E1E190071E1001484C5 /* AuthorizationRequestsPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E17190071E1001484C5 /* AuthorizationRequestsPerformer.m */; };
+		BDA78E1F190071E1001484C5 /* Authorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* Authorizer.m */; };
+		BDA78E20190071E1001484C5 /* CredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* CredentialsStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,14 @@
 		BD46903319006D53003EEC0E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BD46903419006D53003EEC0E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BD46903619006D53003EEC0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BDA78E14190071E1001484C5 /* AuthorizationDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationDataParser.h; sourceTree = "<group>"; };
+		BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationDataParser.m; sourceTree = "<group>"; };
+		BDA78E16190071E1001484C5 /* AuthorizationRequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationRequestsPerformer.h; sourceTree = "<group>"; };
+		BDA78E17190071E1001484C5 /* AuthorizationRequestsPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationRequestsPerformer.m; sourceTree = "<group>"; };
+		BDA78E18190071E1001484C5 /* Authorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authorizer.h; sourceTree = "<group>"; };
+		BDA78E19190071E1001484C5 /* Authorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authorizer.m; sourceTree = "<group>"; };
+		BDA78E1B190071E1001484C5 /* CredentialsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsStorage.h; sourceTree = "<group>"; };
+		BDA78E1C190071E1001484C5 /* CredentialsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,7 @@
 		BD46902419006D53003EEC0E /* AuthorizerExample */ = {
 			isa = PBXGroup;
 			children = (
+				BDA78E12190071E1001484C5 /* Authorizer */,
 				BD46902D19006D53003EEC0E /* AppDelegate.h */,
 				BD46902E19006D53003EEC0E /* AppDelegate.m */,
 				BD46903019006D53003EEC0E /* Main.storyboard */,
@@ -99,6 +112,38 @@
 				BD46902C19006D53003EEC0E /* AuthorizerExample-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BDA78E12190071E1001484C5 /* Authorizer */ = {
+			isa = PBXGroup;
+			children = (
+				BDA78E13190071E1001484C5 /* Authorizer */,
+				BDA78E1A190071E1001484C5 /* CredentialsStorage */,
+			);
+			name = Authorizer;
+			path = ../../Authorizer;
+			sourceTree = "<group>";
+		};
+		BDA78E13190071E1001484C5 /* Authorizer */ = {
+			isa = PBXGroup;
+			children = (
+				BDA78E14190071E1001484C5 /* AuthorizationDataParser.h */,
+				BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */,
+				BDA78E16190071E1001484C5 /* AuthorizationRequestsPerformer.h */,
+				BDA78E17190071E1001484C5 /* AuthorizationRequestsPerformer.m */,
+				BDA78E18190071E1001484C5 /* Authorizer.h */,
+				BDA78E19190071E1001484C5 /* Authorizer.m */,
+			);
+			path = Authorizer;
+			sourceTree = "<group>";
+		};
+		BDA78E1A190071E1001484C5 /* CredentialsStorage */ = {
+			isa = PBXGroup;
+			children = (
+				BDA78E1B190071E1001484C5 /* CredentialsStorage.h */,
+				BDA78E1C190071E1001484C5 /* CredentialsStorage.m */,
+			);
+			path = CredentialsStorage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +211,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA78E1D190071E1001484C5 /* AuthorizationDataParser.m in Sources */,
 				BD46903519006D53003EEC0E /* ViewController.m in Sources */,
+				BDA78E1F190071E1001484C5 /* Authorizer.m in Sources */,
+				BDA78E20190071E1001484C5 /* CredentialsStorage.m in Sources */,
 				BD46902F19006D53003EEC0E /* AppDelegate.m in Sources */,
+				BDA78E1E190071E1001484C5 /* AuthorizationRequestsPerformer.m in Sources */,
 				BD46902B19006D53003EEC0E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +358,7 @@
 				BD46904F19006D53003EEC0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
