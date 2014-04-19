@@ -1,0 +1,35 @@
+//
+// Created by Ilya Dyakonov on 10/03/14.
+// Copyright (c) 2014 ZappyLab. All rights reserved.
+//
+//
+
+
+#import <Foundation/Foundation.h>
+
+/////////////////////////////////////////////////////
+
+@interface ZLARequestsPerformer : NSObject
+
+-(instancetype) initWithBaseURL:(NSURL *) baseURL;
+
+-(void) performNativeLoginWithUserName:(NSString *) userName
+                              password:(NSString *) password
+                        userIdentifier:(NSString *) userIdentifier
+                       completionBlock:(void (^)(BOOL success)) completionBlock;
+
+-(void) performLoginWithTwitterUserName:(NSString *) userName
+                            accessToken:(NSString *) accessToken
+                        completionBlock:(void (^)(BOOL success)) completionBlock
+                              firstName:(NSString *) firstName
+                               lastName:(NSString *) lastName
+                  profilePictureAddress:(NSString *) profilePictureAddress;
+
+-(void) registerUserWithFullName:(NSString *) fullName
+                           email:(NSString *) email
+                        password:(NSString *) password
+                  userIdentifier:(NSString *) userIdentifier
+                 completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+@end
+
+/////////////////////////////////////////////////////

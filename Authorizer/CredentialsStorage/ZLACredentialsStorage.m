@@ -5,7 +5,7 @@
 //
 
 
-#import "CredentialsStorage.h"
+#import "ZLACredentialsStorage.h"
 
 #import "Lockbox.h"
 
@@ -16,26 +16,13 @@ static NSString *const kPasswordKey = @"password";
 
 /////////////////////////////////////////////////////
 
-@interface CredentialsStorage ()
+@interface ZLACredentialsStorage ()
 
 @end
 
 /////////////////////////////////////////////////////
 
-@implementation CredentialsStorage
-
-#pragma mark - Instantiation
-
-+(instancetype) sharedInstance
-{
-    static CredentialsStorage *_sharedStorage = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedStorage = [[CredentialsStorage alloc] init];
-    });
-
-    return _sharedStorage;
-}
+@implementation ZLACredentialsStorage
 
 #pragma mark - Initialization
 
@@ -49,31 +36,31 @@ static NSString *const kPasswordKey = @"password";
     return self;
 }
 
--(void) wipeOutExistingCredentials
+#pragma mark - Data access
+
++(void) wipeOutExistingCredentials
 {
     self.userName = nil;
     self.password = nil;
 }
 
-#pragma mark - Accessors
-
--(NSString *) userName
++(NSString *) userName
 {
     return [Lockbox stringForKey:kUserNameKey];
 }
 
--(void) setUserName:(NSString *) userName
++(void) setUserName:(NSString *) userName
 {
     [Lockbox setString:userName
                 forKey:kUserNameKey];
 }
 
--(NSString *) password
++(NSString *) password
 {
     return [Lockbox stringForKey:kPasswordKey];
 }
 
--(void) setPassword:(NSString *) password
++(void) setPassword:(NSString *) password
 {
     [Lockbox setString:password
                 forKey:kPasswordKey];

@@ -9,14 +9,15 @@
 
 /////////////////////////////////////////////////////
 
-@interface CredentialsStorage : NSObject
+@interface ZLACredentialsStorage : NSObject
 
-+(instancetype) sharedInstance;
++(NSString *) userName;
++(void) setUserName:(NSString *) userName;
 
-@property (strong) NSString *userName;
-@property (strong) NSString *password;
++(NSString *) password;
++(void) setPassword:(NSString *) password;
 
--(void) wipeOutExistingCredentials;
++(void) wipeOutExistingCredentials;
 
 @end
 
