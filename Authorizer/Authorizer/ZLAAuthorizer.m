@@ -52,6 +52,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 {
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
+    self.userInfo.identifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
 
 #pragma mark - Accessors
@@ -60,6 +61,26 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 {
     NSParameterAssert(baseURL);
     self.requestsPerformer = [[ZLARequestsPerformer alloc] initWithBaseURL:baseURL];
+}
+
+-(NSString *) userName
+{
+    return [ZLACredentialsStorage userName];
+}
+
+-(void) setUserName:(NSString *) userName
+{
+    [ZLACredentialsStorage setUserName:userName];
+}
+
+-(NSString *) password
+{
+    return [ZLACredentialsStorage password];
+}
+
+-(void) setPassword:(NSString *) password
+{
+    [ZLACredentialsStorage setPassword:password];
 }
 
 #pragma mark - Authorization
@@ -97,7 +118,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 -(BOOL) hasEnoughDataToPerformNativeAuthorization
 {
-    return [[ZLACredentialsStorage userName] isValidEmail] && [ZLACredentialsStorage password].length > kZLAMinPasswordLength;
+    return [[ZLACredentialsStorage userName] isValidEmail] && [ZLACredentialsStorage password].length >= kZLAMinPasswordLength;
 }
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey

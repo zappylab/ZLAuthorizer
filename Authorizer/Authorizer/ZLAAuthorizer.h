@@ -18,6 +18,9 @@
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
 
+@property (strong) NSString *userName;
+@property (strong) NSString *password;
+
 -(void) setBaseURL:(NSURL *) baseURL;
 
 -(void) performStartupAuthorization;

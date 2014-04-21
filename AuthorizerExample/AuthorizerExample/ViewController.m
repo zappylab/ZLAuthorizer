@@ -10,7 +10,7 @@
 
 #import "ZLAAuthorizer.h"
 
-@interface ViewController ()
+@interface ViewController () < UIAlertViewDelegate >
 
 @property (strong) ZLAAuthorizer *authorizer;
 
@@ -18,27 +18,54 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+-(void) viewDidLoad
 {
     [super viewDidLoad];
     self.authorizer = [[ZLAAuthorizer alloc] init];
     [self.authorizer setBaseURL:[NSURL URLWithString:@"http://dev.treks.io/api/v1/"]];
 }
 
-- (IBAction)twitterAuthTapped:(id)sender
+-(IBAction) twitterAuthTapped:(id) sender
 {
     [self.authorizer performTwitterAuthorizationWithAPIKey:@"1h01qcIbEElhCwzVpIG2P5w8x"
                                                  APISecret:@"lh2To0hWfD4vgJK60CkXLb0Jow8IS9F6IWLGK7WdtqcaSdE55L"
                                            completionBlock:^(BOOL success)
-     {
-         
-     }];
+                                           {
+
+                                           }];
 }
 
-- (void)didReceiveMemoryWarning
+-(IBAction) nativeLoginTapped:(id) sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UIAlertView *credentialsAlertView = [[UIAlertView alloc] initWithTitle:@"Password required"
+                                                                   message:nil
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"Cancel"
+                                                         otherButtonTitles:@"Go",
+                                                                           nil];
+    credentialsAlertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    credentialsAlertView.delegate = self;
+    [credentialsAlertView show];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+
+-(void)    alertView:(UIAlertView *) alertView
+clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+        NSString *userName = [alertView textFieldAtIndex:0].text;
+        NSString *password = [alertView textFieldAtIndex:1].text;
+
+        self.authorizer.userName = userName;
+        self.authorizer.password = password;
+
+        [self.authorizer performNativeAuthorizationWithCompletionBlock:^(BOOL success)
+        {
+
+        }];
+    }
 }
 
 @end
