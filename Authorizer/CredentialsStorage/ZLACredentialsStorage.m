@@ -14,6 +14,11 @@
 static NSString *const kUserNameKey = @"username";
 static NSString *const kPasswordKey = @"password";
 
+static NSString *const kTwitterUserNameKey = @"twitterUserName";
+static NSString *const kTwitterAccessTokenSecretKey = @"twitterAccessTokenSecret";
+
+static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
+
 /////////////////////////////////////////////////////
 
 @interface ZLACredentialsStorage ()
@@ -44,6 +49,8 @@ static NSString *const kPasswordKey = @"password";
     self.password = nil;
 }
 
+#pragma mark - Native
+
 +(NSString *) userName
 {
     return [Lockbox stringForKey:kUserNameKey];
@@ -64,6 +71,43 @@ static NSString *const kPasswordKey = @"password";
 {
     [Lockbox setString:password
                 forKey:kPasswordKey];
+}
+
+#pragma mark - Twitter
+
++(NSString *) twitterUserName
+{
+    return [Lockbox stringForKey:kTwitterUserNameKey];
+}
+
++(void) setTwitterUserName:(NSString *) twitterUserName
+{
+    [Lockbox setString:twitterUserName
+                forKey:kTwitterUserNameKey];
+}
+
++(NSString *) twitterAccessTokenSecret
+{
+    return [Lockbox stringForKey:kTwitterAccessTokenSecretKey];
+}
+
++(void) setTwitterAccessTokenSecret:(NSString *) twitterAccessTokenSecret
+{
+    [Lockbox setString:twitterAccessTokenSecret
+                forKey:kTwitterAccessTokenSecretKey];
+}
+
+#pragma mark - General
+
++(ZLAAuthorizationMethod) authorizationMethod
+{
+    return (ZLAAuthorizationMethod) [[Lockbox stringForKey:kZLAAuthorizationMethodKey] integerValue];
+}
+
++(void) setAuthorizationMethod:(ZLAAuthorizationMethod) method
+{
+    [Lockbox setString:[NSString stringWithFormat:@"%d", method]
+                forKey:kZLAAuthorizationMethodKey];
 }
 
 @end

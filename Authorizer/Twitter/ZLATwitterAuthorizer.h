@@ -16,11 +16,11 @@
 @property (strong) NSString *accessToken;
 @property (strong) NSString *accessTokenSecret;
 
--(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success,
-        NSString *login,
-        NSString *firstName,
-        NSString *lastName,
-        NSString *profilePictureAddress)) completionBlock;
+@property (strong) NSString *twitterUserName;
+@property (strong) NSString *fullUserName;
+@property (strong) NSString *profilePictureAddress;
+
+-(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
 
 @end
 

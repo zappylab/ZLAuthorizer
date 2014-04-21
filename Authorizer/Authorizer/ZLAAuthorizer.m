@@ -10,7 +10,8 @@
 #import "ZLACredentialsStorage.h"
 #import "ZLARequestsPerformer.h"
 #import "ZLATwitterAuthorizer.h"
-#import "ZLAUserInfo.h"
+#import "ZLAAuthorizationResponseHandler.h"
+#import "ZLAUserInfoContainer.h"
 
 #import "NSString+Validation.h"
 
@@ -24,7 +25,10 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 @property (strong) ZLARequestsPerformer *requestsPerformer;
 @property (strong) ZLATwitterAuthorizer *twitterAuthorizer;
-@property (strong) ZLAUserInfo *userInfo;
+@property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
+@property (strong) ZLAUserInfoContainer *userInfo;
+
+@property (readwrite) BOOL signedIn;
 
 @end
 
@@ -38,18 +42,27 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 {
     self = [super init];
     if (self) {
-
+        [self setup];
     }
 
     return self;
 }
 
+-(void) setup
+{
+    self.userInfo = [[ZLAUserInfoContainer alloc] init];
+    self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
+}
+
+#pragma mark - Accessors
+
 -(void)setBaseURL:(NSURL *)baseURL
 {
     NSParameterAssert(baseURL);
-
     self.requestsPerformer = [[ZLARequestsPerformer alloc] initWithBaseURL:baseURL];
 }
+
+#pragma mark - Authorization
 
 -(void) performStartupAuthorization
 {
@@ -64,10 +77,14 @@ static NSUInteger const kZLAMinPasswordLength = 6;
     {
         [self.requestsPerformer performNativeLoginWithUserName:[ZLACredentialsStorage userName]
                                                       password:[ZLACredentialsStorage password]
-                                                userIdentifier:self.userInfo.usedIdentifier
-                                               completionBlock:^(BOOL success)
+                                                userIdentifier:self.userInfo.identifier
+                                               completionBlock:^(BOOL success, NSDictionary *response)
                                                {
-                                                   if (!success) {
+                                                   if (success) {
+                                                       [self.authorizationResponseHandler handleLoginResponse:response];
+                                                       self.signedIn = YES;
+                                                   }
+                                                   else {
                                                        [ZLACredentialsStorage setPassword:nil];
                                                    }
 
@@ -94,22 +111,22 @@ static NSUInteger const kZLAMinPasswordLength = 6;
     self.twitterAuthorizer.consumerKey = APIKey;
     self.twitterAuthorizer.consumerSecret = APISecret;
 
-    [self.twitterAuthorizer performReverseAuthorizationWithCompletionBlock:^(BOOL success,
-            NSString *login,
-            NSString *firstName,
-            NSString *lastName,
-            NSString *profilePictureAddress)
+    [self.twitterAuthorizer performReverseAuthorizationWithCompletionBlock:^(BOOL success)
     {
         if (success) {
-            [self performAuthorizationWithTwitterUserName:login
+            [self performAuthorizationWithTwitterUserName:self.twitterAuthorizer.twitterUserName
                                               accessToken:self.twitterAuthorizer.accessTokenSecret
-                                                firstName:firstName
-                                                 lastName:lastName
-                                    profilePictureAddress:profilePictureAddress
-                                          completionBlock:^(BOOL authorizationSuccess)
+                                                firstName:[ZLAUserInfoContainer firstNameOfFullName:self.twitterAuthorizer.fullUserName]
+                                                 lastName:[ZLAUserInfoContainer lastNameOfFullName:self.twitterAuthorizer.fullUserName]
+                                    profilePictureAddress:self.twitterAuthorizer.profilePictureAddress
+                                          completionBlock:^(BOOL authorizationSuccess, NSDictionary *response)
                                           {
-                                              if (completionBlock)
-                                              {
+                                              if (authorizationSuccess) {
+                                                  [self handleTwitterAuthorizationSuccessWithResponse:response];
+                                                  self.signedIn = YES;
+                                              }
+
+                                              if (completionBlock) {
                                                   completionBlock(authorizationSuccess);
                                               }
                                           }];
@@ -127,16 +144,24 @@ static NSUInteger const kZLAMinPasswordLength = 6;
                                       firstName:(NSString *) firstName
                                        lastName:(NSString *) lastName
                           profilePictureAddress:(NSString *) profilePictureAddress
-                                completionBlock:(void (^)(BOOL success)) completionBlock
+                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     NSAssert(self.requestsPerformer, @"unable to perform authorization - server is undefined");
 
     [self.requestsPerformer performLoginWithTwitterUserName:userName
                                                 accessToken:accessToken
-                                            completionBlock:completionBlock
                                                   firstName:firstName
                                                    lastName:lastName
-                                      profilePictureAddress:profilePictureAddress];
+                                      profilePictureAddress:profilePictureAddress
+                                            completionBlock:completionBlock];
+}
+
+-(void) handleTwitterAuthorizationSuccessWithResponse:(NSDictionary *) response
+{
+    [ZLACredentialsStorage setTwitterUserName:self.twitterAuthorizer.twitterUserName];
+    [ZLACredentialsStorage setTwitterAccessTokenSecret:self.twitterAuthorizer.accessTokenSecret];
+
+    [self.authorizationResponseHandler handleLoginResponse:response];
 }
 
 -(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName

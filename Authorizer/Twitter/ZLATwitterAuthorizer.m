@@ -28,11 +28,7 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 @property (strong) ZLATwitterRequestsPerformer *requestsPerformer;
 @property (strong) ACAccountStore *accountStore;
 @property (strong) NSArray *accounts;
-@property (strong) void(^authorizationCompletionBlock)(BOOL success,
-        NSString *login,
-        NSString *firstName,
-        NSString *lastName,
-        NSString *profilePictureAddress);
+@property (strong) void(^authorizationCompletionBlock)(BOOL success);
 
 @end
 
@@ -102,6 +98,7 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 
 -(BOOL) shouldRefreshAccounts
 {
+    // "refresh" can be made if we already have list of accounts
     return self.accounts.count > 0;
 }
 
@@ -128,11 +125,7 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 
 #pragma mark - Authorization
 
--(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success,
-        NSString *login,
-        NSString *firstName,
-        NSString *lastName,
-        NSString *profilePictureAddress)) completionBlock
+-(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock
 {
     NSAssert(self.consumerKey, @"no API key to authorize with");
     NSAssert(self.consumerSecret, @"no API secret to authorize with");
@@ -145,15 +138,17 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
         {
             dispatch_async(dispatch_get_main_queue(), ^
             {
-                if (accountsAccessGranted) {
+                if (accountsAccessGranted)
+                {
                     [self showAccountsList];
                 }
                 else
                 {
                     [self showAccessDeniedAlert];
 
-                    if (completionBlock) {
-                        completionBlock(NO, nil, nil, nil, nil);
+                    if (completionBlock)
+                    {
+                        completionBlock(NO);
                     }
                 }
             });
@@ -163,8 +158,9 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
     {
         [self showNoAccountsAlert];
 
-        if (completionBlock) {
-            completionBlock(NO, nil, nil, nil, nil);
+        if (completionBlock)
+        {
+            completionBlock(NO);
         }
     }
 }
@@ -208,7 +204,8 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 -(void)  actionSheet:(UIActionSheet *) actionSheet
 clickedButtonAtIndex:(NSInteger) buttonIndex
 {
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
+    if (buttonIndex != actionSheet.cancelButtonIndex)
+    {
         ACAccount *accountToAuthorizeWith = self.accounts[buttonIndex];
         [self performReverseAuthorizationWithAccount:accountToAuthorizeWith];
     }
@@ -218,9 +215,8 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
 {
     void(^completionHandler)(NSData *, NSError *) = ^(NSData *data, NSError *error)
     {
-        [self handleAuthorizationResultForAccount:accountToAuthorizeWith
-                                         withData:data
-                                            error:error];
+        [self handleAuthorizationResultWithData:data
+                                          error:error];
     };
 
     [self.requestsPerformer performReverseAuthWithAccount:accountToAuthorizeWith
@@ -229,9 +225,8 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
                                         completionHandler:completionHandler];
 }
 
--(void) handleAuthorizationResultForAccount:(ACAccount *) accountToAuthorizeWith
-                                   withData:(NSData *) data
-                                      error:(NSError *) error
+-(void) handleAuthorizationResultWithData:(NSData *) data
+                                    error:(NSError *) error
 {
     if (data && !error)
     {
@@ -242,40 +237,20 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
                                                     accessSecret:self.accessTokenSecret
                                                completionHandler:^(NSDictionary *response, NSError *userInfoRequestError)
                                                {
-                                                   [self handleUserInfoResponse:response];
+                                                   if (response && !error)
+                                                   {
+                                                       [self handleUserInfoResponse:response];
+                                                   }
+                                                   else
+                                                   {
+                                                       [self executeCompletionBlockWithSuccess:NO];
+                                                   }
                                                }];
     }
     else
     {
         [self showLoginFailedAlert];
-
-        if (self.authorizationCompletionBlock) {
-            self.authorizationCompletionBlock(NO, nil, nil, nil, nil);
-        }
-    }
-}
-
--(void) handleAuthorizationResponseData:(NSData *) responseData
-{
-    NSString *responseStr = [[NSString alloc] initWithData:responseData
-                                                  encoding:NSUTF8StringEncoding];
-    NSArray *parts = [responseStr componentsSeparatedByString:@"&"];
-    for (NSString *responsePart in parts) {
-        [self handleResponsePart:responsePart];
-    }
-}
-
--(void) handleResponsePart:(NSString *) responsePart
-{
-    NSArray *keyAndValue = [responsePart componentsSeparatedByString:@"="];
-    NSString *key = [keyAndValue firstObject];
-    NSString *value = keyAndValue[1];
-
-    if ([key isEqualToString:kZLATwitterAccessKeyKey]) {
-        self.accessToken = value;
-    }
-    else if ([key isEqualToString:kZLATwitterAccessSecretKey]) {
-        self.accessTokenSecret = value;
+        [self executeCompletionBlockWithSuccess:NO];
     }
 }
 
@@ -290,22 +265,51 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
                       otherButtonTitles:nil] show];
 }
 
+#pragma mark - Response handling
+
+-(void) handleAuthorizationResponseData:(NSData *) responseData
+{
+    NSString *responseStr = [[NSString alloc] initWithData:responseData
+                                                  encoding:NSUTF8StringEncoding];
+    NSArray *parts = [responseStr componentsSeparatedByString:@"&"];
+    for (NSString *responsePart in parts)
+    {
+        [self handleResponsePart:responsePart];
+    }
+}
+
+-(void) handleResponsePart:(NSString *) responsePart
+{
+    NSArray *keyAndValue = [responsePart componentsSeparatedByString:@"="];
+    NSString *key = [keyAndValue firstObject];
+    NSString *value = keyAndValue[1];
+
+    if ([key isEqualToString:kZLATwitterAccessKeyKey])
+    {
+        self.accessToken = value;
+    }
+    else if ([key isEqualToString:kZLATwitterAccessSecretKey])
+    {
+        self.accessTokenSecret = value;
+    }
+}
+
 -(void) handleUserInfoResponse:(NSDictionary *) response
 {
-    NSString *userName = response[kZLATwitterUserNameKey];
-    NSArray *userNames = [userName componentsSeparatedByString:@" "];
-    NSString *firstName = [userNames firstObject];
-    NSString *lastName =  nil;
-    if (userNames.count > 1) {
-        lastName = userNames[1];
+    self.fullUserName = response[kZLATwitterUserNameKey];
+    self.twitterUserName = response[kZLATwitterScreenNameKey];
+    self.profilePictureAddress = response[kZLATwitterProfileImageURLKey];
+    [self executeCompletionBlockWithSuccess:YES];
+}
+
+-(void) executeCompletionBlockWithSuccess:(BOOL) success
+{
+    if (self.authorizationCompletionBlock)
+    {
+        self.authorizationCompletionBlock(success);
     }
 
-    NSString *login = response[kZLATwitterScreenNameKey];
-    NSString *profileImageAddress = response[kZLATwitterProfileImageURLKey];
-
-    if (self.authorizationCompletionBlock) {
-        self.authorizationCompletionBlock(YES, login, firstName, lastName, profileImageAddress);
-    }
+    self.authorizationCompletionBlock = nil;
 }
 
 @end

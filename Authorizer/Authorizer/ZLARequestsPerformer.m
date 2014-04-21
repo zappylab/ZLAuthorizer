@@ -7,25 +7,7 @@
 #import <AFNetworking/AFNetworking.h>
 
 #import "ZLARequestsPerformer.h"
-#import "AuthorizationDataParser.h"
-
-/////////////////////////////////////////////////////
-
-static NSString *const kZLARegisterRequestPath = @"mregister";
-static NSString *const kZLALoginRequestPath = @"mlogin";
-
-static NSString *const kZLAUserNameKey = @"zll";
-static NSString *const kZLAUserPasswordKey = @"zlp";
-static NSString *const kZLAUserFullNameKey = @"ufn";
-static NSString *const kZLAUserIdentifierKey = @"uid";
-
-static NSString *const kZLATwitterUserNameKey = @"twitter";
-static NSString *const kZLATwitterAccessTokenKey = @"token";
-
-static NSString *const kZLAAppKey = @"app";
-
-static NSString *const kZLAResponseStatusKey = @"request";
-static NSString *const kZLAResponseStatusOK = @"OK";
+#import "ZLADefinitions.h"
 
 /////////////////////////////////////////////////////
 
@@ -62,7 +44,7 @@ static NSString *const kZLAResponseStatusOK = @"OK";
 -(void) performNativeLoginWithUserName:(NSString *) userName
                               password:(NSString *) password
                         userIdentifier:(NSString *) userIdentifier
-                       completionBlock:(void (^)(BOOL success)) completionBlock
+                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     NSParameterAssert(userName);
     NSParameterAssert(password);
@@ -76,18 +58,16 @@ static NSString *const kZLAResponseStatusOK = @"OK";
                                {
                                    if ([self isResponseOK:responseObject])
                                    {
-                                       [AuthorizationDataParser handleLoginResponse:responseObject];
-
                                        if (completionBlock)
                                        {
-                                           completionBlock(YES);
+                                           completionBlock(YES, responseObject);
                                        }
                                    }
                                    else
                                    {
                                        if (completionBlock)
                                        {
-                                           completionBlock(NO);
+                                           completionBlock(NO, nil);
                                        }
                                    }
                                }
@@ -95,7 +75,7 @@ static NSString *const kZLAResponseStatusOK = @"OK";
                                {
                                    if (completionBlock)
                                    {
-                                       completionBlock(NO);
+                                       completionBlock(NO, nil);
                                    }
                                }];
 }
@@ -112,10 +92,10 @@ static NSString *const kZLAResponseStatusOK = @"OK";
 
 -(void) performLoginWithTwitterUserName:(NSString *) userName
                             accessToken:(NSString *) accessToken
-                        completionBlock:(void (^)(BOOL success)) completionBlock
                               firstName:(NSString *) firstName
                                lastName:(NSString *) lastName
                   profilePictureAddress:(NSString *) profilePictureAddress
+                        completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     NSParameterAssert(userName);
     NSParameterAssert(accessToken);
@@ -123,29 +103,36 @@ static NSString *const kZLAResponseStatusOK = @"OK";
     NSMutableDictionary *parameters = [@{kZLATwitterUserNameKey    : userName,
                                          kZLATwitterAccessTokenKey : accessToken} mutableCopy];
     if (firstName) {
-        parameters[@"first_name"] = firstName;
+        parameters[kZLAFirstNameKey] = firstName;
     }
 
     if (lastName) {
-        parameters[@"last_name"] = lastName;
+        parameters[kZLALastNameKey] = lastName;
     }
 
     if (profilePictureAddress) {
-        parameters[@"img_url"] = profilePictureAddress;
+        parameters[kZLAProfilePictureURLKey] = profilePictureAddress;
     }
 
     [self.requestOperationManager POST:kZLALoginRequestPath
                             parameters:parameters
                                success:^(AFHTTPRequestOperation *operation, id responseObject)
                                {
-                                   if (completionBlock) {
-                                       completionBlock(YES);
+                                   if ([self isResponseOK:responseObject]) {
+                                       if (completionBlock) {
+                                           completionBlock(YES, responseObject);
+                                       }
+                                   }
+                                   else {
+                                       if (completionBlock) {
+                                           completionBlock(NO, nil);
+                                       }
                                    }
                                }
                                failure:^(AFHTTPRequestOperation *operation, NSError *error)
                                {
                                    if (completionBlock) {
-                                       completionBlock(NO);
+                                       completionBlock(NO, nil);
                                    }
                                }];
 }
@@ -175,7 +162,7 @@ static NSString *const kZLAResponseStatusOK = @"OK";
                                    {
                                        if (completionBlock)
                                        {
-                                           completionBlock(NO, (NSDictionary *) responseObject);
+                                           completionBlock(NO, responseObject);
                                        }
                                    }
                                }

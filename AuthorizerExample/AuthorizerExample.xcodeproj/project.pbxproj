@@ -17,7 +17,7 @@
 		BD46903219006D53003EEC0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD46903019006D53003EEC0E /* Main.storyboard */; };
 		BD46903519006D53003EEC0E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD46903419006D53003EEC0E /* ViewController.m */; };
 		BD46903719006D53003EEC0E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD46903619006D53003EEC0E /* Images.xcassets */; };
-		BDA78E1D190071E1001484C5 /* AuthorizationDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */; };
+		BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */; };
 		BDA78E1E190071E1001484C5 /* ZLARequestsPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E17190071E1001484C5 /* ZLARequestsPerformer.m */; };
 		BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */; };
 		BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */; };
@@ -26,7 +26,7 @@
 		BDD802621901B5D600C9B406 /* OAuthCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8025A1901B5D600C9B406 /* OAuthCore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BDD802631901B5D600C9B406 /* ZLASignedTwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8025D1901B5D600C9B406 /* ZLASignedTwitterRequest.m */; };
 		BDD802641901B5D600C9B406 /* ZLATwitterRequestsPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8025F1901B5D600C9B406 /* ZLATwitterRequestsPerformer.m */; };
-		BDD802681901C53200C9B406 /* ZLAUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfo.m */; };
+		BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */; };
 		C7DFE336C1E088A0C6AAD0A3 /* ZLATwitterAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFED1232D2E9BDA8C219A3 /* ZLATwitterAuthorizer.m */; };
 /* End PBXBuildFile section */
 
@@ -46,8 +46,9 @@
 		BD46903319006D53003EEC0E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BD46903419006D53003EEC0E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BD46903619006D53003EEC0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BDA78E14190071E1001484C5 /* AuthorizationDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationDataParser.h; sourceTree = "<group>"; };
-		BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationDataParser.m; sourceTree = "<group>"; };
+		BD7E731619055DE3009E0F33 /* ZLADefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLADefinitions.h; sourceTree = "<group>"; };
+		BDA78E14190071E1001484C5 /* ZLAAuthorizationResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAuthorizationResponseHandler.h; sourceTree = "<group>"; };
+		BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAuthorizationResponseHandler.m; sourceTree = "<group>"; };
 		BDA78E16190071E1001484C5 /* ZLARequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLARequestsPerformer.h; sourceTree = "<group>"; };
 		BDA78E17190071E1001484C5 /* ZLARequestsPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLARequestsPerformer.m; sourceTree = "<group>"; };
 		BDA78E18190071E1001484C5 /* ZLAAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAuthorizer.h; sourceTree = "<group>"; };
@@ -64,8 +65,8 @@
 		BDD8025D1901B5D600C9B406 /* ZLASignedTwitterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASignedTwitterRequest.m; sourceTree = "<group>"; };
 		BDD8025E1901B5D600C9B406 /* ZLATwitterRequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterRequestsPerformer.h; sourceTree = "<group>"; };
 		BDD8025F1901B5D600C9B406 /* ZLATwitterRequestsPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterRequestsPerformer.m; sourceTree = "<group>"; };
-		BDD802661901C53200C9B406 /* ZLAUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfo.h; sourceTree = "<group>"; };
-		BDD802671901C53200C9B406 /* ZLAUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfo.m; sourceTree = "<group>"; };
+		BDD802661901C53200C9B406 /* ZLAUserInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoContainer.h; sourceTree = "<group>"; };
+		BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoContainer.m; sourceTree = "<group>"; };
 		C7DFE2BEF1C50A79F823793C /* ZLATwitterAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAuthorizer.h; sourceTree = "<group>"; };
 		C7DFED1232D2E9BDA8C219A3 /* ZLATwitterAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAuthorizer.m; sourceTree = "<group>"; };
 		F4921F4F54A24C3FB127318C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -157,12 +158,13 @@
 		BDA78E13190071E1001484C5 /* Authorizer */ = {
 			isa = PBXGroup;
 			children = (
-				BDA78E14190071E1001484C5 /* AuthorizationDataParser.h */,
-				BDA78E15190071E1001484C5 /* AuthorizationDataParser.m */,
+				BDA78E14190071E1001484C5 /* ZLAAuthorizationResponseHandler.h */,
+				BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */,
 				BDA78E16190071E1001484C5 /* ZLARequestsPerformer.h */,
 				BDA78E17190071E1001484C5 /* ZLARequestsPerformer.m */,
 				BDA78E18190071E1001484C5 /* ZLAAuthorizer.h */,
 				BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */,
+				BD7E731619055DE3009E0F33 /* ZLADefinitions.h */,
 			);
 			path = Authorizer;
 			sourceTree = "<group>";
@@ -205,8 +207,8 @@
 		BDD802651901C53200C9B406 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				BDD802661901C53200C9B406 /* ZLAUserInfo.h */,
-				BDD802671901C53200C9B406 /* ZLAUserInfo.m */,
+				BDD802661901C53200C9B406 /* ZLAUserInfoContainer.h */,
+				BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -312,7 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDD802641901B5D600C9B406 /* ZLATwitterRequestsPerformer.m in Sources */,
-				BDA78E1D190071E1001484C5 /* AuthorizationDataParser.m in Sources */,
+				BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */,
 				BD46903519006D53003EEC0E /* ViewController.m in Sources */,
 				BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */,
 				BDD802631901B5D600C9B406 /* ZLASignedTwitterRequest.m in Sources */,
@@ -322,7 +324,7 @@
 				BDD802621901B5D600C9B406 /* OAuthCore.m in Sources */,
 				BDA78E1E190071E1001484C5 /* ZLARequestsPerformer.m in Sources */,
 				BDD802611901B5D600C9B406 /* OAuth+Additions.m in Sources */,
-				BDD802681901C53200C9B406 /* ZLAUserInfo.m in Sources */,
+				BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */,
 				BD46902B19006D53003EEC0E /* main.m in Sources */,
 				C7DFE336C1E088A0C6AAD0A3 /* ZLATwitterAuthorizer.m in Sources */,
 			);

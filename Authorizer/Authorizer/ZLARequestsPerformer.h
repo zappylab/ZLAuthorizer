@@ -16,14 +16,14 @@
 -(void) performNativeLoginWithUserName:(NSString *) userName
                               password:(NSString *) password
                         userIdentifier:(NSString *) userIdentifier
-                       completionBlock:(void (^)(BOOL success)) completionBlock;
+                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
 -(void) performLoginWithTwitterUserName:(NSString *) userName
                             accessToken:(NSString *) accessToken
-                        completionBlock:(void (^)(BOOL success)) completionBlock
                               firstName:(NSString *) firstName
                                lastName:(NSString *) lastName
-                  profilePictureAddress:(NSString *) profilePictureAddress;
+                  profilePictureAddress:(NSString *) profilePictureAddress
+                        completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email

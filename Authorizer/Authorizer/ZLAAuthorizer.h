@@ -9,7 +9,14 @@
 
 /////////////////////////////////////////////////////
 
+@class ZLAUserInfoContainer;
+
+/////////////////////////////////////////////////////
+
 @interface ZLAAuthorizer : NSObject
+
+@property (readonly) ZLAUserInfoContainer *userInfo;
+@property (readonly) BOOL signedIn;
 
 -(void) setBaseURL:(NSURL *) baseURL;
 
