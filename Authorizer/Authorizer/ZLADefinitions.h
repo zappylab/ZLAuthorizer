@@ -22,11 +22,13 @@ static NSString *const kZLALastNameKey = @"last_name";
 
 static NSString *const kZLARegisterRequestPath = @"mregister";
 static NSString *const kZLALoginRequestPath = @"mlogin";
+static NSString *const kZLAValidateTwitterAccessTokenRequestPath = @"mvalidate_twitter";
 
 static NSString *const kZLAUserNameKey = @"zll";
 static NSString *const kZLAUserPasswordKey = @"zlp";
 static NSString *const kZLAUserFullNameKey = @"ufn";
 static NSString *const kZLAUserIdentifierKey = @"uid";
+static NSString *const kZLAUserEmailKey = @"email";
 
 static NSString *const kZLATwitterUserNameKey = @"twitter";
 static NSString *const kZLATwitterAccessTokenKey = @"token";

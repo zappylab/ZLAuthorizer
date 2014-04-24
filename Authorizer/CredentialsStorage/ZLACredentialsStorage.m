@@ -14,8 +14,8 @@
 static NSString *const kUserNameKey = @"username";
 static NSString *const kPasswordKey = @"password";
 
-static NSString *const kTwitterUserNameKey = @"twitterUserName";
-static NSString *const kTwitterAccessTokenSecretKey = @"twitterAccessTokenSecret";
+static NSString *const kTwitterUserNameKey = @"TwitterUserName";
+static NSString *const kTwitterAccessTokenKey = @"TwitterAccessToken";
 
 static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
 
@@ -88,13 +88,13 @@ static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
 
 +(NSString *) twitterAccessTokenSecret
 {
-    return [Lockbox stringForKey:kTwitterAccessTokenSecretKey];
+    return [Lockbox stringForKey:kTwitterAccessTokenKey];
 }
 
-+(void) setTwitterAccessTokenSecret:(NSString *) twitterAccessTokenSecret
++(void) setTwitterAccessToken:(NSString *) twitterAccessTokenSecret
 {
     [Lockbox setString:twitterAccessTokenSecret
-                forKey:kTwitterAccessTokenSecretKey];
+                forKey:kTwitterAccessTokenKey];
 }
 
 #pragma mark - General

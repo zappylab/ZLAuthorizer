@@ -11,12 +11,17 @@
 
 @interface ZLARequestsPerformer : NSObject
 
+@property (copy) NSString *userIdentifier;
+
 -(instancetype) initWithBaseURL:(NSURL *) baseURL;
 
 -(void) performNativeLoginWithUserName:(NSString *) userName
                               password:(NSString *) password
-                        userIdentifier:(NSString *) userIdentifier
                        completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+
+-(void) validateTwitterAccessToken:(NSString *) accessToken
+                   forUserWithName:(NSString *) userName
+                   completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
 -(void) performLoginWithTwitterUserName:(NSString *) userName
                             accessToken:(NSString *) accessToken
@@ -28,7 +33,6 @@
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
                         password:(NSString *) password
-                  userIdentifier:(NSString *) userIdentifier
                  completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 @end
 

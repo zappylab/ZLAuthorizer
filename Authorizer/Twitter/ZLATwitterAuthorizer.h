@@ -21,6 +21,7 @@
 @property (strong) NSString *profilePictureAddress;
 
 -(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
+-(void) reset;
 
 @end
 

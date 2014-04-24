@@ -123,6 +123,18 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
                                             completion:handler];
 }
 
+#pragma mark - State
+
+-(void) reset
+{
+    self.accessToken = nil;
+    self.accessTokenSecret = nil;
+
+    self.twitterUserName = nil;
+    self.fullUserName = nil;
+    self.profilePictureAddress = nil;
+}
+
 #pragma mark - Authorization
 
 -(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock

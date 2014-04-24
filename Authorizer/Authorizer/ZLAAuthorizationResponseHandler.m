@@ -71,6 +71,10 @@
     }
 }
 
+-(void) handleTwitterAccessTokenValidationResponse:(NSDictionary *) response
+{
+    [ZLACredentialsStorage setUserName:response[kZLAUserEmailKey]];
+}
 
 @end
 
