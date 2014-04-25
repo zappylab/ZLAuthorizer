@@ -62,7 +62,7 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
                                                         password:password
                                                  completionBlock:^(BOOL success)
                                                  {
-                                                     
+
                                                  }];
     }
 }

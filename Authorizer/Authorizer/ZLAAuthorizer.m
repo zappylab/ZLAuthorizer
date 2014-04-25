@@ -25,6 +25,7 @@
 @property (strong) ZLAUserInfoContainer *userInfo;
 
 @property (readwrite) BOOL signedIn;
+@property (readwrite) BOOL performingAuthorization;
 
 @end
 
@@ -50,6 +51,8 @@
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
     self.userInfo.identifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
+    self.signedIn = NO;
+    self.performingAuthorization = NO;
 }
 
 #pragma mark - Accessors
@@ -61,32 +64,24 @@
     self.requestsPerformer.userIdentifier = self.userInfo.identifier;
 }
 
--(NSString *) userName
-{
-    return [ZLACredentialsStorage userEmail];
-}
-
--(void) setUserName:(NSString *) userName
-{
-    [ZLACredentialsStorage setUserEmail:userName];
-}
-
--(NSString *) password
-{
-    return [ZLACredentialsStorage password];
-}
-
--(void) setPassword:(NSString *) password
-{
-    [ZLACredentialsStorage setPassword:password];
-}
-
 #pragma mark - Authorization
 
 -(void) performStartupAuthorization
 {
-    // TODO: check auth method
-//    [self performNativeAuthorizationWithCompletionBlock:nil];
+    switch ([ZLACredentialsStorage authorizationMethod]) {
+        case ZLAAuthorizationMethodNative:
+            [self performNativeAuthorizationWithUserEmail:[ZLACredentialsStorage userEmail]
+                                                 password:[ZLACredentialsStorage password]
+                                          completionBlock:nil];
+            break;
+
+        case ZLAAuthorizationMethodTwitter:
+            // TODO: perform mlogin with Twitter credentials
+            break;
+
+        default:
+            break;
+    }
 }
 
 -(void) performNativeAuthorizationWithUserEmail:(NSString *) email
@@ -97,6 +92,7 @@
         self.nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
+    self.performingAuthorization = YES;
     [self.nativeAuthorizer performAuthorizationWithUserEmail:email
                                                     password:password
                                              completionBlock:^(BOOL success, NSDictionary *response)
@@ -109,10 +105,11 @@
                                                      [ZLACredentialsStorage setPassword:password];
                                                  }
 
-                                                 if (completionBlock)
-                                                 {
+                                                 if (completionBlock) {
                                                      completionBlock(success);
                                                  }
+
+                                                 self.performingAuthorization = NO;
                                              }];
 }
 
@@ -123,9 +120,10 @@
     if (!self.twitterAuthorizer) {
         self.twitterAuthorizer = [[ZLATwitterAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
-
     self.twitterAuthorizer.consumerKey = APIKey;
     self.twitterAuthorizer.consumerSecret = APISecret;
+
+    self.performingAuthorization = YES;
 
     [self.twitterAuthorizer performAuthorizationWithCompletionHandler:^(BOOL success, NSDictionary *response) {
         [self.authorizationResponseHandler handleLoginResponse:response];
@@ -134,6 +132,8 @@
         if (completionBlock) {
             completionBlock(success);
         }
+
+        self.performingAuthorization = NO;
     }];
 }
 
