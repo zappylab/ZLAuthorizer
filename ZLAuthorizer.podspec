@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
   spec.platform       = :ios, "7.0"
   spec.name           = 'ZLAuthorizer'
   spec.version        = '0.1'
-  spec.homepage       = 'https://github.com/zappylab/ZLAuthorizer'
+  spec.homepage       = 'http://github.com/zappylab/ZLAuthorizer'
   spec.authors        = { 'Ilya Dyakonov' => 'ilya@zappylab.com' }
   spec.summary        = 'Authorization module used by ZappyLab'
   spec.source         = { :git => 'https://github.com/zappylab/ZLAuthorizer.git', :branch => "dev" }
@@ -12,6 +12,13 @@ Pod::Spec.new do |spec|
   spec.dependency       'AFNetworking', '~> 2.0'
   spec.dependency       'BlocksKit', '~> 2.2.0'
   spec.dependency       'Bolts'
-  spec.frameworks     = 'Accounts', 'Social', 'Twitter'
+  spec.frameworks     = 'Accounts', 'Social'
   spec.requires_arc   = true
+
+  non_arc_files = 'Authorizer/ABOAuthCore/*{h,m}'
+  spec.exclude_files = non_arc_files
+  spec.subspec 'no-arc' do |subspec|
+    subspec.source_files = non_arc_files
+    subspec.requires_arc = false
+  end
 end
