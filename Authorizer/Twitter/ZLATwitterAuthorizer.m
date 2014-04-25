@@ -16,10 +16,11 @@
 #import "ZLACredentialsStorage.h"
 #import "ZLADefinitions.h"
 #import "ZLARequestsPerformer.h"
+#import "ZLAUserInfoContainer.h"
 
 #import "NSString+Validation.h"
 #import "UIAlertView+BlocksKit.h"
-#import "ZLAUserInfoContainer.h"
+#import "UIAlertView+ZLAuthorizer.h"
 
 /////////////////////////////////////////////////////
 
@@ -355,7 +356,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
                 nextTask = [self loginWithTwitterCredentials];
             }
             else {
-                [self showInvalidEmailAlert:email];
+                [UIAlertView showInvalidEmailAlert:email];
             }
         }
         else
@@ -403,16 +404,6 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
     });
 
     return taskCompletionSource.task;
-}
-
--(void) showInvalidEmailAlert:(NSString *) email
-{
-    [[[UIAlertView alloc] initWithTitle:@"Login"
-                                message:[NSString stringWithFormat:@"%@ is not a valid email",
-                                                                   email]
-                               delegate:nil
-                      cancelButtonTitle:@"Close"
-                      otherButtonTitles:nil] show];
 }
 
 @end

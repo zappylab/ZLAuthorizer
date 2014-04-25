@@ -11,6 +11,7 @@
 #import "ZLACredentialsStorage.h"
 
 #import "NSString+Validation.h"
+#import "UIAlertView+ZLAuthorizer.h"
 
 /////////////////////////////////////////////////////
 
@@ -65,7 +66,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 -(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
-    if ([self hasEnoughDataToPerformNativeAuthorization])
+    if ([self credentialsAreValid])
     {
         [self.requester performNativeLoginWithUserName:[ZLACredentialsStorage userEmail]
                                                       password:[ZLACredentialsStorage password]
@@ -82,11 +83,20 @@ static NSUInteger const kZLAMinPasswordLength = 6;
     }
 }
 
--(BOOL) hasEnoughDataToPerformNativeAuthorization
+-(BOOL) credentialsAreValid
 {
-    return [[ZLACredentialsStorage userEmail] isValidEmail] && [ZLACredentialsStorage password].length >= kZLAMinPasswordLength;
-}
+    if (![[ZLACredentialsStorage userEmail] isValidEmail]) {
+        [UIAlertView showInvalidEmailAlert:[ZLACredentialsStorage userEmail]];
+        return NO;
+    }
 
+    if ([ZLACredentialsStorage password].length < kZLAMinPasswordLength) {
+        [UIAlertView showTooShortPasswordAlert];
+        return NO;
+    }
+
+    return YES;
+}
 
 -(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName
                                  email:(NSString *) email
