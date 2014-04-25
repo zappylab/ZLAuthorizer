@@ -17,7 +17,7 @@
 
 -(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
 
--(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
 @end
 

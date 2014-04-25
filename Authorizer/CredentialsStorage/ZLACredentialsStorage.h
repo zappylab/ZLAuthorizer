@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
 
 +(ZLAAuthorizationMethod) authorizationMethod;
 +(void) setAuthorizationMethod:(ZLAAuthorizationMethod) method;
++(void) resetAuthorizationMethod;
 
 +(void) wipeOutExistingCredentials;
 

@@ -10,6 +10,7 @@
 #import "ZLACredentialsStorage.h"
 #import "ZLARequestsPerformer.h"
 #import "ZLATwitterAuthorizer.h"
+#import "ZLANativeAuthorizer.h"
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
 
@@ -19,6 +20,7 @@
 
 @property (strong) ZLARequestsPerformer *requestsPerformer;
 @property (strong) ZLATwitterAuthorizer *twitterAuthorizer;
+@property (strong) ZLANativeAuthorizer *nativeAuthorizer;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
@@ -87,6 +89,23 @@
 //    [self performNativeAuthorizationWithCompletionBlock:nil];
 }
 
+-(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock
+{
+    if (!self.nativeAuthorizer) {
+        self.nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    [self.nativeAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
+    {
+        [self.authorizationResponseHandler handleLoginResponse:response];
+        self.signedIn = success;
+
+        if (completionBlock) {
+            completionBlock(success);
+        }
+    }];
+}
+
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
                               completionBlock:(void (^)(BOOL success)) completionBlock
@@ -100,11 +119,19 @@
 
     [self.twitterAuthorizer performAuthorizationWithCompletionHandler:^(BOOL success, NSDictionary *response) {
         [self.authorizationResponseHandler handleLoginResponse:response];
+        self.signedIn = success;
 
         if (completionBlock) {
             completionBlock(success);
         }
     }];
+}
+
+-(void) signOut
+{
+    [ZLACredentialsStorage wipeOutExistingCredentials];
+    [ZLACredentialsStorage resetAuthorizationMethod];
+    self.signedIn = NO;
 }
 
 @end

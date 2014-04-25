@@ -110,6 +110,12 @@ static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
                 forKey:kZLAAuthorizationMethodKey];
 }
 
++(void) resetAuthorizationMethod
+{
+    [Lockbox setString:nil
+                forKey:kZLAAuthorizationMethodKey];
+}
+
 @end
 
 /////////////////////////////////////////////////////

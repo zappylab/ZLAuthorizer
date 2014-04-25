@@ -24,11 +24,13 @@
 -(void) setBaseURL:(NSURL *) baseURL;
 
 -(void) performStartupAuthorization;
--(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
 
+-(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
                               completionBlock:(void (^)(BOOL success)) completionBlock;
+
+-(void) signOut;
 
 @end
 
