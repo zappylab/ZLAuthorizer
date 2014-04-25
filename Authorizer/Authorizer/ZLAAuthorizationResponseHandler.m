@@ -54,8 +54,7 @@
         self.userInfoContainer.fullName = fullUserName;
     }
     else {
-        // TODO: fix for Twitter
-        self.userInfoContainer.fullName = [ZLACredentialsStorage userName];
+        self.userInfoContainer.fullName = [ZLACredentialsStorage userEmail];
     }
 
     self.userInfoContainer.firstName = response[kZLAFirstNameKey];
@@ -69,11 +68,6 @@
     else {
         self.userInfoContainer.profilePictureURL = nil;
     }
-}
-
--(void) handleTwitterAccessTokenValidationResponse:(NSDictionary *) response
-{
-    [ZLACredentialsStorage setUserName:response[kZLAUserEmailKey]];
 }
 
 @end

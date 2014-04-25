@@ -13,7 +13,7 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLATwitterRequestsPerformer : NSObject
+@interface ZLATwitterAPIRequestsPerformer : NSObject
 
 -(void) performReverseAuthWithAccount:(ACAccount *) account
                           consumerKey:(NSString *) consumerKey

@@ -42,184 +42,45 @@
 
 #pragma mark - Login
 
--(void) performNativeLoginWithUserName:(NSString *) userName
-                              password:(NSString *) password
-                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
-{
-    NSParameterAssert(userName);
-    NSParameterAssert(password);
-    [self checkIfUserIdentifierIsPresented];
-
-    [self.requestOperationManager POST:kZLALoginRequestPath
-                            parameters:@{kZLAUserNameKey       : userName,
-                                         kZLAUserPasswordKey   : password,
-                                         kZLAUserIdentifierKey : self.userIdentifier}
-                               success:^(AFHTTPRequestOperation *operation, id responseObject)
-                               {
-                                   if ([self isResponseOK:responseObject])
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(YES, responseObject);
-                                       }
-                                   }
-                                   else
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(NO, nil);
-                                       }
-                                   }
-                               }
-                               failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                               {
-                                   if (completionBlock)
-                                   {
-                                       completionBlock(NO, nil);
-                                   }
-                               }];
-}
-
--(void) checkIfUserIdentifierIsPresented
+-(NSOperation *) POST:(NSString *) path
+           parameters:(NSDictionary *) parameters
+    completionHandler:(void (^)(BOOL success, NSDictionary *response, NSError *error)) completionHandler
 {
     NSAssert(self.userIdentifier, @"unable to perform authorization requests without user identifier");
+
+    return [self.requestOperationManager POST:path
+                                   parameters:[self completeParameters:parameters]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject)
+                                      {
+                                          if ([self isResponseOK:responseObject])
+                                          {
+                                              if (completionHandler)
+                                              {
+                                                  completionHandler(YES, responseObject, nil);
+                                              }
+                                          }
+                                          else
+                                          {
+                                              if (completionHandler)
+                                              {
+                                                  completionHandler(NO, responseObject, nil);
+                                              }
+                                          }
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                                      {
+                                          if (completionHandler)
+                                          {
+                                              completionHandler(NO, nil, error);
+                                          }
+                                      }];
 }
 
--(void) validateTwitterAccessToken:(NSString *) accessToken
-                   forUserWithName:(NSString *) userName
-                   completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(NSDictionary *) completeParameters:(NSDictionary *) parameters
 {
-    NSParameterAssert(accessToken);
-    NSParameterAssert(userName);
-    [self checkIfUserIdentifierIsPresented];
-
-    NSDictionary *requestParameters = @{kZLATwitterUserNameKey    : userName,
-                                        kZLATwitterAccessTokenKey : accessToken,
-                                        kZLAUserIdentifierKey     : self.userIdentifier};
-    [self.requestOperationManager POST:kZLAValidateTwitterAccessTokenRequestPath
-                            parameters:requestParameters
-                               success:^(AFHTTPRequestOperation *operation, id responseObject)
-                               {
-                                   if ([self isResponseOK:responseObject])
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(YES, responseObject);
-                                       }
-                                   }
-                                   else
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(NO, nil);
-                                       }
-                                   }
-                               }
-                               failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                               {
-                                   if (completionBlock)
-                                   {
-                                       completionBlock(NO, nil);
-                                   }
-                               }];
-}
-
--(void) performLoginWithTwitterUserName:(NSString *) userName
-                            accessToken:(NSString *) accessToken
-                              firstName:(NSString *) firstName
-                               lastName:(NSString *) lastName
-                  profilePictureAddress:(NSString *) profilePictureAddress
-                        completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
-{
-    NSParameterAssert(userName);
-    NSParameterAssert(accessToken);
-    NSAssert([ZLACredentialsStorage userName], @"user email required to complete Twitter authorization");
-    [self checkIfUserIdentifierIsPresented];
-
-    NSMutableDictionary *parameters = [@{kZLAUserNameKey           : [ZLACredentialsStorage userName],
-                                         kZLATwitterUserNameKey    : userName,
-                                         kZLATwitterAccessTokenKey : accessToken,
-                                         kZLAUserIdentifierKey     : self.userIdentifier} mutableCopy];
-    if (firstName)
-    {
-        parameters[kZLAFirstNameKey] = firstName;
-    }
-
-    if (lastName)
-    {
-        parameters[kZLALastNameKey] = lastName;
-    }
-
-    if (profilePictureAddress)
-    {
-        parameters[kZLAProfilePictureURLKey] = profilePictureAddress;
-    }
-
-    [self.requestOperationManager POST:kZLALoginRequestPath
-                            parameters:parameters
-                               success:^(AFHTTPRequestOperation *operation, id responseObject)
-                               {
-                                   if ([self isResponseOK:responseObject])
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(YES, responseObject);
-                                       }
-                                   }
-                                   else
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(NO, nil);
-                                       }
-                                   }
-                               }
-                               failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                               {
-                                   if (completionBlock)
-                                   {
-                                       completionBlock(NO, nil);
-                                   }
-                               }];
-}
-
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
-{
-    [self checkIfUserIdentifierIsPresented];
-
-    [self.requestOperationManager POST:kZLARegisterRequestPath
-                            parameters:@{kZLAUserFullNameKey   : fullName,
-                                         kZLAUserNameKey       : email,
-                                         kZLAUserPasswordKey   : password,
-                                    //kZLAAppKey            : @"2",
-                                         kZLAUserIdentifierKey : self.userIdentifier}
-                               success:^(AFHTTPRequestOperation *operation, id responseObject)
-                               {
-                                   if ([self isResponseOK:responseObject])
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(YES, nil);
-                                       }
-                                   }
-                                   else
-                                   {
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(NO, responseObject);
-                                       }
-                                   }
-                               }
-                               failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                               {
-                                   if (completionBlock)
-                                   {
-                                       completionBlock(NO, nil);
-                                   }
-                               }];
+    NSMutableDictionary *mutableParameters = [parameters mutableCopy];
+    mutableParameters[kZLAUserIdentifierKey] = self.userIdentifier;
+    return mutableParameters;
 }
 
 -(BOOL) isResponseOK:(NSDictionary *) response

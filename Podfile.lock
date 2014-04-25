@@ -33,18 +33,21 @@ PODS:
   - BlocksKit/UIKit (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - Bolts (1.0.0)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BlocksKit (~> 2.2.0)
+  - Bolts
   - Lockbox
   - NSString+Validation
 
 SPEC CHECKSUMS:
   AFNetworking: dd8c1868e57451e3d17ebd3516f2a8c16f9646fe
   BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
+  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
   Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
   NSString+Validation: 5b1f5c3b4f524352e889b46ade36a9ef47c060db
 

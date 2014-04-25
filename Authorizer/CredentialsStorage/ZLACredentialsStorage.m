@@ -45,18 +45,18 @@ static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
 
 +(void) wipeOutExistingCredentials
 {
-    self.userName = nil;
+    self.userEmail = nil;
     self.password = nil;
 }
 
 #pragma mark - Native
 
-+(NSString *) userName
++(NSString *) userEmail
 {
     return [Lockbox stringForKey:kUserNameKey];
 }
 
-+(void) setUserName:(NSString *) userName
++(void) setUserEmail:(NSString *) userName
 {
     [Lockbox setString:userName
                 forKey:kUserNameKey];

@@ -15,25 +15,10 @@
 
 -(instancetype) initWithBaseURL:(NSURL *) baseURL;
 
--(void) performNativeLoginWithUserName:(NSString *) userName
-                              password:(NSString *) password
-                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(NSOperation *) POST:(NSString *) path
+           parameters:(NSDictionary *) parameters
+    completionHandler:(void (^)(BOOL success, NSDictionary *response, NSError *error)) completionHandler;
 
--(void) validateTwitterAccessToken:(NSString *) accessToken
-                   forUserWithName:(NSString *) userName
-                   completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
-
--(void) performLoginWithTwitterUserName:(NSString *) userName
-                            accessToken:(NSString *) accessToken
-                              firstName:(NSString *) firstName
-                               lastName:(NSString *) lastName
-                  profilePictureAddress:(NSString *) profilePictureAddress
-                        completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
-
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 @end
 
 /////////////////////////////////////////////////////

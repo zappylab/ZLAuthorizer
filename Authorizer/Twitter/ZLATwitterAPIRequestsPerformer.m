@@ -9,12 +9,12 @@
 #import <Social/Social.h>
 #import <AFNetworking/AFNetworking.h>
 
-#import "ZLATwitterRequestsPerformer.h"
+#import "ZLATwitterAPIRequestsPerformer.h"
 #import "ZLASignedTwitterRequest.h"
 
 /////////////////////////////////////////////////////
 
-@interface ZLATwitterRequestsPerformer ()
+@interface ZLATwitterAPIRequestsPerformer ()
 
 @property (strong) AFHTTPRequestOperationManager *requestOperationManager;
 
@@ -22,7 +22,7 @@
 
 /////////////////////////////////////////////////////
 
-@implementation ZLATwitterRequestsPerformer
+@implementation ZLATwitterAPIRequestsPerformer
 
 #pragma mark - Initialization
 

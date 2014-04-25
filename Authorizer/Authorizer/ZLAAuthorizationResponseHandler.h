@@ -20,7 +20,6 @@
 -(instancetype) initWithUserInfoContainer:(ZLAUserInfoContainer *) userInfoContainer;
 
 -(void) handleLoginResponse:(NSDictionary *) response;
--(void) handleTwitterAccessTokenValidationResponse:(NSDictionary *) response;
 
 @end
 

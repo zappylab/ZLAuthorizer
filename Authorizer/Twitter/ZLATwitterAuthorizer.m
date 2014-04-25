@@ -7,9 +7,19 @@
 
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import <Bolts/Bolts.h>
 
 #import "ZLATwitterAuthorizer.h"
-#import "ZLATwitterRequestsPerformer.h"
+#import "ZLATwitterAPIRequestsPerformer.h"
+#import "ZLATwitterAuthorizationRequester.h"
+#import "ZLATwitterAccountsAccessor.h"
+#import "ZLACredentialsStorage.h"
+#import "ZLADefinitions.h"
+#import "ZLARequestsPerformer.h"
+
+#import "NSString+Validation.h"
+#import "UIAlertView+BlocksKit.h"
+#import "ZLAUserInfoContainer.h"
 
 /////////////////////////////////////////////////////
 
@@ -17,18 +27,25 @@ static NSString *const kZLATwitterAccessKeyKey = @"oauth_token";
 static NSString *const kZLATwitterAccessSecretKey = @"oauth_token_secret";
 
 static NSString *const kZLATwitterProfileImageURLKey = @"profile_image_url";
-static NSString *const kZLATwitterUserNameKey = @"name";
 static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 
+static NSString *const kZLATwitterAuthorizerSuccessKey = @"success";
+static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 /////////////////////////////////////////////////////
 
 @interface ZLATwitterAuthorizer () < UIActionSheetDelegate >
 
-@property (strong) ZLATwitterRequestsPerformer *requestsPerformer;
-@property (strong) ACAccountStore *accountStore;
-@property (strong) NSArray *accounts;
-@property (strong) void(^authorizationCompletionBlock)(BOOL success);
+@property (strong) ZLATwitterAPIRequestsPerformer *twitterAPIRequester;
+@property (strong) ZLATwitterAuthorizationRequester *requester;
+@property (strong) ZLATwitterAccountsAccessor *accountsAccessor;
+
+@property (strong) NSString *accessToken;
+@property (strong) NSString *accessTokenSecret;
+
+@property (strong) NSString *twitterUserName;
+@property (strong) NSString *fullUserName;
+@property (strong) NSString *profilePictureAddress;
 
 @end
 
@@ -36,91 +53,37 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 
 @implementation ZLATwitterAuthorizer
 
-#pragma mark - Class methods
-
-+(BOOL) localTwitterAccountAvailable
-{
-    return [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
-}
-
-#pragma mark - Object lifecycle
-
--(void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - Initialization
 
 -(instancetype) init
 {
-    self = [super init];
-    if (self)
-    {
-        [self setup];
+    self = [self initWithRequestsPerformer:nil];
+    if (self) {
     }
 
     return self;
 }
 
--(void) setup
-{
-    [self setupDependencies];
-    [self subscribeForNotifications];
-}
+//
+// designated initializer
+//
 
--(void) setupDependencies
+-(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
 {
-    self.requestsPerformer = [[ZLATwitterRequestsPerformer alloc] init];
-    self.accountStore = [[ACAccountStore alloc] init];
-}
-
--(void) subscribeForNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshTwitterAccounts)
-                                                 name:ACAccountStoreDidChangeNotification
-                                               object:nil];
-}
-
-#pragma mark - Twitter accounts access
-
--(void) refreshTwitterAccounts
-{
-    if ([ZLATwitterAuthorizer localTwitterAccountAvailable])
-    {
-        if ([self shouldRefreshAccounts])
-        {
-            [self obtainAccessToAccountsWithCompletionBlock:nil];
-        }
+    self = [super init];
+    if (self) {
+        [self setupWithRequestsPerformer:requestsPerformer];
     }
+
+    return self;
 }
 
--(BOOL) shouldRefreshAccounts
+-(void) setupWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
 {
-    // "refresh" can be made if we already have list of accounts
-    return self.accounts.count > 0;
-}
-
--(void) obtainAccessToAccountsWithCompletionBlock:(void (^)(BOOL accessGranted)) completionBlock
-{
-    ACAccountType *twitterAccountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    ACAccountStoreRequestAccessCompletionHandler handler = ^(BOOL granted, NSError *error)
-    {
-        if (granted)
-        {
-            self.accounts = [self.accountStore accountsWithAccountType:twitterAccountType];
-        }
-
-        if (completionBlock)
-        {
-            completionBlock(granted);
-        }
-    };
-
-    [self.accountStore requestAccessToAccountsWithType:twitterAccountType
-                                               options:nil
-                                            completion:handler];
+    self.twitterAPIRequester = [[ZLATwitterAPIRequestsPerformer alloc] init];
+    self.requester = [[ZLATwitterAuthorizationRequester alloc] init];
+    self.requester.requestsPerformer = requestsPerformer;
+    self.accountsAccessor = [[ZLATwitterAccountsAccessor alloc] init];
 }
 
 #pragma mark - State
@@ -137,147 +100,105 @@ static NSString *const kZLATwitterScreenNameKey = @"screen_name";
 
 #pragma mark - Authorization
 
--(void) performReverseAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock
+-(void) performAuthorizationWithCompletionHandler:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+{
+    [[[[self performReverseAuthorization] continueWithBlock:^id(BFTask *task)
+    {
+        BFTask *nextTask = nil;
+
+        if ([task.result boolValue]) {
+            nextTask = [self validateAccessToken];;
+        }
+
+        return nextTask;
+    }]
+             continueWithBlock:^id(BFTask *task)
+             {
+                 BFTask *nextTask = nil;
+
+                 if ([task.result boolValue]) {
+                     if ([ZLACredentialsStorage userEmail]) {
+                         nextTask = [self loginWithTwitterCredentials];
+                     }
+                     else {
+                         nextTask = [self askUserForEmailAndLogin];
+                     }
+                 }
+                 else {
+                     if (completionBlock) {
+                         completionBlock(NO, nil);
+                     }
+                 }
+
+                 return nextTask;
+             }]
+             continueWithBlock:^id(BFTask *task)
+    {
+        if (completionBlock) {
+            NSDictionary *result = task.result;
+            BOOL success = [result[kZLATwitterAuthorizerSuccessKey] boolValue];
+            NSDictionary *response = result[kZLATwitterAuthorizerResponseKey];
+
+            completionBlock(success, response);
+        }
+
+        return nil;
+    }];
+}
+
+#pragma mark - OAuth
+
+-(BFTask *) performReverseAuthorization
 {
     NSAssert(self.consumerKey, @"no API key to authorize with");
     NSAssert(self.consumerSecret, @"no API secret to authorize with");
 
-    self.authorizationCompletionBlock = completionBlock;
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
 
-    if ([ZLATwitterAuthorizer localTwitterAccountAvailable])
+    [self.accountsAccessor askUserToChooseAccountWithCompletionBlock:^(ACAccount *account)
     {
-        [self obtainAccessToAccountsWithCompletionBlock:^(BOOL accountsAccessGranted)
+        if (account)
         {
-            dispatch_async(dispatch_get_main_queue(), ^
+            [[self performReverseAuthorizationWithAccount:account] continueWithBlock:^id(BFTask *task)
             {
-                if (accountsAccessGranted)
-                {
-                    [self showAccountsList];
-                }
-                else
-                {
-                    [self showAccessDeniedAlert];
-
-                    if (completionBlock)
-                    {
-                        completionBlock(NO);
-                    }
-                }
-            });
-        }];
-    }
-    else
-    {
-        [self showNoAccountsAlert];
-
-        if (completionBlock)
-        {
-            completionBlock(NO);
+                [taskCompletionSource setResult:task.result];
+                return nil;
+            }];
         }
-    }
+        else
+        {
+            [taskCompletionSource setResult:@NO];
+        }
+    }];
+
+    return taskCompletionSource.task;
 }
 
--(void) showNoAccountsAlert
+-(BFTask *) performReverseAuthorizationWithAccount:(ACAccount *) account
 {
-    [[[UIAlertView alloc] initWithTitle:@"Accounts not found"
-                                message:@"No Twitter accounts are available on this device"
-                               delegate:nil
-                      cancelButtonTitle:@"Close"
-                      otherButtonTitles:nil] show];
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [self.twitterAPIRequester performReverseAuthWithAccount:account
+                                                consumerKey:self.consumerKey
+                                             consumerSecret:self.consumerSecret
+                                          completionHandler:^(NSData *data, NSError *error)
+                                          {
+                                              if (data && !error) {
+                                                  [self handleAuthorizationResponseData:data];
+
+                                                  [[self getUserInfoFromTwitter] continueWithBlock:^id(BFTask *task)
+                                                  {
+                                                      [taskCompletionSource setResult:task.result];
+                                                      return nil;
+                                                  }];
+                                              }
+                                              else {
+                                                  [self showLoginFailedAlert];
+                                                  [taskCompletionSource setResult:@NO];
+                                              }
+                                          }];
+    return taskCompletionSource.task;
 }
-
--(void) showAccessDeniedAlert
-{
-    [[[UIAlertView alloc] initWithTitle:@"Access denied"
-                                message:@"Application cannot access Twitter accounts"
-                               delegate:nil
-                      cancelButtonTitle:@"Close"
-                      otherButtonTitles:nil] show];
-}
-
--(void) showAccountsList
-{
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:nil];
-    for (ACAccount *account in self.accounts)
-    {
-        [sheet addButtonWithTitle:account.username];
-    }
-
-    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
-    [sheet showInView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
-}
-
-#pragma mark - UIActionSheetDelegate methods
-
--(void)  actionSheet:(UIActionSheet *) actionSheet
-clickedButtonAtIndex:(NSInteger) buttonIndex
-{
-    if (buttonIndex != actionSheet.cancelButtonIndex)
-    {
-        ACAccount *accountToAuthorizeWith = self.accounts[buttonIndex];
-        [self performReverseAuthorizationWithAccount:accountToAuthorizeWith];
-    }
-}
-
--(void) performReverseAuthorizationWithAccount:(ACAccount *) accountToAuthorizeWith
-{
-    void(^completionHandler)(NSData *, NSError *) = ^(NSData *data, NSError *error)
-    {
-        [self handleAuthorizationResultWithData:data
-                                          error:error];
-    };
-
-    [self.requestsPerformer performReverseAuthWithAccount:accountToAuthorizeWith
-                                              consumerKey:self.consumerKey
-                                           consumerSecret:self.consumerSecret
-                                        completionHandler:completionHandler];
-}
-
--(void) handleAuthorizationResultWithData:(NSData *) data
-                                    error:(NSError *) error
-{
-    if (data && !error)
-    {
-        [self handleAuthorizationResponseData:data];
-        [self.requestsPerformer verifyCredentialsWithConsumerKey:self.consumerKey
-                                                  consumerSecret:self.consumerSecret
-                                                       accessKey:self.accessToken
-                                                    accessSecret:self.accessTokenSecret
-                                               completionHandler:^(NSDictionary *response, NSError *userInfoRequestError)
-                                               {
-                                                   if (response && !error)
-                                                   {
-                                                       [self handleUserInfoResponse:response];
-                                                   }
-                                                   else
-                                                   {
-                                                       [self executeCompletionBlockWithSuccess:NO];
-                                                   }
-                                               }];
-    }
-    else
-    {
-        [self showLoginFailedAlert];
-        [self executeCompletionBlockWithSuccess:NO];
-    }
-}
-
--(void) showLoginFailedAlert
-{
-    [[[UIAlertView alloc] initWithTitle:@"Twitter login"
-                                message:@"Error: unable to login with Twitter. "
-                                        "Check if credentials of account you chose "
-                                        "are valid or try to login with another account"
-                               delegate:nil
-                      cancelButtonTitle:@"Close"
-                      otherButtonTitles:nil] show];
-}
-
-#pragma mark - Response handling
 
 -(void) handleAuthorizationResponseData:(NSData *) responseData
 {
@@ -306,22 +227,192 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
     }
 }
 
+-(BFTask *) getUserInfoFromTwitter
+{
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [self.twitterAPIRequester verifyCredentialsWithConsumerKey:self.consumerKey
+                                                consumerSecret:self.consumerSecret
+                                                     accessKey:self.accessToken
+                                                  accessSecret:self.accessTokenSecret
+                                             completionHandler:^(NSDictionary *response, NSError *userInfoRequestError)
+                                             {
+                                                 if (response && !userInfoRequestError)
+                                                 {
+                                                     [self handleUserInfoResponse:response];
+                                                     [taskCompletionSource setResult:@YES];
+                                                 }
+                                                 else
+                                                 {
+                                                     [taskCompletionSource setResult:@NO];
+                                                 }
+                                             }];
+    return taskCompletionSource.task;
+}
+
 -(void) handleUserInfoResponse:(NSDictionary *) response
 {
     self.fullUserName = response[kZLATwitterUserNameKey];
     self.twitterUserName = response[kZLATwitterScreenNameKey];
     self.profilePictureAddress = response[kZLATwitterProfileImageURLKey];
-    [self executeCompletionBlockWithSuccess:YES];
 }
 
--(void) executeCompletionBlockWithSuccess:(BOOL) success
+-(void) showLoginFailedAlert
 {
-    if (self.authorizationCompletionBlock)
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-        self.authorizationCompletionBlock(success);
+        [[[UIAlertView alloc] initWithTitle:@"Twitter login"
+                                    message:@"Unable to login with Twitter. "
+                                            "Check if credentials of account you chose "
+                                            "are valid or try to login with another account"
+                                   delegate:nil
+                          cancelButtonTitle:@"Close"
+                          otherButtonTitles:nil] show];
+    });
+}
+
+#pragma mark - Access token validation
+
+-(BFTask *) validateAccessToken
+{
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [self.requester validateTwitterAccessToken:self.accessToken
+                               forUserWithName:self.twitterUserName
+                               completionBlock:^(BOOL success, NSDictionary *response) {
+                                   if (success) {
+                                       [self handleAccessTokenValidationResponse:response];
+                                   }
+
+                                   [taskCompletionSource setResult:@(success)];
+                               }];
+
+    return taskCompletionSource.task;
+}
+
+-(void) handleAccessTokenValidationResponse:(NSDictionary *) response
+{
+    NSString *email = response[kZLAUserEmailKey];
+    if (email.length > 0) {
+        [ZLACredentialsStorage setUserEmail:email];
+    }
+    else {
+        [ZLACredentialsStorage setUserEmail:nil];
+    }
+}
+
+-(BFTask *) loginWithTwitterCredentials
+{
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [self.requester performLoginWithTwitterUserName:self.twitterUserName
+                                        accessToken:self.accessToken
+                                          firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]
+                                           lastName:[ZLAUserInfoContainer lastNameOfFullName:self.fullUserName]
+                              profilePictureAddress:self.profilePictureAddress
+                                    completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
+                                    {
+                                        if (authorizationSuccess) {
+                                            [self handleLoginSuccess];
+                                        }
+
+                                        [taskCompletionSource setResult:[self loginResultWithSuccess:authorizationSuccess
+                                                                                            response:authorizationResponse]];
+                                    }];
+
+    return taskCompletionSource.task;
+}
+
+-(void) handleLoginSuccess
+{
+    [ZLACredentialsStorage setTwitterUserName:self.twitterUserName];
+    [ZLACredentialsStorage setTwitterAccessToken:self.accessToken];
+}
+
+-(NSDictionary *) loginResultWithSuccess:(BOOL) success
+                                response:(NSDictionary *) response
+{
+    NSMutableDictionary *result = [@{kZLATwitterAuthorizerSuccessKey : @(success)} mutableCopy];
+    if (response) {
+        result[kZLATwitterAuthorizerResponseKey] = response;
     }
 
-    self.authorizationCompletionBlock = nil;
+    return result;
+}
+
+-(BFTask *) askUserForEmailAndLogin
+{
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [[[self askUserForEmail] continueWithBlock:^id(BFTask *task)
+    {
+        BFTask *nextTask = nil;
+        NSString *email = task.result;
+        if (email)
+        {
+            if ([email isValidEmail]) {
+                [ZLACredentialsStorage setUserEmail:email];
+                nextTask = [self loginWithTwitterCredentials];
+            }
+            else {
+                [self showInvalidEmailAlert:email];
+            }
+        }
+        else
+        {
+            [self reset];
+            [taskCompletionSource setResult:[self loginResultWithSuccess:NO
+                                                                response:nil]];
+        }
+
+        return nextTask;
+    }]
+            continueWithBlock:^id(BFTask *task)
+    {
+        [taskCompletionSource setResult:task.result];
+        return nil;
+    }];
+
+    return taskCompletionSource.task;
+}
+
+-(BFTask *) askUserForEmail
+{
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        UIAlertView *emailRequestAlert = [[UIAlertView alloc] initWithTitle:@"Email required"
+                                                                    message:@"Please provide us with your email to complete authorization"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"Cancel"
+                                                          otherButtonTitles:@"Done",
+                                                                            nil];
+        emailRequestAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [emailRequestAlert bk_setDidDismissBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+        {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [taskCompletionSource setResult:nil];
+            }
+            else {
+                [taskCompletionSource setResult:[alertView textFieldAtIndex:0].text];
+            }
+        }];
+
+        [emailRequestAlert show];
+    });
+
+    return taskCompletionSource.task;
+}
+
+-(void) showInvalidEmailAlert:(NSString *) email
+{
+    [[[UIAlertView alloc] initWithTitle:@"Login"
+                                message:[NSString stringWithFormat:@"%@ is not a valid email",
+                                                                   email]
+                               delegate:nil
+                      cancelButtonTitle:@"Close"
+                      otherButtonTitles:nil] show];
 }
 
 @end
