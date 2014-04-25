@@ -83,7 +83,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 {
     if (![email isValidEmail])
     {
-        [UIAlertView showInvalidEmailAlert:[ZLACredentialsStorage userEmail]];
+        [UIAlertView showInvalidEmailAlert:email];
         return NO;
     }
 
