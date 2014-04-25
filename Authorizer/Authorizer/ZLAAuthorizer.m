@@ -89,21 +89,31 @@
 //    [self performNativeAuthorizationWithCompletionBlock:nil];
 }
 
--(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock
+-(void) performNativeAuthorizationWithUserEmail:(NSString *) email
+                                       password:(NSString *) password
+                                completionBlock:(void (^)(BOOL success)) completionBlock
 {
     if (!self.nativeAuthorizer) {
         self.nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
-    [self.nativeAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
-    {
-        [self.authorizationResponseHandler handleLoginResponse:response];
-        self.signedIn = success;
+    [self.nativeAuthorizer performAuthorizationWithUserEmail:email
+                                                    password:password
+                                             completionBlock:^(BOOL success, NSDictionary *response)
+                                             {
+                                                 [self.authorizationResponseHandler handleLoginResponse:response];
+                                                 self.signedIn = success;
 
-        if (completionBlock) {
-            completionBlock(success);
-        }
-    }];
+                                                 if (success) {
+                                                     [ZLACredentialsStorage setUserEmail:email];
+                                                     [ZLACredentialsStorage setPassword:password];
+                                                 }
+
+                                                 if (completionBlock)
+                                                 {
+                                                     completionBlock(success);
+                                                 }
+                                             }];
 }
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey

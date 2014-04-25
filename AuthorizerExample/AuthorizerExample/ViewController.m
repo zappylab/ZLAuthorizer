@@ -58,13 +58,12 @@ clickedButtonAtIndex:(NSInteger) buttonIndex
         NSString *userName = [alertView textFieldAtIndex:0].text;
         NSString *password = [alertView textFieldAtIndex:1].text;
 
-        self.authorizer.userName = userName;
-        self.authorizer.password = password;
-
-        [self.authorizer performNativeAuthorizationWithCompletionBlock:^(BOOL success)
-        {
-
-        }];
+        [self.authorizer performNativeAuthorizationWithUserEmail:userName
+                                                        password:password
+                                                 completionBlock:^(BOOL success)
+                                                 {
+                                                     
+                                                 }];
     }
 }
 

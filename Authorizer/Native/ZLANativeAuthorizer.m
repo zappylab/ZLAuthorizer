@@ -49,7 +49,8 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 -(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setupWithRequestsPerformer:requestsPerformer];
     }
 
@@ -64,33 +65,30 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 #pragma mark - Requests
 
--(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(void) performAuthorizationWithUserEmail:(NSString *) userEmail
+                                 password:(NSString *) password
+                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
-    if ([self credentialsAreValid])
+    if ([self checkUserEmail:userEmail
+                 andPassword:password])
     {
-        [self.requester performNativeLoginWithUserName:[ZLACredentialsStorage userEmail]
-                                                      password:[ZLACredentialsStorage password]
-                                               completionBlock:^(BOOL success, NSDictionary *response)
-                                               {
-                                                   if (!success) {
-                                                       [ZLACredentialsStorage setPassword:nil];
-                                                   }
-
-                                                   if (completionBlock) {
-                                                       completionBlock(success, response);
-                                                   }
-                                               }];
+        [self.requester performNativeLoginWithUserName:userEmail
+                                              password:password
+                                       completionBlock:completionBlock];
     }
 }
 
--(BOOL) credentialsAreValid
+-(BOOL) checkUserEmail:(NSString *) email
+           andPassword:(NSString *) password
 {
-    if (![[ZLACredentialsStorage userEmail] isValidEmail]) {
+    if (![email isValidEmail])
+    {
         [UIAlertView showInvalidEmailAlert:[ZLACredentialsStorage userEmail]];
         return NO;
     }
 
-    if ([ZLACredentialsStorage password].length < kZLAMinPasswordLength) {
+    if (password.length < kZLAMinPasswordLength)
+    {
         [UIAlertView showTooShortPasswordAlert];
         return NO;
     }

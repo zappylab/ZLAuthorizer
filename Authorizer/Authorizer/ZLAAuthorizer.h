@@ -17,15 +17,16 @@
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
-
-@property (strong) NSString *userName;
-@property (strong) NSString *password;
+@property (readonly) BOOL performingAuthorization;
 
 -(void) setBaseURL:(NSURL *) baseURL;
 
 -(void) performStartupAuthorization;
 
--(void) performNativeAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
+-(void) performNativeAuthorizationWithUserEmail:(NSString *) email
+                                       password:(NSString *) password
+                                completionBlock:(void (^)(BOOL success)) completionBlock;
+
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
                               completionBlock:(void (^)(BOOL success)) completionBlock;
