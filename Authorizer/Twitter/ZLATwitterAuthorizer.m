@@ -110,6 +110,11 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
         if ([task.result boolValue]) {
             nextTask = [self validateAccessToken];;
         }
+        else {
+            if (completionBlock) {
+                completionBlock(NO, nil);
+            }
+        }
 
         return nextTask;
     }]
