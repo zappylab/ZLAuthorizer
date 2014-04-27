@@ -25,6 +25,19 @@
     [self.authorizer setBaseURL:[NSURL URLWithString:@"http://dev.passageo.com/api/v1/"]];
 }
 
+-(IBAction) nativeLoginTapped:(id) sender
+{
+    UIAlertView *credentialsAlertView = [[UIAlertView alloc] initWithTitle:@"Password required"
+                                                                   message:nil
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"Cancel"
+                                                         otherButtonTitles:@"Go",
+                                         nil];
+    credentialsAlertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    credentialsAlertView.delegate = self;
+    [credentialsAlertView show];
+}
+
 -(IBAction) twitterAuthTapped:(id) sender
 {
     [self.authorizer performTwitterAuthorizationWithAPIKey:@"1h01qcIbEElhCwzVpIG2P5w8x"
@@ -35,17 +48,9 @@
                                            }];
 }
 
--(IBAction) nativeLoginTapped:(id) sender
+- (IBAction)facebookAuthTapped
 {
-    UIAlertView *credentialsAlertView = [[UIAlertView alloc] initWithTitle:@"Password required"
-                                                                   message:nil
-                                                                  delegate:nil
-                                                         cancelButtonTitle:@"Cancel"
-                                                         otherButtonTitles:@"Go",
-                                                                           nil];
-    credentialsAlertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-    credentialsAlertView.delegate = self;
-    [credentialsAlertView show];
+    //perform auth using keys
 }
 
 #pragma mark - UIAlertViewDelegate methods

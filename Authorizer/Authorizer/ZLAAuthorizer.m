@@ -13,6 +13,11 @@
 #import "ZLANativeAuthorizer.h"
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
+
+/////////////////////////////////////////////////////
+
+static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com";
 
 /////////////////////////////////////////////////////
 
@@ -53,6 +58,18 @@
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.signedIn = NO;
     self.performingAuthorization = NO;
+    [self googlePlusSignInSetup];
+}
+
+-(void) googlePlusSignInSetup
+{
+    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    signIn.shouldFetchGooglePlusUser = YES;
+    signIn.shouldFetchGoogleUserEmail = YES;
+    signIn.clientID = kGooglePlusClientId;
+    signIn.scopes = @[ @"profile" ];
+    // Optional: declare signIn.actions, see "app activities"
+    signIn.delegate = self;
 }
 
 #pragma mark - Accessors
@@ -135,6 +152,32 @@
 
         self.performingAuthorization = NO;
     }];
+}
+
+-(void) performFacebookAuthorizationWithAppIdKey:(NSString *) appId
+                                 completionBlock:(void (^)(BOOL success)) completionBlock
+{
+
+}
+
+#pragma mark - Google+ sign in protocol
+
+-(void)finishedWithAuth: (GTMOAuth2Authentication *)auth
+                  error: (NSError *) error
+{
+    NSLog(@"Received error %@ and auth object %@",error, auth);
+}
+
+#pragma mark - Google+ sign in delegate
+
+- (BOOL)application: (UIApplication *)application
+            openURL: (NSURL *)url
+  sourceApplication: (NSString *)sourceApplication
+         annotation: (id)annotation
+{
+    return [GPPURLHandler handleURL:url
+                  sourceApplication:sourceApplication
+                         annotation:annotation];
 }
 
 -(void) signOut

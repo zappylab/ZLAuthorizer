@@ -6,14 +6,16 @@
 
 
 #import <Foundation/Foundation.h>
+#import <GooglePlus/GooglePlus.h>
 
 /////////////////////////////////////////////////////
 
 @class ZLAUserInfoContainer;
+@class GPPSignInButton;
 
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer : NSObject
+@interface ZLAAuthorizer : NSObject <GPPSignInDelegate>
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
