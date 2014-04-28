@@ -14,7 +14,7 @@
 #import "ZLATwitterAuthorizationRequester.h"
 #import "ZLATwitterAccountsAccessor.h"
 #import "ZLACredentialsStorage.h"
-#import "ZLADefinitions.h"
+#import "ZLAConstants.h"
 #import "ZLARequestsPerformer.h"
 #import "ZLAUserInfoContainer.h"
 
@@ -101,9 +101,10 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionHandler:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(void) performAuthorizationWithCompletionHandler:(ZLASigninRequestCompletionBlock) completionBlock
 {
-    [[[[self performReverseAuthorization] continueWithBlock:^id(BFTask *task)
+    BFTask *reverseAuthTask = [self performReverseAuthorization];
+    BFTask *accessTokenValidationTask = [reverseAuthTask continueWithBlock:^id(BFTask *task)
     {
         BFTask *nextTask = nil;
 
@@ -117,8 +118,9 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
         }
 
         return nextTask;
-    }]
-             continueWithBlock:^id(BFTask *task)
+    }];
+
+    BFTask *loginTask = [accessTokenValidationTask continueWithBlock:^id(BFTask *task)
              {
                  BFTask *nextTask = nil;
 
@@ -137,8 +139,9 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
                  }
 
                  return nextTask;
-             }]
-             continueWithBlock:^id(BFTask *task)
+             }];
+
+    [loginTask continueWithBlock:^id(BFTask *task)
     {
         if (completionBlock) {
             NSDictionary *result = task.result;
@@ -361,7 +364,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
                 nextTask = [self loginWithTwitterCredentials];
             }
             else {
-                [UIAlertView showInvalidEmailAlert:email];
+                [UIAlertView ZLA_showInvalidEmailAlertForSignin:email];
             }
         }
         else

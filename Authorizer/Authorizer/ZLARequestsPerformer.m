@@ -7,7 +7,7 @@
 #import <AFNetworking/AFNetworking.h>
 
 #import "ZLARequestsPerformer.h"
-#import "ZLADefinitions.h"
+#import "ZLAConstants.h"
 #import "ZLACredentialsStorage.h"
 
 /////////////////////////////////////////////////////
@@ -79,7 +79,13 @@
 -(NSDictionary *) completeParameters:(NSDictionary *) parameters
 {
     NSMutableDictionary *mutableParameters = [parameters mutableCopy];
+    if (!mutableParameters) {
+        mutableParameters = [NSMutableDictionary dictionary];
+    }
+
     mutableParameters[kZLAUserIdentifierKey] = self.userIdentifier;
+    mutableParameters[kZLAAppKey] = @"2";
+    mutableParameters[kZLADeviceOSKey] = kZLAOSiOS;
     return mutableParameters;
 }
 

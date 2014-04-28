@@ -10,7 +10,7 @@
 
 #import "ZLAAuthorizer.h"
 
-@interface ViewController () < UIAlertViewDelegate >
+@interface ViewController () <UIAlertViewDelegate>
 
 @property (strong) ZLAAuthorizer *authorizer;
 
@@ -33,6 +33,50 @@
                                            {
 
                                            }];
+}
+
+-(IBAction) registrationTapped:(id) sender
+{
+    [self.authorizer registerUserWithFullName:@"Ilya Dyakonov"
+                                        email:@"ilushkadyakonov@zappylab.com"
+                                     password:@"123456"
+                              completionBlock:^(BOOL success)
+                              {
+
+                              }];
+}
+
+-(IBAction) registrationBadEmailTapped:(id) sender
+{
+    [self.authorizer registerUserWithFullName:@"Ilya Dyakonov"
+                                        email:@"ilushkadyakonov@zappylab"
+                                     password:@"123456"
+                              completionBlock:^(BOOL success)
+                              {
+
+                              }];
+}
+
+-(IBAction) registrationBadFullNameTapped:(id) sender
+{
+    [self.authorizer registerUserWithFullName:@""
+                                        email:@"ilushkadyakonov@zappylab.com"
+                                     password:@"123456"
+                              completionBlock:^(BOOL success)
+                              {
+
+                              }];
+}
+
+-(IBAction) registrationBadPasswordTapped:(id) sender
+{
+    [self.authorizer registerUserWithFullName:@"Ilya Dyakonov"
+                                        email:@"ilushkadyakonov@zappylab.com"
+                                     password:@"12345"
+                              completionBlock:^(BOOL success)
+                              {
+
+                              }];
 }
 
 -(IBAction) nativeLoginTapped:(id) sender

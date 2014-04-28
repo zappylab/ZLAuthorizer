@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ZLASharedTypes.h"
+
 /////////////////////////////////////////////////////
 
 @class ZLARequestsPerformer;
@@ -20,7 +22,7 @@
 
 -(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
 
--(void) performAuthorizationWithCompletionHandler:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(void) performAuthorizationWithCompletionHandler:(ZLASigninRequestCompletionBlock) completionBlock;
 -(void) reset;
 
 @end

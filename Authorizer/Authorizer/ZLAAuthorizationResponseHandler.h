@@ -9,17 +9,29 @@
 
 /////////////////////////////////////////////////////
 
+@protocol ZLAAuthorizationResponseHandlerDelegate
+
+-(void) responseHandlerDidDetectSocialLogin;
+-(void) responseHandlerDidDetectErrorMessage:(NSString *) message;
+
+@end
+
+/////////////////////////////////////////////////////
+
 @class ZLAUserInfoContainer;
 
 /////////////////////////////////////////////////////
 
 @interface ZLAAuthorizationResponseHandler : NSObject
 
+@property (weak) id<ZLAAuthorizationResponseHandlerDelegate> delegate;
+
 @property (strong) ZLAUserInfoContainer *userInfoContainer;
 
 -(instancetype) initWithUserInfoContainer:(ZLAUserInfoContainer *) userInfoContainer;
 
 -(void) handleLoginResponse:(NSDictionary *) response;
+-(void) handleRegistrationResponse:(NSDictionary *) response;
 
 @end
 

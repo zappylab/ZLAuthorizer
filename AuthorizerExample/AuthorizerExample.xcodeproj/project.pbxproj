@@ -51,7 +51,7 @@
 		BD46903319006D53003EEC0E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BD46903419006D53003EEC0E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BD46903619006D53003EEC0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BD7E731619055DE3009E0F33 /* ZLADefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLADefinitions.h; sourceTree = "<group>"; };
+		BD7E731619055DE3009E0F33 /* ZLAConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLAConstants.h; sourceTree = "<group>"; };
 		BDA78E14190071E1001484C5 /* ZLAAuthorizationResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAuthorizationResponseHandler.h; sourceTree = "<group>"; };
 		BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAuthorizationResponseHandler.m; sourceTree = "<group>"; };
 		BDA78E16190071E1001484C5 /* ZLARequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLARequestsPerformer.h; sourceTree = "<group>"; };
@@ -60,6 +60,7 @@
 		BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAuthorizer.m; sourceTree = "<group>"; };
 		BDA78E1B190071E1001484C5 /* ZLACredentialsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLACredentialsStorage.h; sourceTree = "<group>"; };
 		BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLACredentialsStorage.m; sourceTree = "<group>"; };
+		BDCC829E190E4D15001BDAD8 /* ZLASharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLASharedTypes.h; sourceTree = "<group>"; };
 		BDD802551901B5D600C9B406 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		BDD802561901B5D600C9B406 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		BDD802571901B5D600C9B406 /* OAuth+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OAuth+Additions.h"; sourceTree = "<group>"; };
@@ -181,7 +182,8 @@
 				BDA78E17190071E1001484C5 /* ZLARequestsPerformer.m */,
 				BDA78E18190071E1001484C5 /* ZLAAuthorizer.h */,
 				BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */,
-				BD7E731619055DE3009E0F33 /* ZLADefinitions.h */,
+				BD7E731619055DE3009E0F33 /* ZLAConstants.h */,
+				BDCC829E190E4D15001BDAD8 /* ZLASharedTypes.h */,
 			);
 			path = Authorizer;
 			sourceTree = "<group>";

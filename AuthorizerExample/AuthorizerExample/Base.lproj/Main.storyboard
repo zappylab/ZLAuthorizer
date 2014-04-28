@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2N-cw-6Gf">
-                                <rect key="frame" x="137" y="282" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2N-cw-6Gf">
+                                <rect key="frame" x="137" y="250" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Twitter">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -26,8 +26,8 @@
                                     <action selector="twitterAuthTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4c9-tJ-7oZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rkQ-qa-OCJ">
-                                <rect key="frame" x="137" y="234" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rkQ-qa-OCJ">
+                                <rect key="frame" x="138" y="212" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Native">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,8 +36,62 @@
                                     <action selector="nativeLoginTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s0B-sh-2cV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaf-E7-71p">
+                                <rect key="frame" x="119" y="60" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Registration">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registrationTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KpG-pQ-vTI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tR0-qK-mnW">
+                                <rect key="frame" x="67" y="98" width="187" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Registration with bad email">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registrationBadEmailTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7ti-f9-U3N"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byp-YZ-xXj">
+                                <rect key="frame" x="54" y="136" width="213" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Registration with bad full name">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registrationBadFullNameTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fUw-9U-s4y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11F-QN-jiY">
+                                <rect key="frame" x="52" y="174" width="217" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Registration with bad password">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registrationBadPasswordTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jwi-Pk-twy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aaf-E7-71p" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="593-Am-lcC"/>
+                            <constraint firstAttribute="centerX" secondItem="aaf-E7-71p" secondAttribute="centerX" id="8E8-bD-L0L"/>
+                            <constraint firstAttribute="centerX" secondItem="11F-QN-jiY" secondAttribute="centerX" id="HCF-oe-dfZ"/>
+                            <constraint firstItem="rkQ-qa-OCJ" firstAttribute="top" secondItem="11F-QN-jiY" secondAttribute="bottom" constant="8" symbolic="YES" id="LAB-xB-hkJ"/>
+                            <constraint firstAttribute="centerX" secondItem="e2N-cw-6Gf" secondAttribute="centerX" id="OEE-Dm-typ"/>
+                            <constraint firstItem="e2N-cw-6Gf" firstAttribute="top" secondItem="rkQ-qa-OCJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Ro1-U9-0nc"/>
+                            <constraint firstAttribute="centerX" secondItem="byp-YZ-xXj" secondAttribute="centerX" id="T9N-OA-dOT"/>
+                            <constraint firstAttribute="centerX" secondItem="rkQ-qa-OCJ" secondAttribute="centerX" id="XRX-IA-QRs"/>
+                            <constraint firstItem="11F-QN-jiY" firstAttribute="top" secondItem="byp-YZ-xXj" secondAttribute="bottom" constant="8" symbolic="YES" id="iId-Ie-X0k"/>
+                            <constraint firstAttribute="centerX" secondItem="tR0-qK-mnW" secondAttribute="centerX" id="iWS-RP-sn4"/>
+                            <constraint firstItem="tR0-qK-mnW" firstAttribute="top" secondItem="aaf-E7-71p" secondAttribute="bottom" constant="8" symbolic="YES" id="uVT-qm-Ayt"/>
+                            <constraint firstItem="byp-YZ-xXj" firstAttribute="top" secondItem="tR0-qK-mnW" secondAttribute="bottom" constant="8" symbolic="YES" id="vlW-UW-NVU"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

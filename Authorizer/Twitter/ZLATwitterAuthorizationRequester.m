@@ -8,7 +8,7 @@
 #import "ZLATwitterAuthorizationRequester.h"
 
 #import "ZLARequestsPerformer.h"
-#import "ZLADefinitions.h"
+#import "ZLAConstants.h"
 #import "ZLACredentialsStorage.h"
 
 /////////////////////////////////////////////////////

@@ -1,13 +1,13 @@
 //
-//  ZLADefinitions.h
+//  ZLAConstants.h
 //  AuthorizerExample
 //
 //  Created by Ilya Dyakonov on 21/04/14.
 //  Copyright (c) 2014 ZappyLab. All rights reserved.
 //
 
-#ifndef AuthorizerExample_ZLADefinitions_h
-#define AuthorizerExample_ZLADefinitions_h
+#ifndef AuthorizerExample_ZLAConstants_h
+#define AuthorizerExample_ZLAConstants_h
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
@@ -34,10 +34,15 @@ static NSString *const kZLATwitterUserNameKey = @"twitter";
 static NSString *const kZLATwitterAccessTokenKey = @"token";
 
 static NSString *const kZLAAppKey = @"app";
+static NSString *const kZLADeviceOSKey = @"dti";
+static NSString *const kZLAOSiOS = @"1";
 
 static NSString *const kZLAResponseStatusKey = @"request";
 static NSString *const kZLAResponseStatusOK = @"OK";
+static NSString *const kZLAResponseStatusSocial = @"SOCIAL";
 
-#endif
+static NSString *const kZLAResponseStatusExplanationKey = @"status";
 
-#endif
+#endif /* __OBJC__ */
+
+#endif /* AuthorizerExample_ZLAConstants_h */

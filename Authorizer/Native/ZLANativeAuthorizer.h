@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ZLASharedTypes.h"
+
 /////////////////////////////////////////////////////
 
 @class ZLARequestsPerformer;
@@ -19,7 +21,14 @@
 
 -(void) performAuthorizationWithUserEmail:(NSString *) userEmail
                                  password:(NSString *) password
-                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+                          completionBlock:(ZLASigninRequestCompletionBlock) completionBlock;
+
+-(void) registerUserWithFullName:(NSString *) fullName
+                           email:(NSString *) email
+                        password:(NSString *) password
+                 completionBlock:(ZLASigninRequestCompletionBlock) completionBlock;
+
+-(void) resetPassword;
 
 @end
 

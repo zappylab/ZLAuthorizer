@@ -13,6 +13,10 @@
 
 /////////////////////////////////////////////////////
 
+typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
+
+/////////////////////////////////////////////////////
+
 @interface ZLAAuthorizer : NSObject
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
@@ -25,13 +29,18 @@
 
 -(void) performNativeAuthorizationWithUserEmail:(NSString *) email
                                        password:(NSString *) password
-                                completionBlock:(void (^)(BOOL success)) completionBlock;
+                                completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
-                              completionBlock:(void (^)(BOOL success)) completionBlock;
+                              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 -(void) signOut;
+
+-(void) registerUserWithFullName:(NSString *) fullName
+                           email:(NSString *) email
+                        password:(NSString *) password
+                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 @end
 

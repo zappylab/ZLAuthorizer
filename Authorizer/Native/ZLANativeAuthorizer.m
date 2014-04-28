@@ -67,7 +67,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 -(void) performAuthorizationWithUserEmail:(NSString *) userEmail
                                  password:(NSString *) password
-                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+                          completionBlock:(ZLASigninRequestCompletionBlock) completionBlock
 {
     if ([self checkUserEmail:userEmail
                  andPassword:password])
@@ -83,24 +83,60 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 {
     if (![email isValidEmail])
     {
-        [UIAlertView showInvalidEmailAlert:email];
+        [UIAlertView ZLA_showInvalidEmailAlertForSignin:email];
         return NO;
     }
 
     if (password.length < kZLAMinPasswordLength)
     {
-        [UIAlertView showTooShortPasswordAlert];
+        [UIAlertView ZLA_showTooShortPasswordAlertForSignin];
         return NO;
     }
 
     return YES;
 }
 
+-(void) registerUserWithFullName:(NSString *) fullName
+                           email:(NSString *) email
+                        password:(NSString *) password
+                 completionBlock:(ZLASigninRequestCompletionBlock) completionBlock
+{
+    if ([self ableToRegisterUserWithFullName:fullName
+                                       email:email
+                                    password:password])
+    {
+        [self.requester registerUserWithFullName:fullName
+                                           email:email
+                                        password:password
+                                 completionBlock:completionBlock];
+    }
+}
+
 -(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName
                                  email:(NSString *) email
                               password:(NSString *) password
 {
-    return [email isValidEmail] && fullName.length > 0 && password.length > kZLAMinPasswordLength;
+    if (![email isValidEmail]) {
+        [UIAlertView ZLA_showInvalidEmailAlertForRegistration:email];
+        return NO;
+    }
+
+    if (fullName.length == 0) {
+        [UIAlertView ZLA_showTooShowFullNameAlertForRegistration];
+        return NO;
+    }
+
+    if (password.length < kZLAMinPasswordLength) {
+        [UIAlertView ZLA_showTooShortPasswordAlertForRegistration];
+        return NO;
+    }
+
+    return YES;
+}
+
+-(void) resetPassword
+{
+    [self.requester resetPassword];
 }
 
 @end

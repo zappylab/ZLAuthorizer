@@ -8,9 +8,11 @@
 #import "ZLANativeAuthorizationRequester.h"
 
 #import "ZLARequestsPerformer.h"
-#import "ZLADefinitions.h"
+#import "ZLAConstants.h"
 
 /////////////////////////////////////////////////////
+
+static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 
 @interface ZLANativeAuthorizationRequester ()
 
@@ -60,6 +62,7 @@
 {
     NSParameterAssert(email);
     NSParameterAssert(password);
+    NSParameterAssert(fullName);
 
     [self.requestsPerformer POST:kZLARegisterRequestPath
                       parameters:@{kZLAUserFullNameKey : fullName,
@@ -71,6 +74,16 @@
                    {
                        completionBlock(success, response);
                    }
+               }];
+}
+
+-(void) resetPassword
+{
+    [self.requestsPerformer POST:kZLAResetPasswordRequestPath
+                      parameters:nil
+               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
+               {
+
                }];
 }
 

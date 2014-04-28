@@ -26,6 +26,8 @@
                         password:(NSString *) password
                  completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
+-(void) resetPassword;
+
 @end
 
 /////////////////////////////////////////////////////

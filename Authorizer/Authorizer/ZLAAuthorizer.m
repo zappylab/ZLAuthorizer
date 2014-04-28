@@ -14,13 +14,18 @@
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
 
+#import <UIAlertView+BlocksKit.h>
+
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer ()
+@interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate> {
+    __strong ZLANativeAuthorizer *_nativeAuthorizer;
+    __strong ZLATwitterAuthorizer *_twitterAuthorizer;
+}
 
 @property (strong) ZLARequestsPerformer *requestsPerformer;
-@property (strong) ZLATwitterAuthorizer *twitterAuthorizer;
-@property (strong) ZLANativeAuthorizer *nativeAuthorizer;
+@property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
+@property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
@@ -51,6 +56,7 @@
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
     self.userInfo.identifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
+    self.authorizationResponseHandler.delegate = self;
     self.signedIn = NO;
     self.performingAuthorization = NO;
 }
@@ -62,6 +68,24 @@
     NSParameterAssert(baseURL);
     self.requestsPerformer = [[ZLARequestsPerformer alloc] initWithBaseURL:baseURL];
     self.requestsPerformer.userIdentifier = self.userInfo.identifier;
+}
+
+-(ZLANativeAuthorizer *) nativeAuthorizer
+{
+    if (!_nativeAuthorizer) {
+        _nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _nativeAuthorizer;
+}
+
+-(ZLATwitterAuthorizer *) twitterAuthorizer
+{
+    if (!_twitterAuthorizer) {
+        _twitterAuthorizer = [[ZLATwitterAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _twitterAuthorizer;
 }
 
 #pragma mark - Authorization
@@ -86,12 +110,8 @@
 
 -(void) performNativeAuthorizationWithUserEmail:(NSString *) email
                                        password:(NSString *) password
-                                completionBlock:(void (^)(BOOL success)) completionBlock
+                                completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (!self.nativeAuthorizer) {
-        self.nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
-    }
-
     self.performingAuthorization = YES;
     [self.nativeAuthorizer performAuthorizationWithUserEmail:email
                                                     password:password
@@ -115,15 +135,12 @@
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
-                              completionBlock:(void (^)(BOOL success)) completionBlock
+                              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (!self.twitterAuthorizer) {
-        self.twitterAuthorizer = [[ZLATwitterAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
-    }
+    self.performingAuthorization = YES;
+
     self.twitterAuthorizer.consumerKey = APIKey;
     self.twitterAuthorizer.consumerSecret = APISecret;
-
-    self.performingAuthorization = YES;
 
     [self.twitterAuthorizer performAuthorizationWithCompletionHandler:^(BOOL success, NSDictionary *response) {
         [self.authorizationResponseHandler handleLoginResponse:response];
@@ -142,6 +159,62 @@
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
     self.signedIn = NO;
+}
+
+#pragma mark -
+
+-(void) registerUserWithFullName:(NSString *) fullName
+                           email:(NSString *) email
+                        password:(NSString *) password
+                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    [self.nativeAuthorizer registerUserWithFullName:fullName
+                                              email:email
+                                           password:password
+                                    completionBlock:^(BOOL success, NSDictionary *response)
+                                    {
+                                        [self.authorizationResponseHandler handleRegistrationResponse:response];
+                                        if (completionBlock) {
+                                            completionBlock(success);
+                                        }
+                                    }];
+}
+
+#pragma mark - ZLAAuthorizationResponseHandlerDelegate methods
+
+-(void) responseHandlerDidDetectSocialLogin
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        [UIAlertView bk_showAlertViewWithTitle:@"Sign in"
+                                       message:@"You used Twitter to create your account, please user Twitter to login or reset your password to login with ZappyLab account."
+                             cancelButtonTitle:@"Close"
+                             otherButtonTitles:@[@"Reset password"]
+                                       handler:^(UIAlertView *alertView, NSInteger buttonIndex)
+                                       {
+                                           if (buttonIndex != alertView.cancelButtonIndex)
+                                           {
+                                               [self resetPassword];
+                                           }
+                                       }];
+    });
+}
+
+-(void) resetPassword
+{
+    [self.nativeAuthorizer resetPassword];
+}
+
+-(void) responseHandlerDidDetectErrorMessage:(NSString *) message
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Registration"
+                                   message:message
+                                  delegate:nil
+                         cancelButtonTitle:@"Close"
+                         otherButtonTitles:nil] show];
+    });
 }
 
 @end

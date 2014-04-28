@@ -11,8 +11,13 @@
 
 @interface UIAlertView (ZLAuthorizer)
 
-+(void) showInvalidEmailAlert:(NSString *) email;
-+(void) showTooShortPasswordAlert;
++(void) ZLA_showInvalidEmailAlertForSignin:(NSString *) email;
++(void) ZLA_showInvalidEmailAlertForRegistration:(NSString *) email;
+
++(void) ZLA_showTooShortPasswordAlertForSignin;
++(void) ZLA_showTooShortPasswordAlertForRegistration;
+
++(void) ZLA_showTooShowFullNameAlertForRegistration;
 
 @end
 
