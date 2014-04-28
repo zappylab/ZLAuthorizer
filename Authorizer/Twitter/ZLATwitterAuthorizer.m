@@ -398,6 +398,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
                                                           otherButtonTitles:@"Done",
                                                                             nil];
         emailRequestAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [emailRequestAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
         [emailRequestAlert bk_setDidDismissBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
         {
             if (buttonIndex == alertView.cancelButtonIndex) {
