@@ -26,9 +26,17 @@
 +(void) ZLA_showInvalidEmailAlert:(NSString *) email
                         withTitle:(NSString *) title
 {
+    NSString *message = nil;
+    if (email.length > 0) {
+        message = [NSString stringWithFormat:@"%@ is not a valid email",
+                                             email];
+    }
+    else {
+        message = @"Please provide your email";
+    }
+
     [[[UIAlertView alloc] initWithTitle:title
-                                message:[NSString stringWithFormat:@"%@ is not a valid email",
-                                                                   email]
+                                message:message
                                delegate:nil
                       cancelButtonTitle:@"Close"
                       otherButtonTitles:nil] show];
