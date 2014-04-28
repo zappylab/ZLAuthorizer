@@ -18,7 +18,8 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate> {
+@interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
+{
     __strong ZLANativeAuthorizer *_nativeAuthorizer;
     __strong ZLATwitterAuthorizer *_twitterAuthorizer;
 }
@@ -72,7 +73,8 @@
 
 -(ZLANativeAuthorizer *) nativeAuthorizer
 {
-    if (!_nativeAuthorizer) {
+    if (!_nativeAuthorizer)
+    {
         _nativeAuthorizer = [[ZLANativeAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
@@ -81,7 +83,8 @@
 
 -(ZLATwitterAuthorizer *) twitterAuthorizer
 {
-    if (!_twitterAuthorizer) {
+    if (!_twitterAuthorizer)
+    {
         _twitterAuthorizer = [[ZLATwitterAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
@@ -92,7 +95,8 @@
 
 -(void) performStartupAuthorization
 {
-    switch ([ZLACredentialsStorage authorizationMethod]) {
+    switch ([ZLACredentialsStorage authorizationMethod])
+    {
         case ZLAAuthorizationMethodNative:
             [self performNativeAuthorizationWithUserEmail:[ZLACredentialsStorage userEmail]
                                                  password:[ZLACredentialsStorage password]
@@ -117,19 +121,15 @@
                                                     password:password
                                              completionBlock:^(BOOL success, NSDictionary *response)
                                              {
-                                                 [self.authorizationResponseHandler handleLoginResponse:response];
-                                                 self.signedIn = success;
-
-                                                 if (success) {
+                                                 if (success)
+                                                 {
                                                      [ZLACredentialsStorage setUserEmail:email];
                                                      [ZLACredentialsStorage setPassword:password];
                                                  }
 
-                                                 if (completionBlock) {
-                                                     completionBlock(success);
-                                                 }
-
-                                                 self.performingRequest = NO;
+                                                 [self handleAuthorizationResponse:response
+                                                                           success:success
+                                                                   completionBlock:completionBlock];
                                              }];
 }
 
@@ -142,16 +142,28 @@
     self.twitterAuthorizer.consumerKey = APIKey;
     self.twitterAuthorizer.consumerSecret = APISecret;
 
-    [self.twitterAuthorizer performAuthorizationWithCompletionHandler:^(BOOL success, NSDictionary *response) {
-        [self.authorizationResponseHandler handleLoginResponse:response];
-        self.signedIn = success;
-
-        if (completionBlock) {
-            completionBlock(success);
-        }
-
-        self.performingRequest = NO;
+    [self.twitterAuthorizer performAuthorizationWithCompletionHandler:^(BOOL success, NSDictionary *response)
+    {
+        [self handleAuthorizationResponse:response
+                                  success:success
+                          completionBlock:completionBlock];
     }];
+}
+
+-(void) handleAuthorizationResponse:(NSDictionary *) response
+                            success:(BOOL) success
+                    completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    if (response) {
+        [self.authorizationResponseHandler handleLoginResponse:response];
+    }
+
+    if (completionBlock) {
+        completionBlock(success);
+    }
+
+    self.performingRequest = NO;
+    self.signedIn = success;
 }
 
 -(void) signOut
@@ -174,8 +186,13 @@
                                            password:password
                                     completionBlock:^(BOOL success, NSDictionary *response)
                                     {
-                                        [self.authorizationResponseHandler handleRegistrationResponse:response];
-                                        if (completionBlock) {
+                                        if (response)
+                                        {
+                                            [self.authorizationResponseHandler handleRegistrationResponse:response];
+                                        }
+
+                                        if (completionBlock)
+                                        {
                                             completionBlock(success);
                                         }
 
@@ -213,10 +230,10 @@
     dispatch_async(dispatch_get_main_queue(), ^
     {
         [[[UIAlertView alloc] initWithTitle:@"Registration"
-                                   message:message
-                                  delegate:nil
-                         cancelButtonTitle:@"Close"
-                         otherButtonTitles:nil] show];
+                                    message:message
+                                   delegate:nil
+                          cancelButtonTitle:@"Close"
+                          otherButtonTitles:nil] show];
     });
 }
 
