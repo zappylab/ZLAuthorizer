@@ -10,6 +10,7 @@
 /////////////////////////////////////////////////////
 
 static NSString *ZLAAuthorizerPerformingRequestKeyPath = @"performingRequest";
+static NSString *ZLAAuthorizerSignedInKeyPath = @"signedIn";
 
 /////////////////////////////////////////////////////
 
