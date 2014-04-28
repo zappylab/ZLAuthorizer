@@ -22,7 +22,7 @@
 
 -(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
 
--(void) performAuthorizationWithCompletionHandler:(ZLASigninRequestCompletionBlock) completionBlock;
+-(void) performAuthorizationWithCompletionHandler:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 -(void) reset;
 
 @end

@@ -30,7 +30,7 @@
 @property (strong) ZLAUserInfoContainer *userInfo;
 
 @property (readwrite) BOOL signedIn;
-@property (readwrite) BOOL performingAuthorization;
+@property (readwrite) BOOL performingRequest;
 
 @end
 
@@ -58,7 +58,7 @@
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.authorizationResponseHandler.delegate = self;
     self.signedIn = NO;
-    self.performingAuthorization = NO;
+    self.performingRequest = NO;
 }
 
 #pragma mark - Accessors
@@ -112,7 +112,7 @@
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingAuthorization = YES;
+    self.performingRequest = YES;
     [self.nativeAuthorizer performAuthorizationWithUserEmail:email
                                                     password:password
                                              completionBlock:^(BOOL success, NSDictionary *response)
@@ -129,7 +129,7 @@
                                                      completionBlock(success);
                                                  }
 
-                                                 self.performingAuthorization = NO;
+                                                 self.performingRequest = NO;
                                              }];
 }
 
@@ -137,7 +137,7 @@
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingAuthorization = YES;
+    self.performingRequest = YES;
 
     self.twitterAuthorizer.consumerKey = APIKey;
     self.twitterAuthorizer.consumerSecret = APISecret;
@@ -150,7 +150,7 @@
             completionBlock(success);
         }
 
-        self.performingAuthorization = NO;
+        self.performingRequest = NO;
     }];
 }
 
@@ -168,6 +168,7 @@
                         password:(NSString *) password
                  completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
+    self.performingRequest = YES;
     [self.nativeAuthorizer registerUserWithFullName:fullName
                                               email:email
                                            password:password
@@ -177,6 +178,8 @@
                                         if (completionBlock) {
                                             completionBlock(success);
                                         }
+
+                                        self.performingRequest = NO;
                                     }];
 }
 

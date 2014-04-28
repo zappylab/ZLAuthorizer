@@ -21,7 +21,7 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
-@property (readonly) BOOL performingAuthorization;
+@property (readonly) BOOL performingRequest;
 
 -(void) setBaseURL:(NSURL *) baseURL;
 

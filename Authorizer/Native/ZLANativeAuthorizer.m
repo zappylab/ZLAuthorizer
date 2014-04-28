@@ -67,7 +67,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 
 -(void) performAuthorizationWithUserEmail:(NSString *) userEmail
                                  password:(NSString *) password
-                          completionBlock:(ZLASigninRequestCompletionBlock) completionBlock
+                          completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
     if ([self checkUserEmail:userEmail
                  andPassword:password])
@@ -99,7 +99,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
                         password:(NSString *) password
-                 completionBlock:(ZLASigninRequestCompletionBlock) completionBlock
+                 completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
     if ([self ableToRegisterUserWithFullName:fullName
                                        email:email
@@ -109,6 +109,11 @@ static NSUInteger const kZLAMinPasswordLength = 6;
                                            email:email
                                         password:password
                                  completionBlock:completionBlock];
+    }
+    else {
+        if (completionBlock) {
+            completionBlock(NO, nil);
+        }
     }
 }
 

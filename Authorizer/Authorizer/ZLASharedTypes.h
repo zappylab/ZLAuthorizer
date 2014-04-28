@@ -12,7 +12,7 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 
-typedef void(^ZLASigninRequestCompletionBlock)(BOOL success, NSDictionary *response);
+typedef void(^ZLAAuthorizationRequestCompletionBlock)(BOOL success, NSDictionary *response);
 
 #endif /* __OBJC__ */
 

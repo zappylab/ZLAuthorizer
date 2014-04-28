@@ -21,12 +21,12 @@
 
 -(void) performAuthorizationWithUserEmail:(NSString *) userEmail
                                  password:(NSString *) password
-                          completionBlock:(ZLASigninRequestCompletionBlock) completionBlock;
+                          completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
                         password:(NSString *) password
-                 completionBlock:(ZLASigninRequestCompletionBlock) completionBlock;
+                 completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 
 -(void) resetPassword;
 

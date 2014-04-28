@@ -101,7 +101,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionHandler:(ZLASigninRequestCompletionBlock) completionBlock
+-(void) performAuthorizationWithCompletionHandler:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
     BFTask *reverseAuthTask = [self performReverseAuthorization];
     BFTask *accessTokenValidationTask = [reverseAuthTask continueWithBlock:^id(BFTask *task)
