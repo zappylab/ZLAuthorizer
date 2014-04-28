@@ -76,6 +76,11 @@ static NSUInteger const kZLAMinPasswordLength = 6;
                                               password:password
                                        completionBlock:completionBlock];
     }
+    else {
+        if (completionBlock) {
+            completionBlock(NO, nil);
+        }
+    }
 }
 
 -(BOOL) checkUserEmail:(NSString *) email
