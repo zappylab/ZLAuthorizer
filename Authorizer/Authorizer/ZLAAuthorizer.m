@@ -207,7 +207,7 @@
     dispatch_async(dispatch_get_main_queue(), ^
     {
         [UIAlertView bk_showAlertViewWithTitle:@"Sign in"
-                                       message:@"You used Twitter to create your account, please user Twitter to login or reset your password to login with ZappyLab account."
+                                       message:@"You used Twitter to create your account, please use Twitter to login or reset your password to login with ZappyLab account."
                              cancelButtonTitle:@"Close"
                              otherButtonTitles:@[@"Reset password"]
                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex)
