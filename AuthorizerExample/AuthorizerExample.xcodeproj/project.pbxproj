@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		92252B5810EC479B8C7A55C2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1FF1D4A5CB4B60978119A4 /* libPods.a */; };
+		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
+		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
 		BD46901F19006D53003EEC0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46901E19006D53003EEC0E /* Foundation.framework */; };
 		BD46902119006D53003EEC0E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902019006D53003EEC0E /* CoreGraphics.framework */; };
 		BD46902319006D53003EEC0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902219006D53003EEC0E /* UIKit.framework */; };
@@ -39,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		0D1FF1D4A5CB4B60978119A4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD1836C91912D91C00D8C129 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		BD1836CB1912D91C00D8C129 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
+		BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		BD46901B19006D53003EEC0E /* AuthorizerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthorizerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD46901E19006D53003EEC0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BD46902019006D53003EEC0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,6 +124,17 @@
 			path = "Account info updates";
 			sourceTree = "<group>";
 		};
+		BD1836C81912D91C00D8C129 /* Device identifier */ = {
+			isa = PBXGroup;
+			children = (
+				BD1836C91912D91C00D8C129 /* NSString+MD5Addition.h */,
+				BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */,
+				BD1836CB1912D91C00D8C129 /* UIDevice+IdentifierAddition.h */,
+				BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */,
+			);
+			path = "Device identifier";
+			sourceTree = "<group>";
+		};
 		BD46901219006D53003EEC0E = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +193,7 @@
 		BDA78E12190071E1001484C5 /* Authorizer */ = {
 			isa = PBXGroup;
 			children = (
+				BD1836C81912D91C00D8C129 /* Device identifier */,
 				BD1836B51912A0FA00D8C129 /* Account info updates */,
 				BDD822C2190B07F600C2C2B1 /* Categories */,
 				BDD250F01909A7D00083C959 /* Native */,
@@ -386,6 +404,7 @@
 				BDA78E1E190071E1001484C5 /* ZLARequestsPerformer.m in Sources */,
 				BDD802611901B5D600C9B406 /* OAuth+Additions.m in Sources */,
 				BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */,
+				BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */,
 				BD46902B19006D53003EEC0E /* main.m in Sources */,
 				C7DFE336C1E088A0C6AAD0A3 /* ZLATwitterAuthorizer.m in Sources */,
 				C7DFE785A9847024530C8EF0 /* ZLATwitterAuthorizationRequester.m in Sources */,
@@ -395,6 +414,7 @@
 				C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */,
 				C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */,
 				C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */,
+				BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

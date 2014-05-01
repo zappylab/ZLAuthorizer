@@ -18,6 +18,9 @@ typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
 
 @interface ZLACredentialsStorage : NSObject
 
++(NSString *) userIdentifier;
++(void) setUserIdentifier:(NSString *) userIdentifier;
+
 +(NSString *) userEmail;
 +(void) setUserEmail:(NSString *) userName;
 

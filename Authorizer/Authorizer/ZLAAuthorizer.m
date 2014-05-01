@@ -17,6 +17,7 @@
 #import "ZLAConstants.h"
 
 #import "NSString+Validation.h"
+#import "UIDevice+IdentifierAddition.h"
 
 #import <UIAlertView+BlocksKit.h>
 
@@ -61,7 +62,10 @@
 -(void) setup
 {
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
-    self.userInfo.identifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if (!self.userInfo.identifier) {
+        self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
+    }
+
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.authorizationResponseHandler.delegate = self;
     self.signedIn = NO;
@@ -188,6 +192,7 @@
 {
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
+    self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
     self.signedIn = NO;
 }
 

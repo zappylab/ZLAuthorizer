@@ -11,13 +11,14 @@
 
 /////////////////////////////////////////////////////
 
-static NSString *const kUserNameKey = @"username";
-static NSString *const kPasswordKey = @"password";
+static NSString *const ZLAKeychainUserIdentifierKey = @"identifier";
+static NSString *const ZLAKeychainUserNameKey = @"username";
+static NSString *const ZLAKeychainPasswordKey = @"password";
 
-static NSString *const kTwitterUserNameKey = @"TwitterUserName";
-static NSString *const kTwitterAccessTokenKey = @"TwitterAccessToken";
+static NSString *const ZLAKeychainTwitterUserNameKey = @"TwitterUserName";
+static NSString *const ZLAKeychainTwitterAccessTokenKey = @"TwitterAccessToken";
 
-static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
+static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod";
 
 /////////////////////////////////////////////////////
 
@@ -51,69 +52,81 @@ static NSString *const kZLAAuthorizationMethodKey = @"authorizationMethod";
 
 #pragma mark - Native
 
++(NSString *) userIdentifier
+{
+    return [Lockbox stringForKey:ZLAKeychainUserIdentifierKey];
+}
+
++(void) setUserIdentifier:(NSString *) userIdentifier
+{
+    [Lockbox setString:userIdentifier
+                forKey:ZLAKeychainUserIdentifierKey];
+}
+
 +(NSString *) userEmail
 {
-    return [Lockbox stringForKey:kUserNameKey];
+    return [Lockbox stringForKey:ZLAKeychainUserNameKey];
 }
 
 +(void) setUserEmail:(NSString *) userName
 {
     [Lockbox setString:userName
-                forKey:kUserNameKey];
+                forKey:ZLAKeychainUserNameKey];
 }
 
 +(NSString *) password
 {
-    return [Lockbox stringForKey:kPasswordKey];
+    return [Lockbox stringForKey:ZLAKeychainPasswordKey];
 }
 
 +(void) setPassword:(NSString *) password
 {
     [Lockbox setString:password
-                forKey:kPasswordKey];
+                forKey:ZLAKeychainPasswordKey];
 }
 
 #pragma mark - Twitter
 
 +(NSString *) twitterUserName
 {
-    return [Lockbox stringForKey:kTwitterUserNameKey];
+    return [Lockbox stringForKey:ZLAKeychainTwitterUserNameKey];
 }
 
 +(void) setTwitterUserName:(NSString *) twitterUserName
 {
     [Lockbox setString:twitterUserName
-                forKey:kTwitterUserNameKey];
+                forKey:ZLAKeychainTwitterUserNameKey];
 }
 
 +(NSString *) twitterAccessTokenSecret
 {
-    return [Lockbox stringForKey:kTwitterAccessTokenKey];
+    return [Lockbox stringForKey:ZLAKeychainTwitterAccessTokenKey];
 }
 
 +(void) setTwitterAccessToken:(NSString *) twitterAccessTokenSecret
 {
     [Lockbox setString:twitterAccessTokenSecret
-                forKey:kTwitterAccessTokenKey];
+                forKey:ZLAKeychainTwitterAccessTokenKey];
 }
 
 #pragma mark - General
 
 +(ZLAAuthorizationMethod) authorizationMethod
 {
-    return (ZLAAuthorizationMethod) [[Lockbox stringForKey:kZLAAuthorizationMethodKey] integerValue];
+    return (ZLAAuthorizationMethod) [[Lockbox stringForKey:ZLAKeychainAuthorizationMethodKey] integerValue];
 }
 
 +(void) setAuthorizationMethod:(ZLAAuthorizationMethod) method
 {
-    [Lockbox setString:[NSString stringWithFormat:@"%d", method]
-                forKey:kZLAAuthorizationMethodKey];
+    [Lockbox setString:[NSString stringWithFormat:@"%d",
+                                                  method]
+                forKey:ZLAKeychainAuthorizationMethodKey];
 }
 
 +(void) resetAuthorizationMethod
 {
     [Lockbox setString:nil
-                forKey:kZLAAuthorizationMethodKey];
+                forKey:ZLAKeychainAuthorizationMethodKey];
 }
 
 @end
