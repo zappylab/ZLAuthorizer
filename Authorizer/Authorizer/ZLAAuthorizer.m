@@ -275,7 +275,8 @@
                                    completionBlock:^(BOOL success, NSDictionary *response)
                                    {
                                        self.performingRequest = NO;
-                                       [self.authorizationResponseHandler handleLoginResponse:response];
+                                       [self updateUserInfoWithInfo:completeInfo
+                                                accordingToResponse:response];
 
                                        if (completionBlock)
                                        {
@@ -294,6 +295,24 @@
              kZLALastNameKey            : [ZLAUserInfoContainer lastNameOfFullName:fullName],
              kZLAUserEmailKey           : emptyIfNil(self.userInfo.email),
              ZLAUserPasswordOnUpdateKey : password};
+}
+
+-(void) updateUserInfoWithInfo:(NSDictionary *) info
+           accordingToResponse:(NSDictionary *) response
+{
+    NSArray *keys = response.allKeys;
+    for (NSString *key in keys) {
+        BOOL shouldUpdateValue = [response[key] boolValue];
+        if (shouldUpdateValue) {
+            @try {
+                [self.userInfo setValue:info[key]
+                                 forKey:key];
+            }
+            @catch (NSException *exception) {
+                // no such value in user info!
+            }
+        }
+    }
 }
 
 @end
