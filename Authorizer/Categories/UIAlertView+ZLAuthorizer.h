@@ -16,6 +16,7 @@
 
 +(void) ZLA_showTooShortPasswordAlertForSignin;
 +(void) ZLA_showTooShortPasswordAlertForRegistration;
++(void) ZLA_showTooShortPasswordAlertWithTitle:(NSString *) title;
 
 +(void) ZLA_showTooShowFullNameAlertForRegistration;
 
