@@ -13,6 +13,7 @@
 #import "ZLANativeAuthorizer.h"
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
+#import "ZLAAccountInfoUpdater.h"
 
 #import <UIAlertView+BlocksKit.h>
 
@@ -22,11 +23,13 @@
 {
     __strong ZLANativeAuthorizer *_nativeAuthorizer;
     __strong ZLATwitterAuthorizer *_twitterAuthorizer;
+    __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
 }
 
 @property (strong) ZLARequestsPerformer *requestsPerformer;
 @property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
+@property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
@@ -89,6 +92,15 @@
     }
 
     return _twitterAuthorizer;
+}
+
+-(ZLAAccountInfoUpdater *) accountInfoUpdater
+{
+    if (!_accountInfoUpdater) {
+        _accountInfoUpdater = [[ZLAAccountInfoUpdater alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _accountInfoUpdater;
 }
 
 #pragma mark - Authorization
@@ -235,6 +247,22 @@
                           cancelButtonTitle:@"Close"
                           otherButtonTitles:nil] show];
     });
+}
+
+#pragma mark - Account info
+
+-(void) updateAccountWithInfo:(NSDictionary *) info
+              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    [self.accountInfoUpdater updateAccountWithInfo:info
+                                   completionBlock:^(BOOL success, NSDictionary *response)
+                                   {
+                                       [self.authorizationResponseHandler handleLoginResponse:response];
+                                       if (completionBlock)
+                                       {
+                                           completionBlock(success);
+                                       }
+                                   }];
 }
 
 @end

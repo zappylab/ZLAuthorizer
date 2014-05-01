@@ -47,6 +47,9 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
                         password:(NSString *) password
                  completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
+-(void) updateAccountWithInfo:(NSDictionary *) info
+              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+
 @end
 
 /////////////////////////////////////////////////////
