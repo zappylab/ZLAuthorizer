@@ -158,12 +158,13 @@
     sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
     [sheet bk_setDidDismissBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex)
     {
-        if (buttonIndex != actionSheet.cancelButtonIndex)
-        {
-            ACAccount *account = self.accounts[buttonIndex];
-            if (completionBlock) {
-                completionBlock(account);
-            }
+        ACAccount *account = nil;
+        if (buttonIndex != actionSheet.cancelButtonIndex) {
+            account = self.accounts[buttonIndex];
+        }
+
+        if (completionBlock) {
+            completionBlock(account);
         }
     }];
 
