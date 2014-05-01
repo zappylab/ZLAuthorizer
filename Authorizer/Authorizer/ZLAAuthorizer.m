@@ -254,12 +254,14 @@
 -(void) updateAccountWithInfo:(NSDictionary *) info
               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
+    self.performingRequest = YES;
     [self.accountInfoUpdater updateAccountWithInfo:info
                                    completionBlock:^(BOOL success, NSDictionary *response)
                                    {
+                                       self.performingRequest = NO;
                                        [self.authorizationResponseHandler handleLoginResponse:response];
-                                       if (completionBlock)
-                                       {
+
+                                       if (completionBlock) {
                                            completionBlock(success);
                                        }
                                    }];
