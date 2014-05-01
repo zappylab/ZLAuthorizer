@@ -68,6 +68,18 @@
                                       self.profilePictureURL];
 }
 
+#pragma mark - Accessors
+
+-(NSString *) email
+{
+    return [ZLACredentialsStorage userEmail];
+}
+
+-(NSString *) password
+{
+    return [ZLACredentialsStorage password];
+}
+
 @end
 
 /////////////////////////////////////////////////////

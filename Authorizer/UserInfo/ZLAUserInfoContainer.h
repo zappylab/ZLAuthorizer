@@ -18,9 +18,11 @@
 @property (strong) NSString *fullName;
 @property (strong) NSString *firstName;
 @property (strong) NSString *lastName;
-@property (readonly) NSString *password;
 @property (strong) NSString *affiliation;
 @property (strong) NSURL *profilePictureURL;
+
+@property (readonly) NSString *email;
+@property (readonly) NSString *password;
 
 @end
 
