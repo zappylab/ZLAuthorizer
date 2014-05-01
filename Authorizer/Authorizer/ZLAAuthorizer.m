@@ -14,6 +14,9 @@
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
 #import "ZLAAccountInfoUpdater.h"
+#import "ZLAConstants.h"
+
+#import "NSString+Validation.h"
 
 #import <UIAlertView+BlocksKit.h>
 
@@ -96,7 +99,8 @@
 
 -(ZLAAccountInfoUpdater *) accountInfoUpdater
 {
-    if (!_accountInfoUpdater) {
+    if (!_accountInfoUpdater)
+    {
         _accountInfoUpdater = [[ZLAAccountInfoUpdater alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
@@ -166,11 +170,13 @@
                             success:(BOOL) success
                     completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (response) {
+    if (response)
+    {
         [self.authorizationResponseHandler handleLoginResponse:response];
     }
 
-    if (completionBlock) {
+    if (completionBlock)
+    {
         completionBlock(success);
     }
 
@@ -251,20 +257,38 @@
 
 #pragma mark - Account info
 
--(void) updateAccountWithInfo:(NSDictionary *) info
-              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+-(void) updateAccountWithUserName:(NSString *) userName
+                         password:(NSString *) password
+                   additionalInfo:(NSDictionary *) info
+                  completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
+    NSMutableDictionary *completeInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+    [completeInfo addEntriesFromDictionary:[self accountInfoWithFullName:userName
+                                                                password:password]];
     self.performingRequest = YES;
-    [self.accountInfoUpdater updateAccountWithInfo:info
+    [self.accountInfoUpdater updateAccountWithInfo:completeInfo
                                    completionBlock:^(BOOL success, NSDictionary *response)
                                    {
                                        self.performingRequest = NO;
                                        [self.authorizationResponseHandler handleLoginResponse:response];
 
-                                       if (completionBlock) {
+                                       if (completionBlock)
+                                       {
                                            completionBlock(success);
                                        }
                                    }];
+}
+
+-(NSDictionary *) accountInfoWithFullName:(NSString *) fullName
+                                 password:(NSString *) password
+{
+    NSParameterAssert(fullName);
+    NSParameterAssert(password);
+
+    return @{kZLAFirstNameKey           : [ZLAUserInfoContainer firstNameOfFullName:fullName],
+             kZLALastNameKey            : [ZLAUserInfoContainer lastNameOfFullName:fullName],
+             kZLAUserEmailKey           : emptyIfNil(self.userInfo.email),
+             ZLAUserPasswordOnUpdateKey : password};
 }
 
 @end

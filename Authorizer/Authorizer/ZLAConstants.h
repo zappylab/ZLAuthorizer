@@ -29,6 +29,7 @@ static NSString *const kZLAUserPasswordKey = @"zlp";
 static NSString *const kZLAUserFullNameKey = @"ufn";
 static NSString *const kZLAUserIdentifierKey = @"uid";
 static NSString *const kZLAUserEmailKey = @"email";
+static NSString *const ZLAUserPasswordOnUpdateKey = @"password";
 
 static NSString *const kZLATwitterUserNameKey = @"twitter";
 static NSString *const kZLATwitterAccessTokenKey = @"token";
