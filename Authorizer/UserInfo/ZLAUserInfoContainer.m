@@ -75,9 +75,19 @@
     return [ZLACredentialsStorage userEmail];
 }
 
+-(void) setEmail:(NSString *) email
+{
+    [ZLACredentialsStorage setUserEmail:email];
+}
+
 -(NSString *) password
 {
     return [ZLACredentialsStorage password];
+}
+
+-(void) setPassword:(NSString *) password
+{
+    [ZLACredentialsStorage setPassword:password];
 }
 
 @end
