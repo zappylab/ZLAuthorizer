@@ -7,6 +7,8 @@
 
 #import "ZLAUserInfoContainer.h"
 
+#import "ZLACredentialsStorage.h"
+
 /////////////////////////////////////////////////////
 
 @interface ZLAUserInfoContainer ()
@@ -64,6 +66,18 @@
                                       self.lastName,
                                       self.affiliation,
                                       self.profilePictureURL];
+}
+
+#pragma mark - Accessors
+
+-(NSString *) password
+{
+    return [ZLACredentialsStorage password];
+}
+
+-(void) setPassword:(NSString *) password
+{
+    [ZLACredentialsStorage setPassword:password];
 }
 
 @end
