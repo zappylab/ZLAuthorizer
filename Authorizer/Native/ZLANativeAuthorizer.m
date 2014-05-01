@@ -12,10 +12,7 @@
 
 #import "NSString+Validation.h"
 #import "UIAlertView+ZLAuthorizer.h"
-
-/////////////////////////////////////////////////////
-
-static NSUInteger const kZLAMinPasswordLength = 6;
+#import "ZLAUserInfoValidator.h"
 
 /////////////////////////////////////////////////////
 
@@ -92,7 +89,7 @@ static NSUInteger const kZLAMinPasswordLength = 6;
         return NO;
     }
 
-    if (password.length < kZLAMinPasswordLength)
+    if (![ZLAUserInfoValidator isPasswordAcceptable:password])
     {
         [UIAlertView ZLA_showTooShortPasswordAlertForSignin];
         return NO;
@@ -131,12 +128,12 @@ static NSUInteger const kZLAMinPasswordLength = 6;
         return NO;
     }
 
-    if (fullName.length == 0) {
+    if (![ZLAUserInfoValidator isFullNameAcceptable:fullName]) {
         [UIAlertView ZLA_showTooShowFullNameAlertForRegistration];
         return NO;
     }
 
-    if (password.length < kZLAMinPasswordLength) {
+    if (![ZLAUserInfoValidator isPasswordAcceptable:password]) {
         [UIAlertView ZLA_showTooShortPasswordAlertForRegistration];
         return NO;
     }

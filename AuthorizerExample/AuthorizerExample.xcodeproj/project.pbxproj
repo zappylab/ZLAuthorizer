@@ -32,6 +32,7 @@
 		C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */; };
 		C7DFE336C1E088A0C6AAD0A3 /* ZLATwitterAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFED1232D2E9BDA8C219A3 /* ZLATwitterAuthorizer.m */; };
 		C7DFE6A07F1475EAFE4291B2 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEA7F6A073CCFD2B9A746 /* ZLANativeAuthorizationRequester.m */; };
+		C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */; };
 		C7DFE785A9847024530C8EF0 /* ZLATwitterAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE99B11D3F26498FB48AE /* ZLATwitterAuthorizationRequester.m */; };
 		C7DFEB6F7E111851508F4A7B /* ZLATwitterAccountsAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFED0E2783F1BCB318ADAD /* ZLATwitterAccountsAccessor.m */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAccountInfoUpdater.m; sourceTree = "<group>"; };
 		C7DFE1C843D2E5A27E1E9007 /* ZLANativeAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLANativeAuthorizationRequester.h; sourceTree = "<group>"; };
 		C7DFE2BEF1C50A79F823793C /* ZLATwitterAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAuthorizer.h; sourceTree = "<group>"; };
+		C7DFE36D63A8F92817A0CD8E /* ZLAUserInfoValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoValidator.h; sourceTree = "<group>"; };
 		C7DFE53DA35F5938F836B8ED /* ZLANativeAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizer.m; sourceTree = "<group>"; };
 		C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+ZLAuthorizer.m"; sourceTree = "<group>"; };
 		C7DFE70C5074A7B98B3A941F /* ZLAAccountInfoUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAccountInfoUpdater.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		C7DFEA7F6A073CCFD2B9A746 /* ZLANativeAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizationRequester.m; sourceTree = "<group>"; };
 		C7DFED0E2783F1BCB318ADAD /* ZLATwitterAccountsAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAccountsAccessor.m; sourceTree = "<group>"; };
 		C7DFED1232D2E9BDA8C219A3 /* ZLATwitterAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAuthorizer.m; sourceTree = "<group>"; };
+		C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoValidator.m; sourceTree = "<group>"; };
 		C7DFEFEF674800C96845ADF3 /* ZLATwitterAccountsAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAccountsAccessor.h; sourceTree = "<group>"; };
 		F4921F4F54A24C3FB127318C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,6 +259,8 @@
 			children = (
 				BDD802661901C53200C9B406 /* ZLAUserInfoContainer.h */,
 				BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */,
+				C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */,
+				C7DFE36D63A8F92817A0CD8E /* ZLAUserInfoValidator.h */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -389,6 +394,7 @@
 				C7DFE26DB2C9B05B26E71285 /* ZLANativeAuthorizer.m in Sources */,
 				C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */,
 				C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */,
+				C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
