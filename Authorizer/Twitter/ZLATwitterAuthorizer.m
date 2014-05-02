@@ -9,13 +9,14 @@
 #import <Accounts/Accounts.h>
 #import <Bolts/Bolts.h>
 
+#import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
+
 #import "ZLATwitterAuthorizer.h"
 #import "ZLATwitterAPIRequestsPerformer.h"
 #import "ZLATwitterAuthorizationRequester.h"
 #import "ZLATwitterAccountsAccessor.h"
 #import "ZLACredentialsStorage.h"
 #import "ZLAConstants.h"
-#import "ZLARequestsPerformer.h"
 #import "ZLAUserInfoContainer.h"
 
 #import "NSString+Validation.h"
@@ -69,7 +70,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 // designated initializer
 //
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self = [super init];
     if (self) {
@@ -79,7 +80,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
     return self;
 }
 
--(void) setupWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
+-(void) setupWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self.twitterAPIRequester = [[ZLATwitterAPIRequestsPerformer alloc] init];
     self.requester = [[ZLATwitterAuthorizationRequester alloc] init];

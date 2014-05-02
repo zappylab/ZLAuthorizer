@@ -4,15 +4,17 @@
 //
 //
 
+#import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
 
 #import "ZLANativeAuthorizationRequester.h"
 
-#import "ZLARequestsPerformer.h"
 #import "ZLAConstants.h"
 
 /////////////////////////////////////////////////////
 
 static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
+
+/////////////////////////////////////////////////////
 
 @interface ZLANativeAuthorizationRequester ()
 

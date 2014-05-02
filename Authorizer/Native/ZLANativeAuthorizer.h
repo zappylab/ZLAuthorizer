@@ -11,13 +11,13 @@
 
 /////////////////////////////////////////////////////
 
-@class ZLARequestsPerformer;
+@class ZLNetworkRequestsPerformer;
 
 /////////////////////////////////////////////////////
 
 @interface ZLANativeAuthorizer : NSObject
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
 -(void) performAuthorizationWithUserEmail:(NSString *) userEmail
                                  password:(NSString *) password

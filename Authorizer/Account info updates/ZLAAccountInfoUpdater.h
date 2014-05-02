@@ -17,7 +17,7 @@
 
 @interface ZLAAccountInfoUpdater : NSObject
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
 -(void) updateAccountWithInfo:(NSDictionary *) accountInfo
               completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;

@@ -4,9 +4,9 @@
 //
 //
 
+#import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
 
 #import "ZLAAccountInfoUpdater.h"
-#import "ZLARequestsPerformer.h"
 
 /////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ static NSString *const ZLAAccountInfoUpdateRequestPath = @"msaveuserinfo";
 
 @interface ZLAAccountInfoUpdater ()
 
-@property (readonly) ZLARequestsPerformer *requestsPerformer;
+@property (readonly) ZLNetworkRequestsPerformer *requestsPerformer;
 
 @end
 
@@ -33,7 +33,7 @@ static NSString *const ZLAAccountInfoUpdateRequestPath = @"msaveuserinfo";
                                  userInfo:nil];
 }
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self = [super init];
     if (self)

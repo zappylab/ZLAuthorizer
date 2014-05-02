@@ -11,7 +11,7 @@
 
 /////////////////////////////////////////////////////
 
-@class ZLARequestsPerformer;
+@class ZLNetworkRequestsPerformer;
 
 /////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 @property (strong) NSString *consumerKey;
 @property (strong) NSString *consumerSecret;
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer;
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
 -(void) performAuthorizationWithCompletionHandler:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 -(void) reset;

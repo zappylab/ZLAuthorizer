@@ -9,13 +9,13 @@
 
 /////////////////////////////////////////////////////
 
-@class ZLARequestsPerformer;
+@class ZLNetworkRequestsPerformer;
 
 /////////////////////////////////////////////////////
 
 @interface ZLATwitterAuthorizationRequester : NSObject
 
-@property (strong) ZLARequestsPerformer *requestsPerformer;
+@property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
 -(void) validateTwitterAccessToken:(NSString *) accessToken
                    forUserWithName:(NSString *) userName

@@ -43,7 +43,7 @@
 // designated initializer
 //
 
--(instancetype) initWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
+-(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self = [super init];
     if (self)
@@ -54,7 +54,7 @@
     return self;
 }
 
--(void) setupWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
+-(void) setupWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self.requester = [[ZLANativeAuthorizationRequester alloc] init];
     self.requester.requestsPerformer = requestsPerformer;

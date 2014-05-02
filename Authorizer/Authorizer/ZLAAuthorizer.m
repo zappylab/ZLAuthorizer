@@ -4,11 +4,12 @@
 //
 //
 
+#import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
+#import <ZLNetworkRequestsPerformer/ZLNetworkReachabilityObserver.h>
 
 #import "ZLAAuthorizer.h"
 
 #import "ZLACredentialsStorage.h"
-#import "ZLARequestsPerformer.h"
 #import "ZLATwitterAuthorizer.h"
 #import "ZLANativeAuthorizer.h"
 #import "ZLAAuthorizationResponseHandler.h"
@@ -30,10 +31,13 @@
     __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
 }
 
-@property (strong) ZLARequestsPerformer *requestsPerformer;
+@property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
+@property (strong) ZLNetworkReachabilityObserver *reachabilityObserver;
+
 @property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
+
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
@@ -50,34 +54,59 @@
 
 -(instancetype) init
 {
+    @throw [NSException exceptionWithName:@"NoInitMethod"
+                                   reason:@"User initWithBaseURL:appIdentifier: for initialization purposes"
+                                 userInfo:nil];
+}
+
+-(instancetype) initWithBaseURL:(NSURL *) baseURL
+                  appIdentifier:(NSString *) appIdentifier
+{
     self = [super init];
-    if (self)
-    {
-        [self setup];
+    if (self) {
+        [self setupWithBaseURL:baseURL
+                 appIdentifier:appIdentifier];
     }
 
     return self;
 }
 
--(void) setup
+-(void) setupWithBaseURL:(NSURL *) baseURL
+           appIdentifier:(NSString *) appIdentifier
+{
+    [self setupUserInfoContainer];
+    [self setupRequestsPerformerWithBaseURL:baseURL
+                              appIdentifier:appIdentifier];
+    [self setupAuthResponseHandler];
+    [self resetState];
+}
+
+-(void) setupUserInfoContainer
 {
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
-    if (!self.userInfo.identifier) {
+    if (!self.userInfo.identifier)
+    {
         self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
     }
+}
 
+-(void) setupAuthResponseHandler
+{
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.authorizationResponseHandler.delegate = self;
+}
+
+-(void) resetState
+{
     self.signedIn = NO;
     self.performingRequest = NO;
 }
 
-#pragma mark - Accessors
-
--(void) setBaseURL:(NSURL *) baseURL
+-(void) setupRequestsPerformerWithBaseURL:(NSURL *) baseURL
+                            appIdentifier:(NSString *) appIdentifier
 {
-    NSParameterAssert(baseURL);
-    self.requestsPerformer = [[ZLARequestsPerformer alloc] initWithBaseURL:baseURL];
+    self.requestsPerformer = [[ZLNetworkRequestsPerformer alloc] initWithBaseURL:baseURL
+                                                                   appIdentifier:appIdentifier];
     self.requestsPerformer.userIdentifier = self.userInfo.identifier;
 }
 
@@ -301,14 +330,18 @@
            accordingToResponse:(NSDictionary *) response
 {
     NSArray *keys = response.allKeys;
-    for (NSString *key in keys) {
+    for (NSString *key in keys)
+    {
         BOOL shouldUpdateValue = [response[key] boolValue];
-        if (shouldUpdateValue) {
-            @try {
+        if (shouldUpdateValue)
+        {
+            @try
+            {
                 [self.userInfo setValue:info[key]
                                  forKey:key];
             }
-            @catch (NSException *exception) {
+            @catch (NSException *exception)
+            {
                 // no such value in user info!
             }
         }

@@ -28,7 +28,8 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 @property (readonly) BOOL signedIn;
 @property (readonly) BOOL performingRequest;
 
--(void) setBaseURL:(NSURL *) baseURL;
+-(instancetype) initWithBaseURL:(NSURL *) baseURL
+                  appIdentifier:(NSString *) appIdentifier;
 
 -(void) performStartupAuthorization;
 

@@ -21,8 +21,8 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-    self.authorizer = [[ZLAAuthorizer alloc] init];
-    [self.authorizer setBaseURL:[NSURL URLWithString:@"http://dev.passageo.com/api/v1/"]];
+    self.authorizer = [[ZLAAuthorizer alloc] initWithBaseURL:[NSURL URLWithString:@"http://dev.passageo.com/api/v1/"]
+                                               appIdentifier:@"2"];
 }
 
 -(IBAction) twitterAuthTapped:(id) sender

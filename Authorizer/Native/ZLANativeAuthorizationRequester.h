@@ -9,13 +9,13 @@
 
 /////////////////////////////////////////////////////
 
-@class ZLARequestsPerformer;
+@class ZLNetworkRequestsPerformer;
 
 /////////////////////////////////////////////////////
 
 @interface ZLANativeAuthorizationRequester : NSObject
 
-@property (strong) ZLARequestsPerformer *requestsPerformer;
+@property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
 -(void) performNativeLoginWithUserName:(NSString *) userName
                               password:(NSString *) password

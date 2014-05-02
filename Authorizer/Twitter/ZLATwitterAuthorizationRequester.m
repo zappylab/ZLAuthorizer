@@ -5,9 +5,10 @@
 //
 
 
+#import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
+
 #import "ZLATwitterAuthorizationRequester.h"
 
-#import "ZLARequestsPerformer.h"
 #import "ZLAConstants.h"
 #import "ZLACredentialsStorage.h"
 
