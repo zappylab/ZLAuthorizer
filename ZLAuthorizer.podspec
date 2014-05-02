@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.dependency       'AFNetworking', '~> 2.0'
   spec.dependency       'BlocksKit', '~> 2.2.0'
   spec.dependency       'Bolts'
-  spec.dependency       'ZLNetworkRequestsPerformer', :git => 'https://github.com/zappylab/ZLNetworkRequestsPerformer.git', :branch => "dev"
+  spec.dependency       'ZLNetworkRequestsPerformer', :git => 'https://github.com/zappylab/ZLNetworkRequestsPerformer.git'
   spec.frameworks     = 'Accounts', 'Social'
   spec.requires_arc   = true
 
