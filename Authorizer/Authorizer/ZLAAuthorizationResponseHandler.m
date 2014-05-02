@@ -48,8 +48,8 @@
 
 -(void) handleLoginResponse:(NSDictionary *) response
 {
-    NSString *responseStatus = response[kZLAResponseStatusKey];
-    if ([responseStatus isEqualToString:kZLAResponseStatusSocial]) {
+    NSString *responseStatus = response[ZLAResponseStatusKey];
+    if ([responseStatus isEqualToString:ZLAResponseStatusSocial]) {
         [self.delegate responseHandlerDidDetectSocialLogin];
     }
     else {
@@ -59,7 +59,7 @@
 
 -(void) handleSuccessfullResponse:(NSDictionary *) response
 {
-    NSString *fullUserName = response[kZLAFullUserNameKey];
+    NSString *fullUserName = response[ZLAFullUserNameKey];
     if (fullUserName.length > 0) {
         self.userInfoContainer.fullName = fullUserName;
     }
@@ -67,11 +67,11 @@
         self.userInfoContainer.fullName = [ZLACredentialsStorage userEmail];
     }
 
-    self.userInfoContainer.firstName = response[kZLAFirstNameKey];
-    self.userInfoContainer.lastName = response[kZLALastNameKey];
-    self.userInfoContainer.affiliation = response[kZLAUserAffiliationKey];
+    self.userInfoContainer.firstName = response[ZLAFirstNameKey];
+    self.userInfoContainer.lastName = response[ZLALastNameKey];
+    self.userInfoContainer.affiliation = response[ZLAUserAffiliationKey];
 
-    NSString *profilePicture = response[kZLAProfilePictureKey];
+    NSString *profilePicture = response[ZLAProfilePictureKey];
     if (profilePicture.length > 0) {
         self.userInfoContainer.profilePictureURL = [NSURL URLWithString:profilePicture];
     }
@@ -82,9 +82,9 @@
 
 -(void) handleRegistrationResponse:(NSDictionary *) response
 {
-    NSString *responseStatus = response[kZLAResponseStatusKey];
-    if (![responseStatus isEqualToString:kZLAResponseStatusOK]) {
-        NSString *responseStatusExplanation = response[kZLAResponseStatusExplanationKey];
+    NSString *responseStatus = response[ZLAResponseStatusKey];
+    if (![responseStatus isEqualToString:ZLAResponseStatusOK]) {
+        NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
         [self.delegate responseHandlerDidDetectErrorMessage:responseStatusExplanation];
     }
 }

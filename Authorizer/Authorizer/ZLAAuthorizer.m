@@ -384,9 +384,9 @@
     NSParameterAssert(fullName);
     NSParameterAssert(password);
 
-    return @{kZLAFirstNameKey           : [ZLAUserInfoContainer firstNameOfFullName:fullName],
-             kZLALastNameKey            : [ZLAUserInfoContainer lastNameOfFullName:fullName],
-             kZLAUserEmailKey           : emptyIfNil(self.userInfo.email),
+    return @{ZLAFirstNameKey            : [ZLAUserInfoContainer firstNameOfFullName:fullName],
+             ZLALastNameKey             : [ZLAUserInfoContainer lastNameOfFullName:fullName],
+             ZLAUserEmailKey            : emptyIfNil(self.userInfo.email),
              ZLAUserPasswordOnUpdateKey : password};
 }
 

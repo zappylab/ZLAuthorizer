@@ -12,37 +12,32 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 
-static NSString *const kZLAProfilePictureKey = @"profile_image";
-static NSString *const kZLAProfilePictureURLKey = @"img_url";
-static NSString *const kZLAUserAffiliationKey = @"affiliation";
+static NSString *const ZLAProfilePictureKey = @"profile_image";
+static NSString *const ZLAProfilePictureURLKey = @"img_url";
+static NSString *const ZLAUserAffiliationKey = @"affiliation";
 
-static NSString *const kZLAFullUserNameKey = @"full_name";
-static NSString *const kZLAFirstNameKey = @"first_name";
-static NSString *const kZLALastNameKey = @"last_name";
+static NSString *const ZLAFullUserNameKey = @"full_name";
+static NSString *const ZLAFirstNameKey = @"first_name";
+static NSString *const ZLALastNameKey = @"last_name";
 
-static NSString *const kZLARegisterRequestPath = @"mregister";
-static NSString *const kZLALoginRequestPath = @"mlogin";
-static NSString *const kZLAValidateTwitterAccessTokenRequestPath = @"mvalidate_twitter";
+static NSString *const ZLARegisterRequestPath = @"mregister";
+static NSString *const ZLALoginRequestPath = @"mlogin";
+static NSString *const ZLAValidateTwitterAccessTokenRequestPath = @"mvalidate_twitter";
 
-static NSString *const kZLAUserNameKey = @"zll";
-static NSString *const kZLAUserPasswordKey = @"zlp";
-static NSString *const kZLAUserFullNameKey = @"ufn";
-static NSString *const kZLAUserIdentifierKey = @"uid";
-static NSString *const kZLAUserEmailKey = @"email";
+static NSString *const ZLAUserNameKey = @"zll";
+static NSString *const ZLAUserPasswordKey = @"zlp";
+static NSString *const ZLAUserFullNameKey = @"ufn";
+static NSString *const ZLAUserEmailKey = @"email";
 static NSString *const ZLAUserPasswordOnUpdateKey = @"password";
 
-static NSString *const kZLATwitterUserNameKey = @"twitter";
-static NSString *const kZLATwitterAccessTokenKey = @"token";
+static NSString *const ZLATwitterUserNameKey = @"twitter";
+static NSString *const ZLATwitterAccessTokenKey = @"token";
 
-static NSString *const kZLAAppKey = @"app";
-static NSString *const kZLADeviceOSKey = @"dti";
-static NSString *const kZLAOSiOS = @"1";
+static NSString *const ZLAResponseStatusKey = @"request";
+static NSString *const ZLAResponseStatusOK = @"OK";
+static NSString *const ZLAResponseStatusSocial = @"SOCIAL";
 
-static NSString *const kZLAResponseStatusKey = @"request";
-static NSString *const kZLAResponseStatusOK = @"OK";
-static NSString *const kZLAResponseStatusSocial = @"SOCIAL";
-
-static NSString *const kZLAResponseStatusExplanationKey = @"status";
+static NSString *const ZLAResponseStatusExplanationKey = @"status";
 
 #endif /* __OBJC__ */
 

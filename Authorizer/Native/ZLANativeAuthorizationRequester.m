@@ -45,9 +45,9 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
     NSParameterAssert(userName);
     NSParameterAssert(password);
 
-    [self.requestsPerformer POST:kZLALoginRequestPath
-                      parameters:@{kZLAUserNameKey     : userName,
-                                   kZLAUserPasswordKey : password}
+    [self.requestsPerformer POST:ZLALoginRequestPath
+                      parameters:@{ZLAUserNameKey      : userName,
+                                   ZLAUserPasswordKey  : password}
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
                    if (completionBlock)
@@ -66,10 +66,10 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
     NSParameterAssert(password);
     NSParameterAssert(fullName);
 
-    [self.requestsPerformer POST:kZLARegisterRequestPath
-                      parameters:@{kZLAUserFullNameKey : fullName,
-                                   kZLAUserNameKey     : email,
-                                   kZLAUserPasswordKey : password}
+    [self.requestsPerformer POST:ZLARegisterRequestPath
+                      parameters:@{ZLAUserFullNameKey  : fullName,
+                                   ZLAUserNameKey      : email,
+                                   ZLAUserPasswordKey  : password}
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
                    if (completionBlock)

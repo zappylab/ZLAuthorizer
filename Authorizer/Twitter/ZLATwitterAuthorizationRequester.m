@@ -31,9 +31,9 @@
     NSParameterAssert(accessToken);
     NSParameterAssert(userName);
 
-    [self.requestsPerformer POST:kZLAValidateTwitterAccessTokenRequestPath
-                      parameters:@{kZLATwitterUserNameKey    : userName,
-                                   kZLATwitterAccessTokenKey : accessToken}
+    [self.requestsPerformer POST:ZLAValidateTwitterAccessTokenRequestPath
+                      parameters:@{ZLATwitterUserNameKey     : userName,
+                                   ZLATwitterAccessTokenKey  : accessToken}
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
                    if (completionBlock)
@@ -55,7 +55,7 @@
                                                                           firstName:firstName
                                                                            lastName:lastName
                                                               profilePictureAddress:profilePictureAddress];
-    [self.requestsPerformer POST:kZLALoginRequestPath
+    [self.requestsPerformer POST:ZLALoginRequestPath
                       parameters:parameters
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
@@ -76,22 +76,22 @@
     NSParameterAssert(accessToken);
     NSAssert([ZLACredentialsStorage userEmail], @"user email required to complete Twitter authorization");
 
-    NSMutableDictionary *parameters = [@{kZLAUserNameKey           : [ZLACredentialsStorage userEmail],
-                                         kZLATwitterUserNameKey    : userName,
-                                         kZLATwitterAccessTokenKey : accessToken} mutableCopy];
+    NSMutableDictionary *parameters = [@{ZLAUserNameKey            : [ZLACredentialsStorage userEmail],
+                                         ZLATwitterUserNameKey     : userName,
+                                         ZLATwitterAccessTokenKey  : accessToken} mutableCopy];
     if (firstName)
     {
-        parameters[kZLAFirstNameKey] = firstName;
+        parameters[ZLAFirstNameKey] = firstName;
     }
 
     if (lastName)
     {
-        parameters[kZLALastNameKey] = lastName;
+        parameters[ZLALastNameKey] = lastName;
     }
 
     if (profilePictureAddress)
     {
-        parameters[kZLAProfilePictureURLKey] = profilePictureAddress;
+        parameters[ZLAProfilePictureURLKey] = profilePictureAddress;
     }
 
     return parameters;

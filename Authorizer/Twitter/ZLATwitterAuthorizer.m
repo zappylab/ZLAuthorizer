@@ -280,7 +280,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) handleUserInfoResponse:(NSDictionary *) response
 {
-    self.fullUserName = response[kZLATwitterUserNameKey];
+    self.fullUserName = response[ZLATwitterUserNameKey];
     self.twitterUserName = response[kZLATwitterScreenNameKey];
     self.profilePictureAddress = response[kZLATwitterProfileImageURLKey];
 }
@@ -320,7 +320,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) handleAccessTokenValidationResponse:(NSDictionary *) response
 {
-    NSString *email = response[kZLAUserEmailKey];
+    NSString *email = response[ZLAUserEmailKey];
     if (email.length > 0) {
         [ZLACredentialsStorage setUserEmail:email];
     }
