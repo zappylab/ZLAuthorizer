@@ -216,6 +216,10 @@
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     if (self.performingRequest) {
+        if (completionBlock) {
+            completionBlock(NO);
+        }
+
         return;
     }
 
@@ -240,6 +244,10 @@
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     if (self.performingRequest) {
+        if (completionBlock) {
+            completionBlock(NO);
+        }
+
         return;
     }
 
@@ -284,7 +292,6 @@
 -(void) signOut
 {
     [ZLACredentialsStorage wipeOutExistingCredentials];
-    [ZLACredentialsStorage resetAuthorizationMethod];
     self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
     self.signedIn = NO;
 }
