@@ -43,6 +43,7 @@
 		E69D0D91190C531A00AB00C6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */; };
 		E69D0D93190C532600AB00C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D92190C532600AB00C6 /* Security.framework */; };
 		E69D0D95190C533800AB00C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */; };
+		E6DB4B27191439A900959B9C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB4B26191439A900959B9C /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,12 @@
 		E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		E69D0D92190C532600AB00C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E6DB4B26191439A900959B9C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		E6DB4B2B19143AE600959B9C /* BFExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFExecutor.h; sourceTree = "<group>"; };
+		E6DB4B2C19143AE600959B9C /* BFTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTask.h; sourceTree = "<group>"; };
+		E6DB4B2D19143AE600959B9C /* BFTaskCompletionSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTaskCompletionSource.h; sourceTree = "<group>"; };
+		E6DB4B2E19143AE600959B9C /* Bolts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bolts.h; sourceTree = "<group>"; };
+		E6DB4B2F19143AE600959B9C /* BoltsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltsVersion.h; sourceTree = "<group>"; };
 		F4921F4F54A24C3FB127318C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +130,7 @@
 				E69D0D87190C52B400AB00C6 /* AddressBook.framework in Frameworks */,
 				E69D0D80190C497300AB00C6 /* GoogleOpenSource.framework in Frameworks */,
 				E69D0D81190C497300AB00C6 /* GooglePlus.framework in Frameworks */,
+				E6DB4B27191439A900959B9C /* FacebookSDK.framework in Frameworks */,
 				BD46902319006D53003EEC0E /* UIKit.framework in Frameworks */,
 				BD46901F19006D53003EEC0E /* Foundation.framework in Frameworks */,
 				92252B5810EC479B8C7A55C2 /* libPods.a in Frameworks */,
@@ -138,6 +146,7 @@
 				BD46902419006D53003EEC0E /* AuthorizerExample */,
 				BD46901D19006D53003EEC0E /* Frameworks */,
 				BD46901C19006D53003EEC0E /* Products */,
+				E6DB4B2919143AC100959B9C /* Pods Headers */,
 				F4921F4F54A24C3FB127318C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -153,6 +162,7 @@
 		BD46901D19006D53003EEC0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E6DB4B26191439A900959B9C /* FacebookSDK.framework */,
 				E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */,
 				E69D0D92190C532600AB00C6 /* Security.framework */,
 				E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */,
@@ -292,6 +302,27 @@
 				C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		E6DB4B2919143AC100959B9C /* Pods Headers */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB4B2A19143AE600959B9C /* BoltsHeaders */,
+			);
+			name = "Pods Headers";
+			sourceTree = "<group>";
+		};
+		E6DB4B2A19143AE600959B9C /* BoltsHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB4B2B19143AE600959B9C /* BFExecutor.h */,
+				E6DB4B2C19143AE600959B9C /* BFTask.h */,
+				E6DB4B2D19143AE600959B9C /* BFTaskCompletionSource.h */,
+				E6DB4B2E19143AE600959B9C /* Bolts.h */,
+				E6DB4B2F19143AE600959B9C /* BoltsVersion.h */,
+			);
+			name = BoltsHeaders;
+			path = "../Authorizer/Pods Headers/BoltsHeaders";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -517,11 +548,27 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/ivanvavilov/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";
 				INFOPLIST_FILE = "AuthorizerExample/AuthorizerExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MessageUI,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -536,11 +583,27 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/ivanvavilov/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";
 				INFOPLIST_FILE = "AuthorizerExample/AuthorizerExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MessageUI,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

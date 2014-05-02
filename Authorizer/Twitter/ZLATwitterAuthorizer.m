@@ -7,7 +7,7 @@
 
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
-#import <Bolts/Bolts.h>
+#import "Bolts.h"
 
 #import "ZLATwitterAuthorizer.h"
 #import "ZLATwitterAPIRequestsPerformer.h"

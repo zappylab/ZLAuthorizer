@@ -32,6 +32,8 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
 @property (readwrite) BOOL signedIn;
 @property (readwrite) BOOL performingAuthorization;
 
+@property (strong) FBLoginView* fbLoginView;
+
 @end
 
 /////////////////////////////////////////////////////
@@ -58,6 +60,10 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.signedIn = NO;
     self.performingAuthorization = NO;
+
+    self.fbLoginView = [[FBLoginView alloc] init];
+    self.fbLoginView.delegate = self;
+
     [self googlePlusSignInSetup];
 }
 
@@ -159,6 +165,20 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
 {
 
 }
+
+#pragma mark - Facebook login protocol
+
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
+                            user:(id<FBGraphUser>)user
+{
+    NSString* accessToken = FBSession.activeSession.accessTokenData.accessToken;
+    [[[UIAlertView alloc] initWithTitle:@"You're logged in"
+                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, access token: %@", user.name, user[@"email"], accessToken]
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
 
 #pragma mark - Google+ sign in protocol
 

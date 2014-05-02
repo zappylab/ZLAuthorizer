@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GooglePlus/GooglePlus.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 /////////////////////////////////////////////////////
 
@@ -15,7 +16,7 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer : NSObject <GPPSignInDelegate>
+@interface ZLAAuthorizer : NSObject <GPPSignInDelegate, FBLoginViewDelegate>
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;

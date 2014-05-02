@@ -23,6 +23,12 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb410377909099705</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleIdentifier</key>
 			<string></string>
 			<key>CFBundleTypeRole</key>
@@ -37,6 +43,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>FacebookAppID</key>
+	<string>410377909099705</string>
+	<key>FacebookDisplayName </key>
+	<string>Bench Tools </string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
