@@ -265,18 +265,20 @@
                             success:(BOOL) success
                     completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (response)
-    {
+    if (!success) {
+        [ZLACredentialsStorage wipeOutExistingCredentials];
+    }
+
+    if (response) {
         [self.authorizationResponseHandler handleLoginResponse:response];
     }
 
-    if (completionBlock)
-    {
+    if (completionBlock) {
         completionBlock(success);
     }
 
-    self.performingRequest = NO;
     self.signedIn = success;
+    self.performingRequest = NO;
 }
 
 -(void) signOut

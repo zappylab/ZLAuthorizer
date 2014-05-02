@@ -343,9 +343,6 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
                                         if (authorizationSuccess) {
                                             [self handleLoginSuccess];
                                         }
-                                        else {
-                                            [ZLACredentialsStorage wipeOutExistingCredentials];
-                                        }
 
                                         [taskCompletionSource setResult:[self loginResultWithSuccess:authorizationSuccess
                                                                                             response:authorizationResponse]];

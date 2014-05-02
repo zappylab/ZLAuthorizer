@@ -77,8 +77,9 @@
                                                [ZLACredentialsStorage setUserEmail:email];
                                                [ZLACredentialsStorage setPassword:password];
                                            }
-                                           else {
-                                               [ZLACredentialsStorage wipeOutExistingCredentials];
+
+                                           if (completionBlock) {
+                                               completionBlock(success, response);
                                            }
                                        }];
     }
