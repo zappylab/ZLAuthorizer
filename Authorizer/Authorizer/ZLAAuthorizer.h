@@ -31,8 +31,6 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 -(instancetype) initWithBaseURL:(NSURL *) baseURL
                   appIdentifier:(NSString *) appIdentifier;
 
--(void) performStartupAuthorization;
-
 -(void) performNativeAuthorizationWithUserEmail:(NSString *) email
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;

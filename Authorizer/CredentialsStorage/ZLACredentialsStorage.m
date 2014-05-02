@@ -46,8 +46,11 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
 
 +(void) wipeOutExistingCredentials
 {
-    self.userEmail = nil;
-    self.password = nil;
+    [self setUserEmail:nil];
+    [self setPassword:nil];
+    [self setTwitterUserName:nil];
+    [self setTwitterAccessToken:nil];
+    [self resetAuthorizationMethod];
 }
 
 #pragma mark - Native
@@ -98,7 +101,7 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
                 forKey:ZLAKeychainTwitterUserNameKey];
 }
 
-+(NSString *) twitterAccessTokenSecret
++(NSString *) twitterAccessToken
 {
     return [Lockbox stringForKey:ZLAKeychainTwitterAccessTokenKey];
 }

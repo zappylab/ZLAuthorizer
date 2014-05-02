@@ -10,6 +10,7 @@
 /////////////////////////////////////////////////////
 
 typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
+    ZLAAuthorizationMethodNone = 0,
     ZLAAuthorizationMethodNative,
     ZLAAuthorizationMethodTwitter
 };
@@ -30,7 +31,7 @@ typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
 +(NSString *) twitterUserName;
 +(void) setTwitterUserName:(NSString *) twitterUserName;
 
-+(NSString *) twitterAccessTokenSecret;
++(NSString *) twitterAccessToken;
 +(void) setTwitterAccessToken:(NSString *) twitterAccessTokenSecret;
 
 +(ZLAAuthorizationMethod) authorizationMethod;

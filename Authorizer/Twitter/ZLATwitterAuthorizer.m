@@ -102,7 +102,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionHandler:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) performAuthorizationWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
     BFTask *reverseAuthTask = [self performReverseAuthorization];
     BFTask *accessTokenValidationTask = [reverseAuthTask continueWithBlock:^id(BFTask *task)
@@ -154,6 +154,24 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
         return nil;
     }];
+}
+
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+{
+    self.twitterUserName = [ZLACredentialsStorage twitterUserName];
+    self.accessToken = [ZLACredentialsStorage twitterAccessToken];
+
+    [self.requester performLoginWithTwitterUserName:[ZLACredentialsStorage twitterUserName]
+                                        accessToken:[ZLACredentialsStorage twitterAccessToken]
+                                          firstName:@""
+                                           lastName:@""
+                              profilePictureAddress:@""
+                                    completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
+                                    {
+                                        if (completionBlock) {
+                                            completionBlock(authorizationSuccess, authorizationResponse);
+                                        }
+                                    }];
 }
 
 #pragma mark - OAuth
@@ -317,13 +335,16 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 
     [self.requester performLoginWithTwitterUserName:self.twitterUserName
                                         accessToken:self.accessToken
-                                          firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]
-                                           lastName:[ZLAUserInfoContainer lastNameOfFullName:self.fullUserName]
-                              profilePictureAddress:self.profilePictureAddress
+                                          firstName:emptyIfNil([ZLAUserInfoContainer firstNameOfFullName:self.fullUserName])
+                                           lastName:emptyIfNil([ZLAUserInfoContainer lastNameOfFullName:self.fullUserName])
+                              profilePictureAddress:emptyIfNil(self.profilePictureAddress)
                                     completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
                                     {
                                         if (authorizationSuccess) {
                                             [self handleLoginSuccess];
+                                        }
+                                        else {
+                                            [ZLACredentialsStorage wipeOutExistingCredentials];
                                         }
 
                                         [taskCompletionSource setResult:[self loginResultWithSuccess:authorizationSuccess

@@ -12,6 +12,7 @@
 /////////////////////////////////////////////////////
 
 @class ZLNetworkRequestsPerformer;
+@class ZLAUserInfoContainer;
 
 /////////////////////////////////////////////////////
 
@@ -22,7 +23,9 @@
 
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
--(void) performAuthorizationWithCompletionHandler:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+-(void) performAuthorizationWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+
 -(void) reset;
 
 @end

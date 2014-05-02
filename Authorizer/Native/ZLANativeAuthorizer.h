@@ -19,9 +19,9 @@
 
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
--(void) performAuthorizationWithUserEmail:(NSString *) userEmail
-                                 password:(NSString *) password
-                          completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+-(void) performAuthorizationWithEmail:(NSString *) email
+                             password:(NSString *) password
+                      completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email

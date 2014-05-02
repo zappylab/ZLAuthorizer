@@ -62,16 +62,25 @@
 
 #pragma mark - Requests
 
--(void) performAuthorizationWithUserEmail:(NSString *) userEmail
-                                 password:(NSString *) password
-                          completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) performAuthorizationWithEmail:(NSString *) email
+                             password:(NSString *) password
+                      completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
-    if ([self checkUserEmail:userEmail
+    if ([self checkUserEmail:email
                  andPassword:password])
     {
-        [self.requester performNativeLoginWithUserName:userEmail
+        [self.requester performNativeLoginWithUserName:email
                                               password:password
-                                       completionBlock:completionBlock];
+                                       completionBlock:^(BOOL success, NSDictionary *response)
+                                       {
+                                           if (success) {
+                                               [ZLACredentialsStorage setUserEmail:email];
+                                               [ZLACredentialsStorage setPassword:password];
+                                           }
+                                           else {
+                                               [ZLACredentialsStorage wipeOutExistingCredentials];
+                                           }
+                                       }];
     }
     else {
         if (completionBlock) {
