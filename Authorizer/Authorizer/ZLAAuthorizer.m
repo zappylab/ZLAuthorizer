@@ -41,8 +41,8 @@
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
-@property (readwrite) BOOL signedIn;
-@property (readwrite) BOOL performingRequest;
+@property (readwrite, atomic) BOOL signedIn;
+@property (readwrite, atomic) BOOL performingRequest;
 @property (readwrite, atomic) BOOL shouldTryAuthorizeAutomatically;
 
 @end
@@ -87,10 +87,14 @@
 -(void) setupUserInfoContainer
 {
     self.userInfo = [[ZLAUserInfoContainer alloc] init];
-    if (!self.userInfo.identifier)
-    {
-        self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
+    if (!self.userInfo.identifier) {
+        [self generateUserIdentifier];
     }
+}
+
+-(void) generateUserIdentifier
+{
+    self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
 }
 
 -(void) setupRequestsPerformerWithBaseURL:(NSURL *) baseURL
@@ -291,9 +295,11 @@
 
 -(void) signOut
 {
-    [ZLACredentialsStorage wipeOutExistingCredentials];
-    self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
-    self.signedIn = NO;
+    if (self.signedIn) {
+        [ZLACredentialsStorage wipeOutExistingCredentials];
+        [self generateUserIdentifier];
+        self.signedIn = NO;
+    }
 }
 
 #pragma mark -
