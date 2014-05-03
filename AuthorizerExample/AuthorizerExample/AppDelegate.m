@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <GooglePlus/GooglePlus.h>
 
 @interface AppDelegate ()
 
@@ -80,14 +81,23 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    [FBSession.activeSession setStateChangeHandler:
-     ^(FBSession *session, FBSessionState state, NSError *error) {
-         AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-         [appDelegate sessionStateChanged:session
-                                    state:state
-                                    error:error];
-     }];
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    BOOL result = false;
+    
+    if ([url.scheme rangeOfString:@"fb" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+        [FBSession.activeSession setStateChangeHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+             [appDelegate sessionStateChanged:session
+                                        state:state
+                                        error:error];
+         }];
+        result = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    }
+    else {
+        result = [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    }
+    
+    return result;
 }
 
 @end

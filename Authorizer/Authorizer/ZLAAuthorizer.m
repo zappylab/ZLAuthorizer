@@ -14,10 +14,12 @@
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
 #import <GoogleOpenSource/GoogleOpenSource.h>
+#import "AFHTTPRequestOperation.h"
 
 /////////////////////////////////////////////////////
 
 static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com";
+static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygpLoNYo";
 
 /////////////////////////////////////////////////////
 
@@ -33,6 +35,9 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
 @property (readwrite) BOOL performingAuthorization;
 
 @property (strong) FBLoginView* fbLoginView;
+@property (strong) NSString* googlePlusAccessToken;
+@property (strong) NSString* googlePlusEmail;
+@property (strong) NSString* googlePlusFullName;
 
 @end
 
@@ -186,7 +191,63 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
 -(void)finishedWithAuth: (GTMOAuth2Authentication *)auth
                   error: (NSError *) error
 {
-    NSLog(@"Received error %@ and auth object %@",error, auth);
+    if (error) {
+        NSLog(@"Received error %@ and auth object %@",error, auth);
+    }
+    else {
+        self.googlePlusAccessToken = auth.accessToken;
+        
+        self.googlePlusEmail = [GPPSignIn sharedInstance].authentication.userEmail;
+        
+        // 1. Create a |GTLServicePlus| instance to send a request to Google+.
+        GTLServicePlus* plusService = [[GTLServicePlus alloc] init];
+        plusService.retryEnabled = YES;
+        
+        // 2. Set a valid |GTMOAuth2Authentication| object as the authorizer.
+        [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
+        GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
+        
+        // *4. Use the "v1" version of the Google+ API.*
+        plusService.apiVersion = @"v1";
+        [plusService executeQuery:query
+                completionHandler:^(GTLServiceTicket *ticket,
+                                    GTLPlusPerson *person,
+                                    NSError *error) {
+                    if (error) {
+                        //Handle Error
+                    }
+                    else {
+                        
+/*
+ NSURL *urlForProfilePictureRequest = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=image&key=%@",person.identifier,kGooglePlusAPIkey]];
+                        
+                        NSURLRequest *request = [NSURLRequest requestWithURL:urlForProfilePictureRequest];
+                        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]
+                                                             initWithRequest:request];
+                        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation
+                                                                   , id responseObject) {
+                            // code
+                        }
+                                                         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                             // code
+                                                         }
+                         ];
+                        [operation start];*/
+                        
+                        self.googlePlusFullName = [person.name.givenName stringByAppendingFormat:@" %@",person.name.familyName];
+                        [self showGooglePlusAuthAlert];
+                    }
+                }];
+    }
+}
+
+-(void) showGooglePlusAuthAlert
+{
+    [[[UIAlertView alloc] initWithTitle:@"You're logged in"
+                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", self.googlePlusFullName, self.googlePlusEmail, nil, self.googlePlusAccessToken]
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 
 #pragma mark - Google+ sign in delegate

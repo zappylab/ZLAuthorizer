@@ -40,6 +40,16 @@
 				<string>com.zappylab.benchtools</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.zappylab.AuthorizerExample</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.zappylab.AuthorizerExample</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
