@@ -38,6 +38,7 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
 @property (strong) NSString* googlePlusAccessToken;
 @property (strong) NSString* googlePlusEmail;
 @property (strong) NSString* googlePlusFullName;
+@property (strong) NSString* googlePlusProfilePicture;
 
 @end
 
@@ -81,6 +82,7 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     signIn.scopes = @[ @"profile" ];
     // Optional: declare signIn.actions, see "app activities"
     signIn.delegate = self;
+    [signIn trySilentAuthentication];
 }
 
 #pragma mark - Accessors
@@ -196,18 +198,13 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     }
     else {
         self.googlePlusAccessToken = auth.accessToken;
-        
         self.googlePlusEmail = [GPPSignIn sharedInstance].authentication.userEmail;
         
-        // 1. Create a |GTLServicePlus| instance to send a request to Google+.
         GTLServicePlus* plusService = [[GTLServicePlus alloc] init];
         plusService.retryEnabled = YES;
-        
-        // 2. Set a valid |GTMOAuth2Authentication| object as the authorizer.
         [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
         GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
         
-        // *4. Use the "v1" version of the Google+ API.*
         plusService.apiVersion = @"v1";
         [plusService executeQuery:query
                 completionHandler:^(GTLServiceTicket *ticket,
@@ -218,24 +215,29 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
                     }
                     else {
                         
-/*
- NSURL *urlForProfilePictureRequest = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=image&key=%@",person.identifier,kGooglePlusAPIkey]];
+
+ NSURL *urlForProfilePictureRequest = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://picasaweb.google.com/data/entry/api/user/%@?alt=json",person.identifier]];
                         
                         NSURLRequest *request = [NSURLRequest requestWithURL:urlForProfilePictureRequest];
                         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]
                                                              initWithRequest:request];
                         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation
                                                                    , id responseObject) {
-                            // code
+
+                            NSDictionary* response = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                     options:NSJSONReadingMutableContainers
+                                                                                       error:nil];
+                            
+                            self.googlePlusProfilePicture = response[@"entry"][@"gphoto$thumbnail"][@"$t"];
+                            [self showGooglePlusAuthAlert];
                         }
                                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                              // code
                                                          }
                          ];
-                        [operation start];*/
+                        [operation start];
                         
                         self.googlePlusFullName = [person.name.givenName stringByAppendingFormat:@" %@",person.name.familyName];
-                        [self showGooglePlusAuthAlert];
                     }
                 }];
     }
@@ -244,7 +246,7 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
 -(void) showGooglePlusAuthAlert
 {
     [[[UIAlertView alloc] initWithTitle:@"You're logged in"
-                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", self.googlePlusFullName, self.googlePlusEmail, nil, self.googlePlusAccessToken]
+                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", self.googlePlusFullName, self.googlePlusEmail, self.googlePlusProfilePicture, self.googlePlusAccessToken]
                                delegate:nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
