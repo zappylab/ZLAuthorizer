@@ -172,8 +172,9 @@ static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omj
                             user:(id<FBGraphUser>)user
 {
     NSString* accessToken = FBSession.activeSession.accessTokenData.accessToken;
+    NSString* avatarURL = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", user.id];
     [[[UIAlertView alloc] initWithTitle:@"You're logged in"
-                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, access token: %@", user.name, user[@"email"], accessToken]
+                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", user.name, user[@"email"], avatarURL, accessToken]
                                delegate:nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
