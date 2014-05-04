@@ -15,11 +15,14 @@
 #import "ZLAUserInfoContainer.h"
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import "AFHTTPRequestOperation.h"
+#import "ZLADefinitions.h"
 
 /////////////////////////////////////////////////////
 
-static NSString * const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com";
-static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygpLoNYo";
+static NSString* const kGooglePlusClientId = @"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com";
+//static NSString* const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygpLoNYo";
+static NSString* const kFacebook = @"Facebook";
+static NSString* const kGooglePlus = @"Google+";
 
 /////////////////////////////////////////////////////
 
@@ -35,10 +38,20 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
 @property (readwrite) BOOL performingAuthorization;
 
 @property (strong) FBLoginView* fbLoginView;
+
+@property (strong) NSString* facebookAccessToken;
+@property (strong) NSString* facebookUserIdentifier;
+@property (strong) NSString* facebookEmail;
+@property (strong) NSString* facebookFirstName;
+@property (strong) NSString* facebookLastName;
+@property (strong) NSString* facebookProfilePictureURL;
+
 @property (strong) NSString* googlePlusAccessToken;
+@property (strong) NSString* googlePlusUserIdentifier;
 @property (strong) NSString* googlePlusEmail;
-@property (strong) NSString* googlePlusFullName;
-@property (strong) NSString* googlePlusProfilePicture;
+@property (strong) NSString* googlePlusFirstName;
+@property (strong) NSString* googlePlusLastName;
+@property (strong) NSString* googlePlusProfilePictureURL;
 
 @end
 
@@ -54,6 +67,8 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     if (self)
     {
         [self setup];
+        [self facebookSignInSetup];
+        [self googlePlusSignInSetup];
     }
 
     return self;
@@ -66,11 +81,6 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
     self.signedIn = NO;
     self.performingAuthorization = NO;
-
-    self.fbLoginView = [[FBLoginView alloc] init];
-    self.fbLoginView.delegate = self;
-
-    [self googlePlusSignInSetup];
 }
 
 -(void) googlePlusSignInSetup
@@ -80,9 +90,14 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     signIn.shouldFetchGoogleUserEmail = YES;
     signIn.clientID = kGooglePlusClientId;
     signIn.scopes = @[ @"profile" ];
-    // Optional: declare signIn.actions, see "app activities"
     signIn.delegate = self;
     [signIn trySilentAuthentication];
+}
+
+-(void) facebookSignInSetup
+{
+    self.fbLoginView = [[FBLoginView alloc] init];
+    self.fbLoginView.delegate = self;
 }
 
 #pragma mark - Accessors
@@ -167,86 +182,94 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
     }];
 }
 
--(void) performFacebookAuthorizationWithAppIdKey:(NSString *) appId
-                                 completionBlock:(void (^)(BOOL success)) completionBlock
-{
-
-}
-
 #pragma mark - Facebook login protocol
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user
 {
-    NSString* accessToken = FBSession.activeSession.accessTokenData.accessToken;
-    NSString* avatarURL = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", user.id];
-    [[[UIAlertView alloc] initWithTitle:@"You're logged in"
-                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", user.name, user[@"email"], avatarURL, accessToken]
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
-}
+    self.facebookAccessToken = FBSession.activeSession.accessTokenData.accessToken;
+    self.facebookUserIdentifier = user.id;
+    self.facebookEmail = user[@"email"];
+    self.facebookFirstName = user[@"first_name"];
+    self.facebookLastName = user[@"last_name"];
+    self.facebookProfilePictureURL = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", user.id];
 
+    [self performAuthorizationRequestWithParameters:[self buildRequestParametersForSocialNetwork:kFacebook]];
+}
 
 #pragma mark - Google+ sign in protocol
 
 -(void)finishedWithAuth: (GTMOAuth2Authentication *)auth
                   error: (NSError *) error
 {
-    if (error) {
-        NSLog(@"Received error %@ and auth object %@",error, auth);
-    }
-    else {
+    if (!error) {
         self.googlePlusAccessToken = auth.accessToken;
         self.googlePlusEmail = [GPPSignIn sharedInstance].authentication.userEmail;
-        
+
         GTLServicePlus* plusService = [[GTLServicePlus alloc] init];
         plusService.retryEnabled = YES;
         [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
         GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
-        
+
         plusService.apiVersion = @"v1";
         [plusService executeQuery:query
-                completionHandler:^(GTLServiceTicket *ticket,
-                                    GTLPlusPerson *person,
-                                    NSError *error) {
-                    if (error) {
-                        //Handle Error
-                    }
-                    else {
-                        
+                completionHandler:^(GTLServiceTicket* ticket,
+                        GTLPlusPerson* person,
+                        NSError* error) {
+                    if (!error) {
+                        self.googlePlusUserIdentifier = person.identifier;
+                        NSURL* urlForProfilePictureRequest = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://picasaweb.google.com/data/entry/api/user/%@?alt=json",person.identifier]];
 
- NSURL *urlForProfilePictureRequest = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://picasaweb.google.com/data/entry/api/user/%@?alt=json",person.identifier]];
-                        
-                        NSURLRequest *request = [NSURLRequest requestWithURL:urlForProfilePictureRequest];
-                        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]
-                                                             initWithRequest:request];
-                        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation
-                                                                   , id responseObject) {
+                        NSURLRequest* request = [NSURLRequest requestWithURL:urlForProfilePictureRequest];
+                        AFHTTPRequestOperation* operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation* operation, id responseObject) {
 
-                            NSDictionary* response = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                     options:NSJSONReadingMutableContainers
-                                                                                       error:nil];
-                            
-                            self.googlePlusProfilePicture = response[@"entry"][@"gphoto$thumbnail"][@"$t"];
-                            [self showGooglePlusAuthAlert];
+                            self.googlePlusProfilePictureURL = [self getGooglePlusProfilePictureFromJSON:responseObject];
+
+                            [self performAuthorizationRequestWithParameters:[self buildRequestParametersForSocialNetwork:kGooglePlus]];
                         }
                                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                             // code
                                                          }
-                         ];
+                        ];
                         [operation start];
-                        
-                        self.googlePlusFullName = [person.name.givenName stringByAppendingFormat:@" %@",person.name.familyName];
+
+                        self.googlePlusFirstName = person.name.givenName;
+                        self.googlePlusLastName = person.name.familyName;
                     }
                 }];
     }
 }
 
--(void) showGooglePlusAuthAlert
+-(NSString *) getGooglePlusProfilePictureFromJSON:(id) responseObject
 {
-    [[[UIAlertView alloc] initWithTitle:@"You're logged in"
-                                message:[NSString stringWithFormat:@"Your name is %@, e-mail: %@, avatar URL: %@, access token: %@", self.googlePlusFullName, self.googlePlusEmail, self.googlePlusProfilePicture, self.googlePlusAccessToken]
+    NSDictionary* response = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+    return response[@"entry"][@"gphoto$thumbnail"][@"$t"];
+}
+
+-(void) showAuthAlertForSocialNetwork:(NSString *) socialNetworkName
+{
+    NSString* message = nil;
+    if (socialNetworkName == kFacebook) {
+        message = [NSString stringWithFormat:@"Your name is %@ %@, e-mail: %@, avatar URL: %@, access token: %@",
+                                             self.facebookFirstName,
+                                             self.facebookLastName,
+                                             self.facebookEmail,
+                                             self.facebookProfilePictureURL,
+                                             self.facebookAccessToken];
+    }
+    else if (socialNetworkName == kGooglePlus) {
+        message = [NSString stringWithFormat:@"Your name is %@ %@, e-mail: %@, avatar URL: %@, access token: %@",
+                                             self.googlePlusFirstName,
+                                             self.googlePlusLastName,
+                                             self.googlePlusEmail,
+                                             self.googlePlusProfilePictureURL,
+                                             self.googlePlusAccessToken];
+    }
+    
+    [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"You're logged in with %@", socialNetworkName]
+                                message:message
                                delegate:nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
@@ -254,15 +277,64 @@ static NSString * const kGooglePlusAPIkey = @"AIzaSyDVPAzVk-foSqpd3Mz7IfKbxnTygp
 
 #pragma mark - Google+ sign in delegate
 
-- (BOOL)application: (UIApplication *)application
-            openURL: (NSURL *)url
-  sourceApplication: (NSString *)sourceApplication
-         annotation: (id)annotation
+-(BOOL)application: (UIApplication *)application
+           openURL: (NSURL *)url
+ sourceApplication: (NSString *)sourceApplication
+        annotation: (id)annotation
 {
     return [GPPURLHandler handleURL:url
                   sourceApplication:sourceApplication
                          annotation:annotation];
 }
+
+#pragma mark - authorization request
+
+-(NSDictionary *) buildRequestParametersForSocialNetwork:(NSString *) socialNetwork
+{
+    NSMutableDictionary* parameters = nil;
+
+    if (socialNetwork == kFacebook) {
+        parameters = [@{kZLAFirstNameKey        : self.facebookFirstName,
+                        kZLALastNameKey         : self.facebookLastName,
+                        kZLAProfilePictureKey   : self.facebookProfilePictureURL,
+                        kZLAFacebookUserNameKey : self.facebookUserIdentifier,
+                        kZLAUserNameKey         : self.facebookEmail} mutableCopy];
+    }
+    else if (socialNetwork == kGooglePlus) {
+        parameters = [@{kZLAFirstNameKey            : self.googlePlusFirstName,
+                        kZLALastNameKey             : self.googlePlusLastName,
+                        kZLAProfilePictureKey       : self.googlePlusProfilePictureURL,
+                        kZLAGooglePlusUserNameKey   : self.googlePlusUserIdentifier,
+                        kZLAUserNameKey             : self.googlePlusEmail} mutableCopy];
+    }
+
+    return parameters;
+}
+
+-(void) performAuthorizationRequestWithParameters:(NSDictionary *) parameters
+{
+    [self.requestsPerformer POST:kZLALoginRequestPath
+                      parameters:parameters
+               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
+               {
+                   if (success) {
+                       if (parameters[kZLAFacebookUserNameKey]) {
+                           [self showAuthAlertForSocialNetwork:kFacebook];
+                       }
+                       else if (parameters[kZLAGooglePlusUserNameKey]) {
+                           [self showAuthAlertForSocialNetwork:kGooglePlus];
+                       }
+                   }
+                   else {
+                       [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                   message:@"You're not signed in"
+                                                  delegate:nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil] show];
+                   }
+               }];
+}
+
 
 -(void) signOut
 {

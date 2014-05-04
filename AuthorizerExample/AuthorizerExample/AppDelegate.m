@@ -91,10 +91,12 @@
                                         state:state
                                         error:error];
          }];
-        result = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+        result = [FBAppCall handleOpenURL:url
+                        sourceApplication:sourceApplication];
     }
     else {
-        result = [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+        result = [GPPURLHandler handleURL:url
+                        sourceApplication:sourceApplication annotation:annotation];
     }
     
     return result;
