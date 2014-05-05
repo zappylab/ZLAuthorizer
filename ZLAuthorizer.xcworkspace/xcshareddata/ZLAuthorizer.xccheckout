@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>972EF54F-732B-46D9-AD56-AAFC94FE918D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ZLAuthorizer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</key>
+		<string>ssh://github.com/zappylab/ZLAuthorizer.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ZLAuthorizer.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/zappylab/ZLAuthorizer.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ZLAuthorizer</string>
+		</dict>
+	</array>
+</dict>
+</plist>
