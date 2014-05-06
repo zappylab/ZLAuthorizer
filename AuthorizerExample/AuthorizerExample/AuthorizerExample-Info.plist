@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.zappylab.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.zappylab.Authorizer</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -54,7 +54,9 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>FacebookAppID</key>
-	<string>410377909099705</string>
+	<string>1484878598393456</string>
+	<key>FacebookDisplayName</key>
+	<string>ZLAuthorizer</string>
 	<key>FacebookDisplayName </key>
 	<string>Bench Tools </string>
 	<key>LSApplicationCategoryType</key>

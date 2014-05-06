@@ -7,16 +7,14 @@
 
 #import <Foundation/Foundation.h>
 #import <GooglePlus/GooglePlus.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 /////////////////////////////////////////////////////
 
 @class ZLAUserInfoContainer;
-@class GPPSignInButton;
 
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer : NSObject <GPPSignInDelegate, FBLoginViewDelegate>
+@interface ZLAAuthorizer : NSObject
 
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
@@ -33,6 +31,11 @@
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
                               completionBlock:(void (^)(BOOL success)) completionBlock;
+
+-(void) performFacebookAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock;
+
+-(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
+                                   completionBlock:(void (^)(BOOL success)) completionBlock;
 
 -(void) signOut;
 

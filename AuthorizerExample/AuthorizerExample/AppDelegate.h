@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "ZLAAppDelegate.h"
+
+/////////////////////////////////////////////////////
+
+@interface AppDelegate : ZLAAppDelegate
 
 @property (strong, nonatomic) UIWindow *window;
 
--(void)sessionStateChanged:(FBSession *)session
-                     state:(FBSessionState)state
-                     error:(NSError *)error;
 @end
+
+/////////////////////////////////////////////////////

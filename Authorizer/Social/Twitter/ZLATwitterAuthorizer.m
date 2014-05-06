@@ -11,7 +11,7 @@
 
 #import "ZLATwitterAuthorizer.h"
 #import "ZLATwitterAPIRequestsPerformer.h"
-#import "ZLATwitterAuthorizationRequester.h"
+#import "ZLASocialAuthorizationRequester.h"
 #import "ZLATwitterAccountsAccessor.h"
 #import "ZLACredentialsStorage.h"
 #import "ZLADefinitions.h"
@@ -38,7 +38,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 @interface ZLATwitterAuthorizer () < UIActionSheetDelegate >
 
 @property (strong) ZLATwitterAPIRequestsPerformer *twitterAPIRequester;
-@property (strong) ZLATwitterAuthorizationRequester *requester;
+@property (strong) ZLASocialAuthorizationRequester *requester;
 @property (strong) ZLATwitterAccountsAccessor *accountsAccessor;
 
 @property (strong) NSString *accessToken;
@@ -82,8 +82,7 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 -(void) setupWithRequestsPerformer:(ZLARequestsPerformer *) requestsPerformer
 {
     self.twitterAPIRequester = [[ZLATwitterAPIRequestsPerformer alloc] init];
-    self.requester = [[ZLATwitterAuthorizationRequester alloc] init];
-    self.requester.requestsPerformer = requestsPerformer;
+    self.requester = [[ZLASocialAuthorizationRequester alloc] initWithRequestsPerformer:requestsPerformer];
     self.accountsAccessor = [[ZLATwitterAccountsAccessor alloc] init];
 }
 
@@ -311,20 +310,22 @@ static NSString *const kZLATwitterAuthorizerResponseKey = @"response";
 {
     BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
 
-    [self.requester performLoginWithTwitterUserName:self.twitterUserName
-                                        accessToken:self.accessToken
-                                          firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]
-                                           lastName:[ZLAUserInfoContainer lastNameOfFullName:self.fullUserName]
-                              profilePictureAddress:self.profilePictureAddress
-                                    completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
-                                    {
-                                        if (authorizationSuccess) {
-                                            [self handleLoginSuccess];
-                                        }
+    [self.requester performLoginWithSocialNetworkIdentifier:nil
+                                             userIdentifier:self.twitterUserName
+                                                accessToken:self.accessToken
+                                                  firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]
+                                                   lastName:[ZLAUserInfoContainer lastNameOfFullName:self.fullUserName]
+                                      profilePictureAddress:self.profilePictureAddress
+                                            completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
+                                            {
+                                                if (authorizationSuccess)
+                                                {
+                                                    [self handleLoginSuccess];
+                                                }
 
-                                        [taskCompletionSource setResult:[self loginResultWithSuccess:authorizationSuccess
-                                                                                            response:authorizationResponse]];
-                                    }];
+                                                [taskCompletionSource setResult:[self loginResultWithSuccess:authorizationSuccess
+                                                                                                    response:authorizationResponse]];
+                                            }];
 
     return taskCompletionSource.task;
 }

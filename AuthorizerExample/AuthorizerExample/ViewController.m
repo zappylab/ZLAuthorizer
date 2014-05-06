@@ -7,11 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "AppDelegate.h"
 
 #import "ZLAAuthorizer.h"
 
-@interface ViewController () < UIAlertViewDelegate >
+@interface ViewController () <UIAlertViewDelegate>
 
 @property (strong) ZLAAuthorizer *authorizer;
 
@@ -33,7 +32,7 @@
                                                                   delegate:nil
                                                          cancelButtonTitle:@"Cancel"
                                                          otherButtonTitles:@"Go",
-                                         nil];
+                                                                           nil];
     credentialsAlertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     credentialsAlertView.delegate = self;
     [credentialsAlertView show];
@@ -49,44 +48,31 @@
                                            }];
 }
 
-- (IBAction)facebookAuthTapped
+-(IBAction) facebookAuthTapped
 {
-    if  (!(FBSession.activeSession.state == FBSessionStateOpen
-        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended)) {
-        FBSession *session = [[FBSession alloc] init];
-        [FBSession setActiveSession:session];
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
-                                           allowLoginUI:YES
-                                      completionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-             
-             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-             [appDelegate sessionStateChanged:session
-                                        state:state
-                                        error:error];
-         }];
-    }
+    [self.authorizer performFacebookAuthorizationWithCompletionBlock:^(BOOL success)
+    {
+
+    }];;
 }
 
--(IBAction)facebookSignOutTapped
+-(IBAction) facebookSignOutTapped
 {
-    [FBSession.activeSession closeAndClearTokenInformation];
-    [self showSignOutAlert];
+    [self.authorizer signOut];
 }
 
--(IBAction)googlePlusSignOutTapped
+-(IBAction) googlePlucAuthTapped:(id) sender
 {
-    [[GPPSignIn sharedInstance] signOut];
-    [self showSignOutAlert];
+    [self.authorizer performGooglePlusAuthorizationWithClientId:@"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com"
+                                                completionBlock:^(BOOL success)
+                                                {
+
+                                                }];
 }
 
--(void) showSignOutAlert
+-(IBAction) googlePlusSignOutTapped
 {
-    [[[UIAlertView alloc] initWithTitle:@"Information"
-                                message:@"You're sign out"
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
+    [self.authorizer signOut];
 }
 
 #pragma mark - UIAlertViewDelegate methods

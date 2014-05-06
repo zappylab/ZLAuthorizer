@@ -31,10 +31,10 @@ static NSString *const kZLAUserIdentifierKey = @"uid";
 static NSString *const kZLAUserEmailKey = @"email";
 
 static NSString *const kZLATwitterUserNameKey = @"twitter";
-static NSString *const kZLATwitterAccessTokenKey = @"token";
+static NSString *const kZLAOauthAccessTokenKey = @"token";
 
-static NSString *const kZLAFacebookUserNameKey = @"facebook";
-static NSString *const kZLAGooglePlusUserNameKey = @"googleplus";
+static NSString *const kZLASocialNetworkFacebook = @"facebook";
+static NSString *const kZLASocialNetworkGooglePlus = @"googleplus";
 
 static NSString *const kZLAAppKey = @"app";
 
