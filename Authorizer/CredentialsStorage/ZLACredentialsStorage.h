@@ -11,7 +11,9 @@
 
 typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
     ZLAAuthorizationMethodNative,
-    ZLAAuthorizationMethodTwitter
+    ZLAAuthorizationMethodTwitter,
+    ZLAAuthorizationMethodFacebook,
+    ZLAAuthorizationMethodGooglePlus
 };
 
 /////////////////////////////////////////////////////

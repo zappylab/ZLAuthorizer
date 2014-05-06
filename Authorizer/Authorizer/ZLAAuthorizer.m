@@ -18,12 +18,15 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLAAuthorizer ()
+@interface ZLAAuthorizer () {
+    __strong ZLAFacebookAuthorizer *_facebookAuthorizer;
+    __strong ZLAGooglePlusAuthorizer *_googlePlusAuthorizer;
+}
 
 @property (strong) ZLARequestsPerformer *requestsPerformer;
 @property (strong) ZLATwitterAuthorizer *twitterAuthorizer;
-@property (strong) ZLAFacebookAuthorizer *facebookAuthorizer;
-@property (strong) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
+@property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
+@property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
 @property (strong) ZLANativeAuthorizer *nativeAuthorizer;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
@@ -65,6 +68,24 @@
     NSParameterAssert(baseURL);
     self.requestsPerformer = [[ZLARequestsPerformer alloc] initWithBaseURL:baseURL];
     self.requestsPerformer.userIdentifier = self.userInfo.identifier;
+}
+
+-(ZLAFacebookAuthorizer *) facebookAuthorizer
+{
+    if (!_facebookAuthorizer) {
+        _facebookAuthorizer = [[ZLAFacebookAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _facebookAuthorizer;
+}
+
+-(ZLAGooglePlusAuthorizer *) googlePlusAuthorizer
+{
+    if (!_googlePlusAuthorizer) {
+        _googlePlusAuthorizer = [[ZLAGooglePlusAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _googlePlusAuthorizer;
 }
 
 #pragma mark - Authorization
@@ -142,10 +163,6 @@
 
 -(void) performFacebookAuthorizationWithCompletionBlock:(void (^)(BOOL success)) completionBlock
 {
-    if (!self.facebookAuthorizer) {
-        self.facebookAuthorizer = [[ZLAFacebookAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
-    }
-
     [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
     {
         [self.authorizationResponseHandler handleLoginResponse:response];
@@ -162,10 +179,6 @@
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
                                    completionBlock:(void (^)(BOOL success)) completionBlock
 {
-    if (!self.googlePlusAuthorizer) {
-        self.googlePlusAuthorizer = [[ZLAGooglePlusAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
-    }
-
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response)
                                                 {
@@ -182,6 +195,19 @@
 
 -(void) signOut
 {
+    switch ([ZLACredentialsStorage authorizationMethod]) {
+        case ZLAAuthorizationMethodFacebook:
+            [self.facebookAuthorizer signOut];
+            break;
+
+        case ZLAAuthorizationMethodGooglePlus:
+            [self.googlePlusAuthorizer signOut];
+            break;
+
+        default:
+            break;
+    }
+
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
     self.signedIn = NO;

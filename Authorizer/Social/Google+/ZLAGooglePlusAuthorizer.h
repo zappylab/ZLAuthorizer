@@ -20,6 +20,8 @@
 -(void) performAuthorizationWithClientId:(NSString *) clientId
                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
+-(void) signOut;
+
 @end
 
 /////////////////////////////////////////////////////
