@@ -66,6 +66,8 @@
 
 -(void) performAuthorizationWithCompletionBlock:(void(^)(BOOL success, NSDictionary *response)) completionBlock
 {
+    self.completionBlock = completionBlock;
+    
     if (!(FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended))
     {
@@ -87,12 +89,6 @@
                                                                       state:state
                                                                       error:error];
                                               }];
-    }
-    else
-    {
-        if (completionBlock) {
-            completionBlock(NO, nil);
-        }
     }
 }
 
