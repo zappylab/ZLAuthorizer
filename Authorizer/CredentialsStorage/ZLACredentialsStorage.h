@@ -30,11 +30,11 @@ typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
 +(NSString *) password;
 +(void) setPassword:(NSString *) password;
 
-+(NSString *) twitterUserName;
-+(void) setTwitterUserName:(NSString *) twitterUserName;
++(NSString *) socialUserIdentifier;
++(void) setSocialUserIdentifier:(NSString *) socialUserIdentifier;
 
-+(NSString *) twitterAccessToken;
-+(void) setTwitterAccessToken:(NSString *) twitterAccessTokenSecret;
++(NSString *) socialAccessToken;
++(void) setSocialAccessToken:(NSString *) socialAccessToken;
 
 +(ZLAAuthorizationMethod) authorizationMethod;
 +(void) setAuthorizationMethod:(ZLAAuthorizationMethod) method;

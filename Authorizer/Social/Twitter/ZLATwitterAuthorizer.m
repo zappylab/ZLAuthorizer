@@ -157,12 +157,12 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
-    self.twitterUserName = [ZLACredentialsStorage twitterUserName];
-    self.accessToken = [ZLACredentialsStorage twitterAccessToken];
+    self.twitterUserName = [ZLACredentialsStorage socialUserIdentifier];
+    self.accessToken = [ZLACredentialsStorage socialAccessToken];
 
     [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkTwitter
-                                             userIdentifier:[ZLACredentialsStorage twitterUserName]
-                                                accessToken:[ZLACredentialsStorage twitterAccessToken]
+                                             userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
+                                                accessToken:[ZLACredentialsStorage socialAccessToken]
                                                   firstName:@""
                                                    lastName:@""
                                       profilePictureAddress:@""
@@ -356,8 +356,8 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) handleLoginSuccess
 {
-    [ZLACredentialsStorage setTwitterUserName:self.twitterUserName];
-    [ZLACredentialsStorage setTwitterAccessToken:self.accessToken];
+    [ZLACredentialsStorage setSocialUserIdentifier:self.twitterUserName];
+    [ZLACredentialsStorage setSocialAccessToken:self.accessToken];
 }
 
 -(NSDictionary *) loginResultWithSuccess:(BOOL) success

@@ -206,6 +206,13 @@
         return;
     }
 
+    ZLAAuthorizationRequestCompletionBlock autoAuthCompletionBlock = ^(BOOL success, NSDictionary *response) {
+        [self handleAuthorizationResponse:response
+                                  success:success
+                          completionBlock:nil];
+        self.performingRequest = NO;
+    };
+
     switch ([ZLACredentialsStorage authorizationMethod])
     {
         case ZLAAuthorizationMethodNative:
@@ -213,26 +220,26 @@
             self.performingRequest = YES;
             [self.nativeAuthorizer performAuthorizationWithEmail:[ZLACredentialsStorage userEmail]
                                                         password:[ZLACredentialsStorage password]
-                                                 completionBlock:^(BOOL success, NSDictionary *response)
-                                                 {
-                                                     [self handleAuthorizationResponse:response
-                                                                               success:success
-                                                                       completionBlock:nil];
-                                                     self.performingRequest = NO;
-                                                 }];
+                                                 completionBlock:autoAuthCompletionBlock];
             break;
         }
 
         case ZLAAuthorizationMethodTwitter:
         {
             self.performingRequest = YES;
-            [self.twitterAuthorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response)
-            {
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:nil];
-                self.performingRequest = NO;
-            }];
+            [self.twitterAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
+            break;
+        }
+
+        case ZLAAuthorizationMethodFacebook: {
+            self.performingRequest = YES;
+            [self.facebookAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
+            break;
+        }
+
+        case ZLAAuthorizationMethodGooglePlus: {
+            self.performingRequest = YES;
+            [self.googlePlusAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
             break;
         }
 

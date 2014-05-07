@@ -15,8 +15,8 @@ static NSString *const ZLAKeychainUserIdentifierKey = @"identifier";
 static NSString *const ZLAKeychainUserNameKey = @"username";
 static NSString *const ZLAKeychainPasswordKey = @"password";
 
-static NSString *const ZLAKeychainTwitterUserNameKey = @"TwitterUserName";
-static NSString *const ZLAKeychainTwitterAccessTokenKey = @"TwitterAccessToken";
+static NSString *const ZLAKeychainSocialUserIdentifierKey = @"SocialUserIdentifier";
+static NSString *const ZLAKeychainSocialAccessTokenKey = @"SocialAccessToken";
 
 static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod";
 
@@ -48,8 +48,8 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
 {
     [self setUserEmail:nil];
     [self setPassword:nil];
-    [self setTwitterUserName:nil];
-    [self setTwitterAccessToken:nil];
+    [self setSocialUserIdentifier:nil];
+    [self setSocialAccessToken:nil];
     [self resetAuthorizationMethod];
 }
 
@@ -88,28 +88,28 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
                 forKey:ZLAKeychainPasswordKey];
 }
 
-#pragma mark - Twitter
+#pragma mark - Social OAuth
 
-+(NSString *) twitterUserName
++(NSString *) socialUserIdentifier
 {
-    return [Lockbox stringForKey:ZLAKeychainTwitterUserNameKey];
+    return [Lockbox stringForKey:ZLAKeychainSocialUserIdentifierKey];
 }
 
-+(void) setTwitterUserName:(NSString *) twitterUserName
++(void) setSocialUserIdentifier:(NSString *) socialUserIdentifier
 {
-    [Lockbox setString:twitterUserName
-                forKey:ZLAKeychainTwitterUserNameKey];
+    [Lockbox setString:socialUserIdentifier
+                forKey:ZLAKeychainSocialUserIdentifierKey];
 }
 
-+(NSString *) twitterAccessToken
++(NSString *) socialAccessToken
 {
-    return [Lockbox stringForKey:ZLAKeychainTwitterAccessTokenKey];
+    return [Lockbox stringForKey:ZLAKeychainSocialAccessTokenKey];
 }
 
-+(void) setTwitterAccessToken:(NSString *) twitterAccessTokenSecret
++(void) setSocialAccessToken:(NSString *) socialAccessToken
 {
-    [Lockbox setString:twitterAccessTokenSecret
-                forKey:ZLAKeychainTwitterAccessTokenKey];
+    [Lockbox setString:socialAccessToken
+                forKey:ZLAKeychainSocialAccessTokenKey];
 }
 
 #pragma mark - General

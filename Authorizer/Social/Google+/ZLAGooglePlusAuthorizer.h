@@ -6,6 +6,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -19,6 +20,8 @@
 
 -(void) performAuthorizationWithClientId:(NSString *) clientId
                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
 
 -(void) signOut;
 

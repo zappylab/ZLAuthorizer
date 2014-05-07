@@ -9,7 +9,9 @@
 #import "ZLAFacebookAuthorizer.h"
 #import "ZLASocialAuthorizationRequester.h"
 #import "ZLACredentialsStorage.h"
+
 #import "ZLAConstants.h"
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -37,7 +39,8 @@
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setupWithRequestsPerformer:requestsPerformer];
     }
 
@@ -63,7 +66,7 @@
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionBlock:(void(^)(BOOL success, NSDictionary *response)) completionBlock
+-(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     self.completionBlock = completionBlock;
 
@@ -110,6 +113,14 @@
     }
 }
 
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+{
+    self.completionBlock = completionBlock;
+    [self performLoginWithFirstName:@""
+                           lastName:@""
+              profilePictureAddress:@""];
+}
+
 -(void) signOut
 {
     [FBSession.activeSession closeAndClearTokenInformation];
@@ -121,14 +132,26 @@
                             user:(id <FBGraphUser>) user
 {
     [ZLACredentialsStorage setUserEmail:user[@"email"]];
+    [ZLACredentialsStorage setSocialAccessToken:FBSession.activeSession.accessTokenData.accessToken];
+    [ZLACredentialsStorage setSocialUserIdentifier:user.id];
 
+    [self performLoginWithFirstName:user[@"last_name"]
+                           lastName:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
+                                                               user.id]
+              profilePictureAddress:nil ];
+
+}
+
+-(void) performLoginWithFirstName:(NSString *) firstName
+                         lastName:(NSString *) lastName
+            profilePictureAddress:(NSString *) profilePictureAddress
+{
     [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkFacebook
-                                             userIdentifier:user.id
-                                                accessToken:FBSession.activeSession.accessTokenData.accessToken
-                                                  firstName:user[@"first_name"]
-                                                   lastName:user[@"last_name"]
-                                      profilePictureAddress:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
-                                                                                       user.id]
+                                             userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
+                                                accessToken:[ZLACredentialsStorage socialAccessToken]
+                                                  firstName:firstName
+                                                   lastName:lastName
+                                      profilePictureAddress:profilePictureAddress
                                             completionBlock:^(BOOL success, NSDictionary *response)
                                             {
                                                 if (self.completionBlock)
@@ -139,7 +162,6 @@
                                                 self.completionBlock = nil;
                                             }];
 }
-
 @end
 
 /////////////////////////////////////////////////////

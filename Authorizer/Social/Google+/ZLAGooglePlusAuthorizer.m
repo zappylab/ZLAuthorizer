@@ -14,6 +14,7 @@
 #import "ZLNetworkRequestsPerformer.h"
 #import "ZLACredentialsStorage.h"
 #import "ZLAConstants.h"
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -79,7 +80,7 @@
 #pragma mark - Authorization
 
 -(void) performAuthorizationWithClientId:(NSString *) clientId
-                         completionBlock:(void(^)(BOOL success, NSDictionary *response)) completionBlock
+                         completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
     NSParameterAssert(clientId);
 
@@ -162,18 +163,40 @@
 -(void) loginWithGooglePlusCredentials
 {
     [ZLACredentialsStorage setUserEmail:self.email];
+    [ZLACredentialsStorage setSocialUserIdentifier:self.userIdentifier];
+    [ZLACredentialsStorage setSocialAccessToken:self.accessToken];
 
+    [self performLoginWithFirstName:self.firstName
+                           lastName:self.lastName
+              profilePictureAddress:self.profilePictureAddress];
+}
+
+-(void) performLoginWithFirstName:(NSString *) firstName
+                         lastName:(NSString *) lastName
+            profilePictureAddress:(NSString *) profilePictureAddress
+{
     [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkGooglePlus
-                                             userIdentifier:self.userIdentifier
-                                                accessToken:self.accessToken
-                                                  firstName:self.firstName
-                                                   lastName:self.lastName
-                                      profilePictureAddress:self.profilePictureAddress
+                                             userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
+                                                accessToken:[ZLACredentialsStorage socialAccessToken]
+                                                  firstName:firstName
+                                                   lastName:lastName
+                                      profilePictureAddress:profilePictureAddress
                                             completionBlock:^(BOOL success, NSDictionary *response)
                                             {
-                                                [self executeCompletionBlockWithSuccess:success
-                                                                               response:response];
+                                                if (self.completionBlock)
+                                                {
+                                                    self.completionBlock(success, response);
+                                                }
+
+                                                self.completionBlock = nil;
                                             }];
+}
+
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+{
+    [self performLoginWithFirstName:@""
+                           lastName:@""
+              profilePictureAddress:@""];
 }
 
 @end

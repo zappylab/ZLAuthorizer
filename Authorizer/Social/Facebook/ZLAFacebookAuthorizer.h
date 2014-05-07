@@ -6,6 +6,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -18,6 +19,8 @@
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
 -(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+
 -(void) signOut;
 
 @end
