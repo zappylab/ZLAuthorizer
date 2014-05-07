@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   spec.frameworks     = 'Accounts', 'Social'
   spec.requires_arc   = true
 
-  non_arc_files = 'Authorizer/ABOAuthCore/*{h,m}'
+  non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
   spec.exclude_files = non_arc_files
   spec.subspec 'no-arc' do |subspec|
     subspec.source_files = non_arc_files
