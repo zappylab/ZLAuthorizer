@@ -36,13 +36,14 @@
 		BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */; };
 		BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */; };
 		BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */; };
+		BDE60B2A191ADDB400534088 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B27191ADDB400534088 /* FacebookSDK.framework */; };
+		BDE60B2B191ADDB400534088 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */; };
+		BDE60B2C191ADDB400534088 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B29191ADDB400534088 /* GooglePlus.framework */; };
 		C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */; };
 		C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */; };
 		C7DFE315DAEC2C31D4B1A3E8 /* ZLAUserInfoPersistentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */; };
 		C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */; };
 		C7DFEA52FDCFA017F3749B31 /* ZLAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE4009CFC8E3E176DCD3E /* ZLAAppDelegate.m */; };
-		E69D0D80190C497300AB00C6 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D7E190C497300AB00C6 /* GoogleOpenSource.framework */; };
-		E69D0D81190C497300AB00C6 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D7F190C497300AB00C6 /* GooglePlus.framework */; };
 		E69D0D87190C52B400AB00C6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D86190C52B400AB00C6 /* AddressBook.framework */; };
 		E69D0D89190C52BC00AB00C6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */; };
 		E69D0D8B190C52E800AB00C6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D8A190C52E800AB00C6 /* CoreLocation.framework */; };
@@ -51,7 +52,6 @@
 		E69D0D91190C531A00AB00C6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */; };
 		E69D0D93190C532600AB00C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D92190C532600AB00C6 /* Security.framework */; };
 		E69D0D95190C533800AB00C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */; };
-		E6DB4B27191439A900959B9C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DB4B26191439A900959B9C /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +110,114 @@
 		BDCC829E190E4D15001BDAD8 /* ZLASharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLASharedTypes.h; sourceTree = "<group>"; };
 		BDD802661901C53200C9B406 /* ZLAUserInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoContainer.h; sourceTree = "<group>"; };
 		BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoContainer.m; sourceTree = "<group>"; };
+		BDE60ABC191ADC3500534088 /* BFExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFExecutor.h; sourceTree = "<group>"; };
+		BDE60ABD191ADC3500534088 /* BFTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTask.h; sourceTree = "<group>"; };
+		BDE60ABE191ADC3500534088 /* BFTaskCompletionSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTaskCompletionSource.h; sourceTree = "<group>"; };
+		BDE60ABF191ADC3500534088 /* Bolts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bolts.h; sourceTree = "<group>"; };
+		BDE60AC0191ADC3500534088 /* BoltsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltsVersion.h; sourceTree = "<group>"; };
+		BDE60AC2191ADC3500534088 /* FacebookSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSDK.h; sourceTree = "<group>"; };
+		BDE60AC3191ADC3500534088 /* FBAccessTokenData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAccessTokenData.h; sourceTree = "<group>"; };
+		BDE60AC4191ADC3500534088 /* FBAppCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppCall.h; sourceTree = "<group>"; };
+		BDE60AC5191ADC3500534088 /* FBAppEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppEvents.h; sourceTree = "<group>"; };
+		BDE60AC6191ADC3500534088 /* FBAppLinkData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppLinkData.h; sourceTree = "<group>"; };
+		BDE60AC7191ADC3500534088 /* FBAppLinkResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppLinkResolver.h; sourceTree = "<group>"; };
+		BDE60AC8191ADC3500534088 /* FBCacheDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCacheDescriptor.h; sourceTree = "<group>"; };
+		BDE60AC9191ADC3500534088 /* FBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBColor.h; sourceTree = "<group>"; };
+		BDE60ACA191ADC3500534088 /* FBDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialogs.h; sourceTree = "<group>"; };
+		BDE60ACB191ADC3500534088 /* FBDialogsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialogsData.h; sourceTree = "<group>"; };
+		BDE60ACC191ADC3500534088 /* FBDialogsParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialogsParams.h; sourceTree = "<group>"; };
+		BDE60ACD191ADC3500534088 /* FBError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBError.h; sourceTree = "<group>"; };
+		BDE60ACE191ADC3500534088 /* FBErrorUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBErrorUtility.h; sourceTree = "<group>"; };
+		BDE60ACF191ADC3500534088 /* FBFrictionlessRecipientCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRecipientCache.h; sourceTree = "<group>"; };
+		BDE60AD0191ADC3500534088 /* FBFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFriendPickerViewController.h; sourceTree = "<group>"; };
+		BDE60AD1191ADC3500534088 /* FBGraphLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphLocation.h; sourceTree = "<group>"; };
+		BDE60AD2191ADC3500534088 /* FBGraphObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphObject.h; sourceTree = "<group>"; };
+		BDE60AD3191ADC3500534088 /* FBGraphPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphPlace.h; sourceTree = "<group>"; };
+		BDE60AD4191ADC3500534088 /* FBGraphUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphUser.h; sourceTree = "<group>"; };
+		BDE60AD5191ADC3500534088 /* FBInsights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBInsights.h; sourceTree = "<group>"; };
+		BDE60AD6191ADC3500534088 /* FBLikeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLikeControl.h; sourceTree = "<group>"; };
+		BDE60AD7191ADC3500534088 /* FBLinkShareParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLinkShareParams.h; sourceTree = "<group>"; };
+		BDE60AD8191ADC3500534088 /* FBLoginTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginTooltipView.h; sourceTree = "<group>"; };
+		BDE60AD9191ADC3500534088 /* FBLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginView.h; sourceTree = "<group>"; };
+		BDE60ADA191ADC3500534088 /* FBNativeDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNativeDialogs.h; sourceTree = "<group>"; };
+		BDE60ADB191ADC3500534088 /* FBOpenGraphAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOpenGraphAction.h; sourceTree = "<group>"; };
+		BDE60ADC191ADC3500534088 /* FBOpenGraphActionParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOpenGraphActionParams.h; sourceTree = "<group>"; };
+		BDE60ADD191ADC3500534088 /* FBOpenGraphActionShareDialogParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOpenGraphActionShareDialogParams.h; sourceTree = "<group>"; };
+		BDE60ADE191ADC3500534088 /* FBOpenGraphObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOpenGraphObject.h; sourceTree = "<group>"; };
+		BDE60ADF191ADC3500534088 /* FBPhotoParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBPhotoParams.h; sourceTree = "<group>"; };
+		BDE60AE0191ADC3500534088 /* FBPlacePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBPlacePickerViewController.h; sourceTree = "<group>"; };
+		BDE60AE1191ADC3500534088 /* FBProfilePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProfilePictureView.h; sourceTree = "<group>"; };
+		BDE60AE2191ADC3500534088 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
+		BDE60AE3191ADC3500534088 /* FBRequestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequestConnection.h; sourceTree = "<group>"; };
+		BDE60AE4191ADC3500534088 /* FBSDKMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSDKMacros.h; sourceTree = "<group>"; };
+		BDE60AE5191ADC3500534088 /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
+		BDE60AE6191ADC3500534088 /* FBSessionTokenCachingStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSessionTokenCachingStrategy.h; sourceTree = "<group>"; };
+		BDE60AE7191ADC3500534088 /* FBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSettings.h; sourceTree = "<group>"; };
+		BDE60AE8191ADC3500534088 /* FBShareDialogParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShareDialogParams.h; sourceTree = "<group>"; };
+		BDE60AE9191ADC3500534088 /* FBShareDialogPhotoParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShareDialogPhotoParams.h; sourceTree = "<group>"; };
+		BDE60AEA191ADC3500534088 /* FBTestSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTestSession.h; sourceTree = "<group>"; };
+		BDE60AEB191ADC3500534088 /* FBTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTooltipView.h; sourceTree = "<group>"; };
+		BDE60AEC191ADC3500534088 /* FBUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUserSettingsViewController.h; sourceTree = "<group>"; };
+		BDE60AED191ADC3500534088 /* FBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBViewController.h; sourceTree = "<group>"; };
+		BDE60AEE191ADC3500534088 /* FBWebDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWebDialogs.h; sourceTree = "<group>"; };
+		BDE60AEF191ADC3500534088 /* NSError+FBError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+FBError.h"; sourceTree = "<group>"; };
+		BDE60AF1191ADC3500534088 /* GoogleOpenSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleOpenSource.h; sourceTree = "<group>"; };
+		BDE60AF2191ADC3500534088 /* GooglePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlus.h; sourceTree = "<group>"; };
+		BDE60AF3191ADC3500534088 /* GPPDeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPDeepLink.h; sourceTree = "<group>"; };
+		BDE60AF4191ADC3500534088 /* GPPShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPShare.h; sourceTree = "<group>"; };
+		BDE60AF5191ADC3500534088 /* GPPSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPSignIn.h; sourceTree = "<group>"; };
+		BDE60AF6191ADC3500534088 /* GPPSignInButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPSignInButton.h; sourceTree = "<group>"; };
+		BDE60AF7191ADC3500534088 /* GPPURLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPURLHandler.h; sourceTree = "<group>"; };
+		BDE60AF8191ADC3500534088 /* GTLBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBase64.h; sourceTree = "<group>"; };
+		BDE60AF9191ADC3500534088 /* GTLBatchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBatchQuery.h; sourceTree = "<group>"; };
+		BDE60AFA191ADC3500534088 /* GTLBatchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBatchResult.h; sourceTree = "<group>"; };
+		BDE60AFB191ADC3500534088 /* GTLDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDateTime.h; sourceTree = "<group>"; };
+		BDE60AFC191ADC3500534088 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDefines.h; sourceTree = "<group>"; };
+		BDE60AFD191ADC3500534088 /* GTLErrorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLErrorObject.h; sourceTree = "<group>"; };
+		BDE60AFE191ADC3500534088 /* GTLFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLFramework.h; sourceTree = "<group>"; };
+		BDE60AFF191ADC3500534088 /* GTLJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLJSONParser.h; sourceTree = "<group>"; };
+		BDE60B00191ADC3500534088 /* GTLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLObject.h; sourceTree = "<group>"; };
+		BDE60B01191ADC3500534088 /* GTLPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlus.h; sourceTree = "<group>"; };
+		BDE60B02191ADC3500534088 /* GTLPlusAcl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusAcl.h; sourceTree = "<group>"; };
+		BDE60B03191ADC3500534088 /* GTLPlusAclentryResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusAclentryResource.h; sourceTree = "<group>"; };
+		BDE60B04191ADC3500534088 /* GTLPlusActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusActivity.h; sourceTree = "<group>"; };
+		BDE60B05191ADC3500534088 /* GTLPlusActivityFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusActivityFeed.h; sourceTree = "<group>"; };
+		BDE60B06191ADC3500534088 /* GTLPlusComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusComment.h; sourceTree = "<group>"; };
+		BDE60B07191ADC3500534088 /* GTLPlusCommentFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusCommentFeed.h; sourceTree = "<group>"; };
+		BDE60B08191ADC3500534088 /* GTLPlusConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusConstants.h; sourceTree = "<group>"; };
+		BDE60B09191ADC3500534088 /* GTLPlusItemScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusItemScope.h; sourceTree = "<group>"; };
+		BDE60B0A191ADC3500534088 /* GTLPlusMoment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusMoment.h; sourceTree = "<group>"; };
+		BDE60B0B191ADC3500534088 /* GTLPlusMomentsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusMomentsFeed.h; sourceTree = "<group>"; };
+		BDE60B0C191ADC3500534088 /* GTLPlusPeopleFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusPeopleFeed.h; sourceTree = "<group>"; };
+		BDE60B0D191ADC3500534088 /* GTLPlusPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusPerson.h; sourceTree = "<group>"; };
+		BDE60B0E191ADC3500534088 /* GTLPlusPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLPlusPlace.h; sourceTree = "<group>"; };
+		BDE60B0F191ADC3500534088 /* GTLQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQuery.h; sourceTree = "<group>"; };
+		BDE60B10191ADC3500534088 /* GTLQueryPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryPlus.h; sourceTree = "<group>"; };
+		BDE60B11191ADC3500534088 /* GTLRuntimeCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRuntimeCommon.h; sourceTree = "<group>"; };
+		BDE60B12191ADC3500534088 /* GTLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLService.h; sourceTree = "<group>"; };
+		BDE60B13191ADC3500534088 /* GTLServicePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServicePlus.h; sourceTree = "<group>"; };
+		BDE60B14191ADC3500534088 /* GTLTargetNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTargetNamespace.h; sourceTree = "<group>"; };
+		BDE60B15191ADC3500534088 /* GTLUploadParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLUploadParameters.h; sourceTree = "<group>"; };
+		BDE60B16191ADC3500534088 /* GTLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLUtilities.h; sourceTree = "<group>"; };
+		BDE60B17191ADC3500534088 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		BDE60B18191ADC3500534088 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		BDE60B19191ADC3500534088 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
+		BDE60B1A191ADC3500534088 /* GTMHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogging.h; sourceTree = "<group>"; };
+		BDE60B1B191ADC3500534088 /* GTMHTTPFetcherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherService.h; sourceTree = "<group>"; };
+		BDE60B1C191ADC3500534088 /* GTMHTTPFetchHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetchHistory.h; sourceTree = "<group>"; };
+		BDE60B1D191ADC3500534088 /* GTMHTTPUploadFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPUploadFetcher.h; sourceTree = "<group>"; };
+		BDE60B1E191ADC3500534088 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLogger.h; sourceTree = "<group>"; };
+		BDE60B1F191ADC3500534088 /* GTMMethodCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMMethodCheck.h; sourceTree = "<group>"; };
+		BDE60B20191ADC3500534088 /* GTMNSDictionary+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSDictionary+URLArguments.h"; sourceTree = "<group>"; };
+		BDE60B21191ADC3500534088 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
+		BDE60B22191ADC3500534088 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
+		BDE60B23191ADC3500534088 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
+		BDE60B24191ADC3500534088 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
+		BDE60B25191ADC3500534088 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		BDE60B26191ADC3500534088 /* OpenInChromeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInChromeController.h; sourceTree = "<group>"; };
+		BDE60B27191ADDB400534088 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../Authorizer/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = ../Authorizer/Frameworks/GoogleOpenSource.framework; sourceTree = "<group>"; };
+		BDE60B29191ADDB400534088 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = ../Authorizer/Frameworks/GooglePlus.framework; sourceTree = "<group>"; };
 		C7DFE01DFD2A0A56D97C8BD3 /* ZLAUserInfoPersistentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoPersistentStore.h; sourceTree = "<group>"; };
 		C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAccountInfoUpdater.m; sourceTree = "<group>"; };
 		C7DFE36D63A8F92817A0CD8E /* ZLAUserInfoValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoValidator.h; sourceTree = "<group>"; };
@@ -121,8 +229,6 @@
 		C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAppDelegate.h; sourceTree = "<group>"; };
 		C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAConcreteAuthorizer.h; sourceTree = "<group>"; };
 		C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoValidator.m; sourceTree = "<group>"; };
-		E69D0D7E190C497300AB00C6 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
-		E69D0D7F190C497300AB00C6 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
 		E69D0D86190C52B400AB00C6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E69D0D8A190C52E800AB00C6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -131,7 +237,6 @@
 		E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		E69D0D92190C532600AB00C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E6DB4B26191439A900959B9C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E6DB4B2B19143AE600959B9C /* BFExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFExecutor.h; sourceTree = "<group>"; };
 		E6DB4B2C19143AE600959B9C /* BFTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTask.h; sourceTree = "<group>"; };
 		E6DB4B2D19143AE600959B9C /* BFTaskCompletionSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTaskCompletionSource.h; sourceTree = "<group>"; };
@@ -145,6 +250,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE60B2A191ADDB400534088 /* FacebookSDK.framework in Frameworks */,
+				BDE60B2B191ADDB400534088 /* GoogleOpenSource.framework in Frameworks */,
+				BDE60B2C191ADDB400534088 /* GooglePlus.framework in Frameworks */,
 				E69D0D95190C533800AB00C6 /* SystemConfiguration.framework in Frameworks */,
 				E69D0D93190C532600AB00C6 /* Security.framework in Frameworks */,
 				E69D0D91190C531A00AB00C6 /* MediaPlayer.framework in Frameworks */,
@@ -154,9 +262,6 @@
 				E69D0D8B190C52E800AB00C6 /* CoreLocation.framework in Frameworks */,
 				E69D0D89190C52BC00AB00C6 /* AssetsLibrary.framework in Frameworks */,
 				E69D0D87190C52B400AB00C6 /* AddressBook.framework in Frameworks */,
-				E69D0D80190C497300AB00C6 /* GoogleOpenSource.framework in Frameworks */,
-				E69D0D81190C497300AB00C6 /* GooglePlus.framework in Frameworks */,
-				E6DB4B27191439A900959B9C /* FacebookSDK.framework in Frameworks */,
 				BD46902319006D53003EEC0E /* UIKit.framework in Frameworks */,
 				BD46901F19006D53003EEC0E /* Foundation.framework in Frameworks */,
 				92252B5810EC479B8C7A55C2 /* libPods.a in Frameworks */,
@@ -298,7 +403,9 @@
 		BD46901D19006D53003EEC0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E6DB4B26191439A900959B9C /* FacebookSDK.framework */,
+				BDE60B27191ADDB400534088 /* FacebookSDK.framework */,
+				BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */,
+				BDE60B29191ADDB400534088 /* GooglePlus.framework */,
 				E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */,
 				E69D0D92190C532600AB00C6 /* Security.framework */,
 				E69D0D90190C531A00AB00C6 /* MediaPlayer.framework */,
@@ -307,8 +414,6 @@
 				E69D0D8A190C52E800AB00C6 /* CoreLocation.framework */,
 				E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */,
 				E69D0D86190C52B400AB00C6 /* AddressBook.framework */,
-				E69D0D7E190C497300AB00C6 /* GoogleOpenSource.framework */,
-				E69D0D7F190C497300AB00C6 /* GooglePlus.framework */,
 				BD46901E19006D53003EEC0E /* Foundation.framework */,
 				BD46902019006D53003EEC0E /* CoreGraphics.framework */,
 				BD46902219006D53003EEC0E /* UIKit.framework */,
@@ -346,6 +451,7 @@
 		BDA78E12190071E1001484C5 /* Authorizer */ = {
 			isa = PBXGroup;
 			children = (
+				BDE60ABA191ADC3500534088 /* Pods Headers */,
 				BD3D2A33191AB9A10078C879 /* Authorization */,
 				BD1836C81912D91C00D8C129 /* Device identifier */,
 				BD1836B51912A0FA00D8C129 /* Account info updates */,
@@ -410,6 +516,142 @@
 				C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		BDE60ABA191ADC3500534088 /* Pods Headers */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60ABB191ADC3500534088 /* BoltsHeaders */,
+				BDE60AC1191ADC3500534088 /* Facebook */,
+				BDE60AF0191ADC3500534088 /* Google */,
+			);
+			path = "Pods Headers";
+			sourceTree = "<group>";
+		};
+		BDE60ABB191ADC3500534088 /* BoltsHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60ABC191ADC3500534088 /* BFExecutor.h */,
+				BDE60ABD191ADC3500534088 /* BFTask.h */,
+				BDE60ABE191ADC3500534088 /* BFTaskCompletionSource.h */,
+				BDE60ABF191ADC3500534088 /* Bolts.h */,
+				BDE60AC0191ADC3500534088 /* BoltsVersion.h */,
+			);
+			path = BoltsHeaders;
+			sourceTree = "<group>";
+		};
+		BDE60AC1191ADC3500534088 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60AC2191ADC3500534088 /* FacebookSDK.h */,
+				BDE60AC3191ADC3500534088 /* FBAccessTokenData.h */,
+				BDE60AC4191ADC3500534088 /* FBAppCall.h */,
+				BDE60AC5191ADC3500534088 /* FBAppEvents.h */,
+				BDE60AC6191ADC3500534088 /* FBAppLinkData.h */,
+				BDE60AC7191ADC3500534088 /* FBAppLinkResolver.h */,
+				BDE60AC8191ADC3500534088 /* FBCacheDescriptor.h */,
+				BDE60AC9191ADC3500534088 /* FBColor.h */,
+				BDE60ACA191ADC3500534088 /* FBDialogs.h */,
+				BDE60ACB191ADC3500534088 /* FBDialogsData.h */,
+				BDE60ACC191ADC3500534088 /* FBDialogsParams.h */,
+				BDE60ACD191ADC3500534088 /* FBError.h */,
+				BDE60ACE191ADC3500534088 /* FBErrorUtility.h */,
+				BDE60ACF191ADC3500534088 /* FBFrictionlessRecipientCache.h */,
+				BDE60AD0191ADC3500534088 /* FBFriendPickerViewController.h */,
+				BDE60AD1191ADC3500534088 /* FBGraphLocation.h */,
+				BDE60AD2191ADC3500534088 /* FBGraphObject.h */,
+				BDE60AD3191ADC3500534088 /* FBGraphPlace.h */,
+				BDE60AD4191ADC3500534088 /* FBGraphUser.h */,
+				BDE60AD5191ADC3500534088 /* FBInsights.h */,
+				BDE60AD6191ADC3500534088 /* FBLikeControl.h */,
+				BDE60AD7191ADC3500534088 /* FBLinkShareParams.h */,
+				BDE60AD8191ADC3500534088 /* FBLoginTooltipView.h */,
+				BDE60AD9191ADC3500534088 /* FBLoginView.h */,
+				BDE60ADA191ADC3500534088 /* FBNativeDialogs.h */,
+				BDE60ADB191ADC3500534088 /* FBOpenGraphAction.h */,
+				BDE60ADC191ADC3500534088 /* FBOpenGraphActionParams.h */,
+				BDE60ADD191ADC3500534088 /* FBOpenGraphActionShareDialogParams.h */,
+				BDE60ADE191ADC3500534088 /* FBOpenGraphObject.h */,
+				BDE60ADF191ADC3500534088 /* FBPhotoParams.h */,
+				BDE60AE0191ADC3500534088 /* FBPlacePickerViewController.h */,
+				BDE60AE1191ADC3500534088 /* FBProfilePictureView.h */,
+				BDE60AE2191ADC3500534088 /* FBRequest.h */,
+				BDE60AE3191ADC3500534088 /* FBRequestConnection.h */,
+				BDE60AE4191ADC3500534088 /* FBSDKMacros.h */,
+				BDE60AE5191ADC3500534088 /* FBSession.h */,
+				BDE60AE6191ADC3500534088 /* FBSessionTokenCachingStrategy.h */,
+				BDE60AE7191ADC3500534088 /* FBSettings.h */,
+				BDE60AE8191ADC3500534088 /* FBShareDialogParams.h */,
+				BDE60AE9191ADC3500534088 /* FBShareDialogPhotoParams.h */,
+				BDE60AEA191ADC3500534088 /* FBTestSession.h */,
+				BDE60AEB191ADC3500534088 /* FBTooltipView.h */,
+				BDE60AEC191ADC3500534088 /* FBUserSettingsViewController.h */,
+				BDE60AED191ADC3500534088 /* FBViewController.h */,
+				BDE60AEE191ADC3500534088 /* FBWebDialogs.h */,
+				BDE60AEF191ADC3500534088 /* NSError+FBError.h */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		BDE60AF0191ADC3500534088 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60AF1191ADC3500534088 /* GoogleOpenSource.h */,
+				BDE60AF2191ADC3500534088 /* GooglePlus.h */,
+				BDE60AF3191ADC3500534088 /* GPPDeepLink.h */,
+				BDE60AF4191ADC3500534088 /* GPPShare.h */,
+				BDE60AF5191ADC3500534088 /* GPPSignIn.h */,
+				BDE60AF6191ADC3500534088 /* GPPSignInButton.h */,
+				BDE60AF7191ADC3500534088 /* GPPURLHandler.h */,
+				BDE60AF8191ADC3500534088 /* GTLBase64.h */,
+				BDE60AF9191ADC3500534088 /* GTLBatchQuery.h */,
+				BDE60AFA191ADC3500534088 /* GTLBatchResult.h */,
+				BDE60AFB191ADC3500534088 /* GTLDateTime.h */,
+				BDE60AFC191ADC3500534088 /* GTLDefines.h */,
+				BDE60AFD191ADC3500534088 /* GTLErrorObject.h */,
+				BDE60AFE191ADC3500534088 /* GTLFramework.h */,
+				BDE60AFF191ADC3500534088 /* GTLJSONParser.h */,
+				BDE60B00191ADC3500534088 /* GTLObject.h */,
+				BDE60B01191ADC3500534088 /* GTLPlus.h */,
+				BDE60B02191ADC3500534088 /* GTLPlusAcl.h */,
+				BDE60B03191ADC3500534088 /* GTLPlusAclentryResource.h */,
+				BDE60B04191ADC3500534088 /* GTLPlusActivity.h */,
+				BDE60B05191ADC3500534088 /* GTLPlusActivityFeed.h */,
+				BDE60B06191ADC3500534088 /* GTLPlusComment.h */,
+				BDE60B07191ADC3500534088 /* GTLPlusCommentFeed.h */,
+				BDE60B08191ADC3500534088 /* GTLPlusConstants.h */,
+				BDE60B09191ADC3500534088 /* GTLPlusItemScope.h */,
+				BDE60B0A191ADC3500534088 /* GTLPlusMoment.h */,
+				BDE60B0B191ADC3500534088 /* GTLPlusMomentsFeed.h */,
+				BDE60B0C191ADC3500534088 /* GTLPlusPeopleFeed.h */,
+				BDE60B0D191ADC3500534088 /* GTLPlusPerson.h */,
+				BDE60B0E191ADC3500534088 /* GTLPlusPlace.h */,
+				BDE60B0F191ADC3500534088 /* GTLQuery.h */,
+				BDE60B10191ADC3500534088 /* GTLQueryPlus.h */,
+				BDE60B11191ADC3500534088 /* GTLRuntimeCommon.h */,
+				BDE60B12191ADC3500534088 /* GTLService.h */,
+				BDE60B13191ADC3500534088 /* GTLServicePlus.h */,
+				BDE60B14191ADC3500534088 /* GTLTargetNamespace.h */,
+				BDE60B15191ADC3500534088 /* GTLUploadParameters.h */,
+				BDE60B16191ADC3500534088 /* GTLUtilities.h */,
+				BDE60B17191ADC3500534088 /* GTMDefines.h */,
+				BDE60B18191ADC3500534088 /* GTMGarbageCollection.h */,
+				BDE60B19191ADC3500534088 /* GTMHTTPFetcher.h */,
+				BDE60B1A191ADC3500534088 /* GTMHTTPFetcherLogging.h */,
+				BDE60B1B191ADC3500534088 /* GTMHTTPFetcherService.h */,
+				BDE60B1C191ADC3500534088 /* GTMHTTPFetchHistory.h */,
+				BDE60B1D191ADC3500534088 /* GTMHTTPUploadFetcher.h */,
+				BDE60B1E191ADC3500534088 /* GTMLogger.h */,
+				BDE60B1F191ADC3500534088 /* GTMMethodCheck.h */,
+				BDE60B20191ADC3500534088 /* GTMNSDictionary+URLArguments.h */,
+				BDE60B21191ADC3500534088 /* GTMNSString+URLArguments.h */,
+				BDE60B22191ADC3500534088 /* GTMOAuth2Authentication.h */,
+				BDE60B23191ADC3500534088 /* GTMOAuth2SignIn.h */,
+				BDE60B24191ADC3500534088 /* GTMOAuth2ViewControllerTouch.h */,
+				BDE60B25191ADC3500534088 /* GTMObjC2Runtime.h */,
+				BDE60B26191ADC3500534088 /* OpenInChromeController.h */,
+			);
+			path = Google;
 			sourceTree = "<group>";
 		};
 		E6DB4B2919143AC100959B9C /* Pods Headers */ = {
@@ -664,6 +906,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/ilushkanama/Projects/zappylab/modules/ZLAuthorizer/Authorizer/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";
@@ -698,6 +941,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/ilushkanama/Projects/zappylab/modules/ZLAuthorizer/Authorizer/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";

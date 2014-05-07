@@ -7,8 +7,8 @@
 
 #import "ZLAAppDelegate.h"
 
-#import <FacebookSDK/FacebookSDK.h>
-#import <GooglePlus/GooglePlus.h>
+#import "FacebookSDK.h"
+#import "GooglePlus.h"
 
 /////////////////////////////////////////////////////
 

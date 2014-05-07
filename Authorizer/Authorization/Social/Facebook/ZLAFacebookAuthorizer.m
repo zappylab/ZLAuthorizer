@@ -4,7 +4,7 @@
 //
 //
 
-#import <FacebookSDK/FacebookSDK.h>
+#import "FacebookSDK.h"
 
 #import "ZLAFacebookAuthorizer.h"
 #import "ZLASocialAuthorizationRequester.h"
