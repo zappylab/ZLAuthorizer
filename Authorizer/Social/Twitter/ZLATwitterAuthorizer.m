@@ -334,7 +334,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 {
     BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
 
-    [self.requester performLoginWithSocialNetworkIdentifier:nil
+    [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkTwitter
                                              userIdentifier:self.twitterUserName
                                                 accessToken:self.accessToken
                                                   firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]

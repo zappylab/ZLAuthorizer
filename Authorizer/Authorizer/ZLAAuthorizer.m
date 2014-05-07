@@ -10,11 +10,16 @@
 #import "ZLAAuthorizer.h"
 
 #import "ZLACredentialsStorage.h"
-#import "ZLATwitterAuthorizer.h"
+
 #import "ZLANativeAuthorizer.h"
+#import "ZLATwitterAuthorizer.h"
+#import "ZLAFacebookAuthorizer.h"
+#import "ZLAGooglePlusAuthorizer.h"
+
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
 #import "ZLAAccountInfoUpdater.h"
+#import "ZLAUserInfoPersistentStore.h"
 #import "ZLAConstants.h"
 
 #import "NSString+Validation.h"
@@ -22,8 +27,7 @@
 
 #import <UIAlertView+BlocksKit.h>
 
-#import "ZLAFacebookAuthorizer.h"
-#import "ZLAGooglePlusAuthorizer.h"
+
 
 /////////////////////////////////////////////////////
 
@@ -48,6 +52,7 @@
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
+@property (strong) ZLAUserInfoPersistentStore *userInfoPersistentStore;
 
 @property (readwrite, atomic) BOOL signedIn;
 @property (readwrite, atomic) BOOL performingRequest;
@@ -94,9 +99,12 @@
 
 -(void) setupUserInfoContainer
 {
-    self.userInfo = [[ZLAUserInfoContainer alloc] init];
-    if (!self.userInfo.identifier) {
+    self.userInfoPersistentStore = [[ZLAUserInfoPersistentStore alloc] init];
+    self.userInfo = [self.userInfoPersistentStore restorePersistedUserInfoContainer];
+    if (!self.userInfo) {
+        self.userInfo = [[ZLAUserInfoContainer alloc] init];
         [self generateUserIdentifier];
+        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
 }
 
@@ -210,6 +218,7 @@
     {
         if (response) {
             [self.authorizationResponseHandler handleLoginResponse:response];
+            [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
         }
 
         self.performingRequest = NO;
@@ -324,6 +333,7 @@
 
     if (response) {
         [self.authorizationResponseHandler handleLoginResponse:response];
+        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
 
     if (completionBlock) {

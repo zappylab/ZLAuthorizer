@@ -81,7 +81,7 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     _firstName = [coder decodeObjectForKey:ZLAUserInfoFirstNameKey];
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
     _affiliation = [coder decodeObjectForKey:ZLAUserInfoAffiliationKey];
-    _profilePictureURL = [NSURL URLWithString:[coder decodeObjectForKey:ZLAUserInfoProfilePictureURLKey]];
+    _profilePictureURL = [coder decodeObjectForKey:ZLAUserInfoProfilePictureURLKey];
 }
 
 #pragma mark - Helpers
