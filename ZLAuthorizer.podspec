@@ -11,7 +11,6 @@ Pod::Spec.new do |spec|
   spec.dependency       'NSString+Validation'
   spec.dependency       'AFNetworking', '~> 2.0'
   spec.dependency       'BlocksKit', '~> 2.2.0'
-  spec.dependency       'Bolts'
   spec.frameworks     = 'Accounts', 'Social'
   spec.requires_arc   = true
 
