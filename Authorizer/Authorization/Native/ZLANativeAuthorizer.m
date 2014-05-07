@@ -156,6 +156,18 @@
     [self.requester resetPassword];
 }
 
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+{
+    [self performAuthorizationWithEmail:[ZLACredentialsStorage userEmail]
+                               password:[ZLACredentialsStorage password]
+                        completionBlock:completionBlock];
+}
+
+-(void) signOut
+{
+
+}
+
 @end
 
 /////////////////////////////////////////////////////

@@ -6,24 +6,15 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ZLASharedTypes.h"
+
+#import "ZLAConcreteAuthorizer.h"
 
 /////////////////////////////////////////////////////
 
-@class ZLNetworkRequestsPerformer;
-
-/////////////////////////////////////////////////////
-
-@interface ZLAGooglePlusAuthorizer : NSObject
-
--(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
+@interface ZLAGooglePlusAuthorizer : NSObject <ZLAConcreteAuthorizer>
 
 -(void) performAuthorizationWithClientId:(NSString *) clientId
                          completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
-
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
-
--(void) signOut;
 
 @end
 

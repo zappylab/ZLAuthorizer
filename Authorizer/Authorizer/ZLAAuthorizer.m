@@ -48,6 +48,7 @@
 @property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
 @property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
+@property (strong) id<ZLAConcreteAuthorizer> activeAuthorizer;
 
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
@@ -214,54 +215,45 @@
         return;
     }
 
-    ZLAAuthorizationRequestCompletionBlock autoAuthCompletionBlock = ^(BOOL success, NSDictionary *response)
-    {
-        if (response) {
-            [self.authorizationResponseHandler handleLoginResponse:response];
-            [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-        }
-
-        self.performingRequest = NO;
-    };
+    self.activeAuthorizer = nil;
 
     switch ([ZLACredentialsStorage authorizationMethod])
     {
         case ZLAAuthorizationMethodNative:
-        {
-            self.performingRequest = YES;
-            self.signedIn = YES;
-            [self.nativeAuthorizer performAuthorizationWithEmail:[ZLACredentialsStorage userEmail]
-                                                        password:[ZLACredentialsStorage password]
-                                                 completionBlock:autoAuthCompletionBlock];
+            self.activeAuthorizer = self.nativeAuthorizer;
             break;
-        }
 
         case ZLAAuthorizationMethodTwitter:
-        {
-            self.performingRequest = YES;
-            self.signedIn = YES;
-            [self.twitterAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
+            self.activeAuthorizer = self.twitterAuthorizer;
             break;
-        }
 
         case ZLAAuthorizationMethodFacebook:
-        {
-            self.performingRequest = YES;
-            self.signedIn = YES;
-            [self.facebookAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
+            self.activeAuthorizer = self.facebookAuthorizer;
             break;
-        }
 
         case ZLAAuthorizationMethodGooglePlus:
-        {
-            self.performingRequest = YES;
-            self.signedIn = YES;
-            [self.googlePlusAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
+            self.activeAuthorizer = self.googlePlusAuthorizer;
             break;
-        }
 
         default:
             break;
+    }
+
+    if (self.activeAuthorizer) {
+        self.signedIn = YES;
+        [self.activeAuthorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response)
+        {
+            if (success) {
+                self.shouldTryAuthorizeAutomatically = NO;
+            }
+
+            if (response) {
+                [self.authorizationResponseHandler handleLoginResponse:response];
+                [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+            }
+
+            self.performingRequest = NO;
+        }];
     }
 }
 
@@ -308,19 +300,19 @@
     self.shouldTryAuthorizeAutomatically = NO;
     self.performingRequest = YES;
 
-    self.twitterAuthorizer.consumerKey = APIKey;
-    self.twitterAuthorizer.consumerSecret = APISecret;
+    [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
+                                                 consumerSecret:APISecret
+                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                {
+                                                    if (success)
+                                                    {
+                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
+                                                    }
 
-    [self.twitterAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
-    {
-        if (success) {
-            [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
-        }
-
-        [self handleAuthorizationResponse:response
-                                  success:success
-                          completionBlock:completionBlock];
-    }];
+                                                    [self handleAuthorizationResponse:response
+                                                                              success:success
+                                                                      completionBlock:completionBlock];
+                                                }];
 }
 
 -(void) handleAuthorizationResponse:(NSDictionary *) response

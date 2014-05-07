@@ -10,9 +10,19 @@
 		92252B5810EC479B8C7A55C2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1FF1D4A5CB4B60978119A4 /* libPods.a */; };
 		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
 		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
-		BD3D2A30191AB96B0078C879 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A2B191AB96B0078C879 /* NSData+Base64.m */; };
-		BD3D2A31191AB96B0078C879 /* OAuth+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A2D191AB96B0078C879 /* OAuth+Additions.m */; };
-		BD3D2A32191AB96B0078C879 /* OAuthCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A2F191AB96B0078C879 /* OAuthCore.m */; };
+		BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */; };
+		BD3D2A56191AB9A10078C879 /* ZLANativeAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A38191AB9A10078C879 /* ZLANativeAuthorizer.m */; };
+		BD3D2A57191AB9A10078C879 /* ZLAFacebookAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A3C191AB9A10078C879 /* ZLAFacebookAuthorizer.m */; };
+		BD3D2A58191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A3F191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.m */; };
+		BD3D2A59191AB9A10078C879 /* ZLAGooglePlusAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A41191AB9A10078C879 /* ZLAGooglePlusAuthorizer.m */; };
+		BD3D2A5A191AB9A10078C879 /* ZLASocialAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A44191AB9A10078C879 /* ZLASocialAuthorizationRequester.m */; };
+		BD3D2A5B191AB9A10078C879 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A48191AB9A10078C879 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BD3D2A5C191AB9A10078C879 /* OAuth+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A4A191AB9A10078C879 /* OAuth+Additions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BD3D2A5D191AB9A10078C879 /* OAuthCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A4C191AB9A10078C879 /* OAuthCore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BD3D2A5E191AB9A10078C879 /* ZLASignedTwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A4E191AB9A10078C879 /* ZLASignedTwitterRequest.m */; };
+		BD3D2A5F191AB9A10078C879 /* ZLATwitterAccountsAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A50191AB9A10078C879 /* ZLATwitterAccountsAccessor.m */; };
+		BD3D2A60191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A52191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.m */; };
+		BD3D2A61191AB9A10078C879 /* ZLATwitterAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A54191AB9A10078C879 /* ZLATwitterAuthorizer.m */; };
 		BD46901F19006D53003EEC0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46901E19006D53003EEC0E /* Foundation.framework */; };
 		BD46902119006D53003EEC0E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902019006D53003EEC0E /* CoreGraphics.framework */; };
 		BD46902319006D53003EEC0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902219006D53003EEC0E /* UIKit.framework */; };
@@ -25,22 +35,12 @@
 		BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */; };
 		BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */; };
 		BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */; };
-		BDC454AD1917F6FC001B8A5D /* ZLAFacebookAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC4549F1917F6FC001B8A5D /* ZLAFacebookAuthorizer.m */; };
-		BDC454AE1917F6FC001B8A5D /* ZLASocialAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC454A31917F6FC001B8A5D /* ZLASocialAuthorizationRequester.m */; };
-		BDC454AF1917F6FC001B8A5D /* ZLASignedTwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC454A61917F6FC001B8A5D /* ZLASignedTwitterRequest.m */; };
-		BDC454B01917F6FC001B8A5D /* ZLATwitterAccountsAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC454A81917F6FC001B8A5D /* ZLATwitterAccountsAccessor.m */; };
-		BDC454B11917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC454AA1917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.m */; };
-		BDC454B21917F6FC001B8A5D /* ZLATwitterAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC454AC1917F6FC001B8A5D /* ZLATwitterAuthorizer.m */; };
 		BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */; };
 		C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */; };
-		C7DFE0BAE3DBEFC897FDBEE4 /* ZLAGooglePlusAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEFE7AD58434A82ED2164 /* ZLAGooglePlusAuthorizationRequester.m */; };
-		C7DFE26DB2C9B05B26E71285 /* ZLANativeAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE53DA35F5938F836B8ED /* ZLANativeAuthorizer.m */; };
 		C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */; };
 		C7DFE315DAEC2C31D4B1A3E8 /* ZLAUserInfoPersistentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */; };
-		C7DFE6A07F1475EAFE4291B2 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEA7F6A073CCFD2B9A746 /* ZLANativeAuthorizationRequester.m */; };
 		C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */; };
 		C7DFEA52FDCFA017F3749B31 /* ZLAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE4009CFC8E3E176DCD3E /* ZLAAppDelegate.m */; };
-		C7DFECDBBED43D8BDA991942 /* ZLAGooglePlusAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFECCE9161783C3EA31647 /* ZLAGooglePlusAuthorizer.m */; };
 		E69D0D80190C497300AB00C6 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D7E190C497300AB00C6 /* GoogleOpenSource.framework */; };
 		E69D0D81190C497300AB00C6 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D7F190C497300AB00C6 /* GooglePlus.framework */; };
 		E69D0D87190C52B400AB00C6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D86190C52B400AB00C6 /* AddressBook.framework */; };
@@ -60,12 +60,32 @@
 		BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		BD1836CB1912D91C00D8C129 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
 		BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
-		BD3D2A2A191AB96B0078C879 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		BD3D2A2B191AB96B0078C879 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		BD3D2A2C191AB96B0078C879 /* OAuth+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OAuth+Additions.h"; sourceTree = "<group>"; };
-		BD3D2A2D191AB96B0078C879 /* OAuth+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OAuth+Additions.m"; sourceTree = "<group>"; };
-		BD3D2A2E191AB96B0078C879 /* OAuthCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthCore.h; sourceTree = "<group>"; };
-		BD3D2A2F191AB96B0078C879 /* OAuthCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthCore.m; sourceTree = "<group>"; };
+		BD3D2A35191AB9A10078C879 /* ZLANativeAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLANativeAuthorizationRequester.h; sourceTree = "<group>"; };
+		BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizationRequester.m; sourceTree = "<group>"; };
+		BD3D2A37191AB9A10078C879 /* ZLANativeAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLANativeAuthorizer.h; sourceTree = "<group>"; };
+		BD3D2A38191AB9A10078C879 /* ZLANativeAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizer.m; sourceTree = "<group>"; };
+		BD3D2A3B191AB9A10078C879 /* ZLAFacebookAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAFacebookAuthorizer.h; sourceTree = "<group>"; };
+		BD3D2A3C191AB9A10078C879 /* ZLAFacebookAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAFacebookAuthorizer.m; sourceTree = "<group>"; };
+		BD3D2A3E191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAGooglePlusAuthorizationRequester.h; sourceTree = "<group>"; };
+		BD3D2A3F191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAGooglePlusAuthorizationRequester.m; sourceTree = "<group>"; };
+		BD3D2A40191AB9A10078C879 /* ZLAGooglePlusAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAGooglePlusAuthorizer.h; sourceTree = "<group>"; };
+		BD3D2A41191AB9A10078C879 /* ZLAGooglePlusAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAGooglePlusAuthorizer.m; sourceTree = "<group>"; };
+		BD3D2A43191AB9A10078C879 /* ZLASocialAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLASocialAuthorizationRequester.h; sourceTree = "<group>"; };
+		BD3D2A44191AB9A10078C879 /* ZLASocialAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASocialAuthorizationRequester.m; sourceTree = "<group>"; };
+		BD3D2A47191AB9A10078C879 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		BD3D2A48191AB9A10078C879 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		BD3D2A49191AB9A10078C879 /* OAuth+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OAuth+Additions.h"; sourceTree = "<group>"; };
+		BD3D2A4A191AB9A10078C879 /* OAuth+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OAuth+Additions.m"; sourceTree = "<group>"; };
+		BD3D2A4B191AB9A10078C879 /* OAuthCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthCore.h; sourceTree = "<group>"; };
+		BD3D2A4C191AB9A10078C879 /* OAuthCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthCore.m; sourceTree = "<group>"; };
+		BD3D2A4D191AB9A10078C879 /* ZLASignedTwitterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLASignedTwitterRequest.h; sourceTree = "<group>"; };
+		BD3D2A4E191AB9A10078C879 /* ZLASignedTwitterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASignedTwitterRequest.m; sourceTree = "<group>"; };
+		BD3D2A4F191AB9A10078C879 /* ZLATwitterAccountsAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAccountsAccessor.h; sourceTree = "<group>"; };
+		BD3D2A50191AB9A10078C879 /* ZLATwitterAccountsAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAccountsAccessor.m; sourceTree = "<group>"; };
+		BD3D2A51191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAPIRequestsPerformer.h; sourceTree = "<group>"; };
+		BD3D2A52191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAPIRequestsPerformer.m; sourceTree = "<group>"; };
+		BD3D2A53191AB9A10078C879 /* ZLATwitterAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAuthorizer.h; sourceTree = "<group>"; };
+		BD3D2A54191AB9A10078C879 /* ZLATwitterAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAuthorizer.m; sourceTree = "<group>"; };
 		BD46901B19006D53003EEC0E /* AuthorizerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthorizerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD46901E19006D53003EEC0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BD46902019006D53003EEC0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,39 +107,20 @@
 		BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAuthorizer.m; sourceTree = "<group>"; };
 		BDA78E1B190071E1001484C5 /* ZLACredentialsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLACredentialsStorage.h; sourceTree = "<group>"; };
 		BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLACredentialsStorage.m; sourceTree = "<group>"; };
-		BDC4549E1917F6FC001B8A5D /* ZLAFacebookAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAFacebookAuthorizer.h; sourceTree = "<group>"; };
-		BDC4549F1917F6FC001B8A5D /* ZLAFacebookAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAFacebookAuthorizer.m; sourceTree = "<group>"; };
-		BDC454A21917F6FC001B8A5D /* ZLASocialAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLASocialAuthorizationRequester.h; sourceTree = "<group>"; };
-		BDC454A31917F6FC001B8A5D /* ZLASocialAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASocialAuthorizationRequester.m; sourceTree = "<group>"; };
-		BDC454A51917F6FC001B8A5D /* ZLASignedTwitterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLASignedTwitterRequest.h; sourceTree = "<group>"; };
-		BDC454A61917F6FC001B8A5D /* ZLASignedTwitterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASignedTwitterRequest.m; sourceTree = "<group>"; };
-		BDC454A71917F6FC001B8A5D /* ZLATwitterAccountsAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAccountsAccessor.h; sourceTree = "<group>"; };
-		BDC454A81917F6FC001B8A5D /* ZLATwitterAccountsAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAccountsAccessor.m; sourceTree = "<group>"; };
-		BDC454A91917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAPIRequestsPerformer.h; sourceTree = "<group>"; };
-		BDC454AA1917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAPIRequestsPerformer.m; sourceTree = "<group>"; };
-		BDC454AB1917F6FC001B8A5D /* ZLATwitterAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLATwitterAuthorizer.h; sourceTree = "<group>"; };
-		BDC454AC1917F6FC001B8A5D /* ZLATwitterAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLATwitterAuthorizer.m; sourceTree = "<group>"; };
 		BDCC829E190E4D15001BDAD8 /* ZLASharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLASharedTypes.h; sourceTree = "<group>"; };
 		BDD802661901C53200C9B406 /* ZLAUserInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoContainer.h; sourceTree = "<group>"; };
 		BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoContainer.m; sourceTree = "<group>"; };
 		C7DFE01DFD2A0A56D97C8BD3 /* ZLAUserInfoPersistentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoPersistentStore.h; sourceTree = "<group>"; };
-		C7DFE0E7BD8035436ED091CC /* ZLAGooglePlusAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAGooglePlusAuthorizationRequester.h; sourceTree = "<group>"; };
 		C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAccountInfoUpdater.m; sourceTree = "<group>"; };
-		C7DFE1C843D2E5A27E1E9007 /* ZLANativeAuthorizationRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLANativeAuthorizationRequester.h; sourceTree = "<group>"; };
 		C7DFE36D63A8F92817A0CD8E /* ZLAUserInfoValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoValidator.h; sourceTree = "<group>"; };
 		C7DFE4009CFC8E3E176DCD3E /* ZLAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAppDelegate.m; sourceTree = "<group>"; };
-		C7DFE53DA35F5938F836B8ED /* ZLANativeAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizer.m; sourceTree = "<group>"; };
-		C7DFE54251CBBD8F75429F57 /* ZLAGooglePlusAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAGooglePlusAuthorizer.h; sourceTree = "<group>"; };
 		C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+ZLAuthorizer.m"; sourceTree = "<group>"; };
 		C7DFE70C5074A7B98B3A941F /* ZLAAccountInfoUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAccountInfoUpdater.h; sourceTree = "<group>"; };
 		C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoPersistentStore.m; sourceTree = "<group>"; };
 		C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+ZLAuthorizer.h"; sourceTree = "<group>"; };
-		C7DFEA73299D5BE826EA12CE /* ZLANativeAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLANativeAuthorizer.h; sourceTree = "<group>"; };
-		C7DFEA7F6A073CCFD2B9A746 /* ZLANativeAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLANativeAuthorizationRequester.m; sourceTree = "<group>"; };
-		C7DFECCE9161783C3EA31647 /* ZLAGooglePlusAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAGooglePlusAuthorizer.m; sourceTree = "<group>"; };
 		C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAppDelegate.h; sourceTree = "<group>"; };
+		C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAConcreteAuthorizer.h; sourceTree = "<group>"; };
 		C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoValidator.m; sourceTree = "<group>"; };
-		C7DFEFE7AD58434A82ED2164 /* ZLAGooglePlusAuthorizationRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAGooglePlusAuthorizationRequester.m; sourceTree = "<group>"; };
 		E69D0D7E190C497300AB00C6 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
 		E69D0D7F190C497300AB00C6 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
 		E69D0D86190C52B400AB00C6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -185,15 +186,92 @@
 			path = "Device identifier";
 			sourceTree = "<group>";
 		};
-		BD3D2A29191AB96B0078C879 /* ABOAuthCore */ = {
+		BD3D2A33191AB9A10078C879 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				BD3D2A2A191AB96B0078C879 /* NSData+Base64.h */,
-				BD3D2A2B191AB96B0078C879 /* NSData+Base64.m */,
-				BD3D2A2C191AB96B0078C879 /* OAuth+Additions.h */,
-				BD3D2A2D191AB96B0078C879 /* OAuth+Additions.m */,
-				BD3D2A2E191AB96B0078C879 /* OAuthCore.h */,
-				BD3D2A2F191AB96B0078C879 /* OAuthCore.m */,
+				BD3D2A34191AB9A10078C879 /* Native */,
+				BD3D2A39191AB9A10078C879 /* Social */,
+				C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
+		BD3D2A34191AB9A10078C879 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A35191AB9A10078C879 /* ZLANativeAuthorizationRequester.h */,
+				BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */,
+				BD3D2A37191AB9A10078C879 /* ZLANativeAuthorizer.h */,
+				BD3D2A38191AB9A10078C879 /* ZLANativeAuthorizer.m */,
+			);
+			path = Native;
+			sourceTree = "<group>";
+		};
+		BD3D2A39191AB9A10078C879 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A3A191AB9A10078C879 /* Facebook */,
+				BD3D2A3D191AB9A10078C879 /* Google+ */,
+				BD3D2A42191AB9A10078C879 /* Shared */,
+				BD3D2A45191AB9A10078C879 /* Twitter */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		BD3D2A3A191AB9A10078C879 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A3B191AB9A10078C879 /* ZLAFacebookAuthorizer.h */,
+				BD3D2A3C191AB9A10078C879 /* ZLAFacebookAuthorizer.m */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		BD3D2A3D191AB9A10078C879 /* Google+ */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A3E191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.h */,
+				BD3D2A3F191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.m */,
+				BD3D2A40191AB9A10078C879 /* ZLAGooglePlusAuthorizer.h */,
+				BD3D2A41191AB9A10078C879 /* ZLAGooglePlusAuthorizer.m */,
+			);
+			path = "Google+";
+			sourceTree = "<group>";
+		};
+		BD3D2A42191AB9A10078C879 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A43191AB9A10078C879 /* ZLASocialAuthorizationRequester.h */,
+				BD3D2A44191AB9A10078C879 /* ZLASocialAuthorizationRequester.m */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		BD3D2A45191AB9A10078C879 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A46191AB9A10078C879 /* ABOAuthCore */,
+				BD3D2A4D191AB9A10078C879 /* ZLASignedTwitterRequest.h */,
+				BD3D2A4E191AB9A10078C879 /* ZLASignedTwitterRequest.m */,
+				BD3D2A4F191AB9A10078C879 /* ZLATwitterAccountsAccessor.h */,
+				BD3D2A50191AB9A10078C879 /* ZLATwitterAccountsAccessor.m */,
+				BD3D2A51191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.h */,
+				BD3D2A52191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.m */,
+				BD3D2A53191AB9A10078C879 /* ZLATwitterAuthorizer.h */,
+				BD3D2A54191AB9A10078C879 /* ZLATwitterAuthorizer.m */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
+		BD3D2A46191AB9A10078C879 /* ABOAuthCore */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D2A47191AB9A10078C879 /* NSData+Base64.h */,
+				BD3D2A48191AB9A10078C879 /* NSData+Base64.m */,
+				BD3D2A49191AB9A10078C879 /* OAuth+Additions.h */,
+				BD3D2A4A191AB9A10078C879 /* OAuth+Additions.m */,
+				BD3D2A4B191AB9A10078C879 /* OAuthCore.h */,
+				BD3D2A4C191AB9A10078C879 /* OAuthCore.m */,
 			);
 			path = ABOAuthCore;
 			sourceTree = "<group>";
@@ -268,12 +346,11 @@
 		BDA78E12190071E1001484C5 /* Authorizer */ = {
 			isa = PBXGroup;
 			children = (
+				BD3D2A33191AB9A10078C879 /* Authorization */,
 				BD1836C81912D91C00D8C129 /* Device identifier */,
 				BD1836B51912A0FA00D8C129 /* Account info updates */,
 				BDC454B319193C3E001B8A5D /* AppDelegate */,
-				BDC4549C1917F6FC001B8A5D /* Social */,
 				BDD822C2190B07F600C2C2B1 /* Categories */,
-				BDD250F01909A7D00083C959 /* Native */,
 				BDD802651901C53200C9B406 /* UserInfo */,
 				BDA78E13190071E1001484C5 /* Authorizer */,
 				BDA78E1A190071E1001484C5 /* CredentialsStorage */,
@@ -304,62 +381,6 @@
 			path = CredentialsStorage;
 			sourceTree = "<group>";
 		};
-		BDC4549C1917F6FC001B8A5D /* Social */ = {
-			isa = PBXGroup;
-			children = (
-				BDC4549D1917F6FC001B8A5D /* Facebook */,
-				BDC454A01917F6FC001B8A5D /* Google+ */,
-				BDC454A11917F6FC001B8A5D /* Shared */,
-				BDC454A41917F6FC001B8A5D /* Twitter */,
-			);
-			path = Social;
-			sourceTree = "<group>";
-		};
-		BDC4549D1917F6FC001B8A5D /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				BDC4549E1917F6FC001B8A5D /* ZLAFacebookAuthorizer.h */,
-				BDC4549F1917F6FC001B8A5D /* ZLAFacebookAuthorizer.m */,
-			);
-			path = Facebook;
-			sourceTree = "<group>";
-		};
-		BDC454A01917F6FC001B8A5D /* Google+ */ = {
-			isa = PBXGroup;
-			children = (
-				C7DFECCE9161783C3EA31647 /* ZLAGooglePlusAuthorizer.m */,
-				C7DFE54251CBBD8F75429F57 /* ZLAGooglePlusAuthorizer.h */,
-				C7DFEFE7AD58434A82ED2164 /* ZLAGooglePlusAuthorizationRequester.m */,
-				C7DFE0E7BD8035436ED091CC /* ZLAGooglePlusAuthorizationRequester.h */,
-			);
-			path = "Google+";
-			sourceTree = "<group>";
-		};
-		BDC454A11917F6FC001B8A5D /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				BDC454A21917F6FC001B8A5D /* ZLASocialAuthorizationRequester.h */,
-				BDC454A31917F6FC001B8A5D /* ZLASocialAuthorizationRequester.m */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BDC454A41917F6FC001B8A5D /* Twitter */ = {
-			isa = PBXGroup;
-			children = (
-				BD3D2A29191AB96B0078C879 /* ABOAuthCore */,
-				BDC454A51917F6FC001B8A5D /* ZLASignedTwitterRequest.h */,
-				BDC454A61917F6FC001B8A5D /* ZLASignedTwitterRequest.m */,
-				BDC454A71917F6FC001B8A5D /* ZLATwitterAccountsAccessor.h */,
-				BDC454A81917F6FC001B8A5D /* ZLATwitterAccountsAccessor.m */,
-				BDC454A91917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.h */,
-				BDC454AA1917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.m */,
-				BDC454AB1917F6FC001B8A5D /* ZLATwitterAuthorizer.h */,
-				BDC454AC1917F6FC001B8A5D /* ZLATwitterAuthorizer.m */,
-			);
-			path = Twitter;
-			sourceTree = "<group>";
-		};
 		BDC454B319193C3E001B8A5D /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,17 +388,6 @@
 				C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */,
 			);
 			path = AppDelegate;
-			sourceTree = "<group>";
-		};
-		BDD250F01909A7D00083C959 /* Native */ = {
-			isa = PBXGroup;
-			children = (
-				C7DFEA7F6A073CCFD2B9A746 /* ZLANativeAuthorizationRequester.m */,
-				C7DFE1C843D2E5A27E1E9007 /* ZLANativeAuthorizationRequester.h */,
-				C7DFE53DA35F5938F836B8ED /* ZLANativeAuthorizer.m */,
-				C7DFEA73299D5BE826EA12CE /* ZLANativeAuthorizer.h */,
-			);
-			path = Native;
 			sourceTree = "<group>";
 		};
 		BDD802651901C53200C9B406 /* UserInfo */ = {
@@ -523,32 +533,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD3D2A5D191AB9A10078C879 /* OAuthCore.m in Sources */,
+				BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */,
 				BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */,
+				BD3D2A57191AB9A10078C879 /* ZLAFacebookAuthorizer.m in Sources */,
 				BD46903519006D53003EEC0E /* ViewController.m in Sources */,
-				BD3D2A30191AB96B0078C879 /* NSData+Base64.m in Sources */,
-				BD3D2A31191AB96B0078C879 /* OAuth+Additions.m in Sources */,
-				BDC454AF1917F6FC001B8A5D /* ZLASignedTwitterRequest.m in Sources */,
 				BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */,
-				BD3D2A32191AB96B0078C879 /* OAuthCore.m in Sources */,
+				BD3D2A5F191AB9A10078C879 /* ZLATwitterAccountsAccessor.m in Sources */,
 				BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */,
 				BD46902F19006D53003EEC0E /* AppDelegate.m in Sources */,
-				BDC454AE1917F6FC001B8A5D /* ZLASocialAuthorizationRequester.m in Sources */,
-				BDC454AD1917F6FC001B8A5D /* ZLAFacebookAuthorizer.m in Sources */,
+				BD3D2A58191AB9A10078C879 /* ZLAGooglePlusAuthorizationRequester.m in Sources */,
 				BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */,
 				BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */,
 				BD46902B19006D53003EEC0E /* main.m in Sources */,
-				BDC454B01917F6FC001B8A5D /* ZLATwitterAccountsAccessor.m in Sources */,
-				C7DFE6A07F1475EAFE4291B2 /* ZLANativeAuthorizationRequester.m in Sources */,
-				BDC454B21917F6FC001B8A5D /* ZLATwitterAuthorizer.m in Sources */,
-				C7DFE26DB2C9B05B26E71285 /* ZLANativeAuthorizer.m in Sources */,
+				BD3D2A5C191AB9A10078C879 /* OAuth+Additions.m in Sources */,
 				C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */,
 				C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */,
+				BD3D2A61191AB9A10078C879 /* ZLATwitterAuthorizer.m in Sources */,
+				BD3D2A60191AB9A10078C879 /* ZLATwitterAPIRequestsPerformer.m in Sources */,
+				BD3D2A56191AB9A10078C879 /* ZLANativeAuthorizer.m in Sources */,
 				C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */,
+				BD3D2A5E191AB9A10078C879 /* ZLASignedTwitterRequest.m in Sources */,
+				BD3D2A59191AB9A10078C879 /* ZLAGooglePlusAuthorizer.m in Sources */,
 				BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */,
-				BDC454B11917F6FC001B8A5D /* ZLATwitterAPIRequestsPerformer.m in Sources */,
+				BD3D2A5B191AB9A10078C879 /* NSData+Base64.m in Sources */,
+				BD3D2A5A191AB9A10078C879 /* ZLASocialAuthorizationRequester.m in Sources */,
 				C7DFEA52FDCFA017F3749B31 /* ZLAAppDelegate.m in Sources */,
-				C7DFECDBBED43D8BDA991942 /* ZLAGooglePlusAuthorizer.m in Sources */,
-				C7DFE0BAE3DBEFC897FDBEE4 /* ZLAGooglePlusAuthorizationRequester.m in Sources */,
 				C7DFE315DAEC2C31D4B1A3E8 /* ZLAUserInfoPersistentStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

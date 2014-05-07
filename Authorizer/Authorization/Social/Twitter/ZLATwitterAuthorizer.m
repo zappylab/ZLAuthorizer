@@ -42,6 +42,9 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 @property (strong) ZLASocialAuthorizationRequester *requester;
 @property (strong) ZLATwitterAccountsAccessor *accountsAccessor;
 
+@property (strong) NSString *consumerKey;
+@property (strong) NSString *consumerSecret;
+
 @property (strong) NSString *accessToken;
 @property (strong) NSString *accessTokenSecret;
 
@@ -101,8 +104,16 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) performAuthorizationWithConsumerKey:(NSString *) consumerKey
+                             consumerSecret:(NSString *) consumerSecret
+                            completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
 {
+    NSParameterAssert(consumerKey);
+    NSParameterAssert(consumerSecret);
+
+    self.consumerKey = consumerKey;
+    self.consumerSecret = consumerSecret;
+
     BFTask *reverseAuthTask = [self performReverseAuthorization];
     BFTask *accessTokenValidationTask = [reverseAuthTask continueWithBlock:^id(BFTask *task)
     {
@@ -435,6 +446,11 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
     });
 
     return taskCompletionSource.task;
+}
+
+-(void) signOut
+{
+
 }
 
 @end

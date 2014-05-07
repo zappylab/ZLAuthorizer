@@ -7,17 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ZLASharedTypes.h"
+#import "ZLAConcreteAuthorizer.h"
 
 /////////////////////////////////////////////////////
 
-@class ZLNetworkRequestsPerformer;
-
-/////////////////////////////////////////////////////
-
-@interface ZLANativeAuthorizer : NSObject
-
--(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
+@interface ZLANativeAuthorizer : NSObject <ZLAConcreteAuthorizer>
 
 -(void) performAuthorizationWithEmail:(NSString *) email
                              password:(NSString *) password
