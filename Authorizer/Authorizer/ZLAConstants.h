@@ -1,6 +1,6 @@
 //
 //  ZLAConstants.h
-//  AuthorizerExample
+//  ZLAuthorizer
 //
 //  Created by Ilya Dyakonov on 21/04/14.
 //  Copyright (c) 2014 ZappyLab. All rights reserved.
@@ -30,8 +30,11 @@ static NSString *const ZLAUserFullNameKey = @"ufn";
 static NSString *const ZLAUserEmailKey = @"email";
 static NSString *const ZLAUserPasswordOnUpdateKey = @"password";
 
-static NSString *const ZLATwitterUserNameKey = @"twitter";
-static NSString *const ZLATwitterAccessTokenKey = @"token";
+static NSString *const ZLASocialNetworkTwitter = @"twitter";
+static NSString *const ZLASocialNetworkFacebook = @"facebook";
+static NSString *const ZLASocialNetworkGooglePlus = @"googleplus";
+
+static NSString *const ZLAOAuthAccessTokenKey = @"token";
 
 static NSString *const ZLAResponseStatusKey = @"request";
 static NSString *const ZLAResponseStatusOK = @"OK";

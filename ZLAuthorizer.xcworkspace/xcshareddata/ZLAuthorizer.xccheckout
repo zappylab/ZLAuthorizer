@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>972EF54F-732B-46D9-AD56-AAFC94FE918D</string>
+	<string>2AF80044-06B7-45FF-9012-EEA622D64F79</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ZLAuthorizer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</key>
-		<string>ssh://github.com/zappylab/ZLAuthorizer.git</string>
+		<key>98A18239-CAA7-4C8F-9A41-6E94A0607B3B</key>
+		<string>https://github.com/zappylab/ZLAuthorizer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ZLAuthorizer.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</key>
+		<key>98A18239-CAA7-4C8F-9A41-6E94A0607B3B</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/zappylab/ZLAuthorizer.git</string>
+	<string>https://github.com/zappylab/ZLAuthorizer.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</string>
+	<string>98A18239-CAA7-4C8F-9A41-6E94A0607B3B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>1A477B10-CD9A-4D9B-8B45-8FC64BF4BDAF</string>
+			<string>98A18239-CAA7-4C8F-9A41-6E94A0607B3B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ZLAuthorizer</string>
 		</dict>

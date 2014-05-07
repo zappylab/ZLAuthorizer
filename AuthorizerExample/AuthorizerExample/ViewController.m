@@ -92,6 +92,33 @@
     [credentialsAlertView show];
 }
 
+-(IBAction) facebookAuthTapped
+{
+    [self.authorizer performFacebookAuthorizationWithCompletionBlock:^(BOOL success)
+    {
+
+    }];;
+}
+
+-(IBAction) facebookSignOutTapped
+{
+    [self.authorizer signOut];
+}
+
+-(IBAction) googlePlucAuthTapped:(id) sender
+{
+    [self.authorizer performGooglePlusAuthorizationWithClientId:@"17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt.apps.googleusercontent.com"
+                                                completionBlock:^(BOOL success)
+                                                {
+
+                                                }];
+}
+
+-(IBAction) googlePlusSignOutTapped
+{
+    [self.authorizer signOut];
+}
+
 #pragma mark - UIAlertViewDelegate methods
 
 -(void)    alertView:(UIAlertView *) alertView

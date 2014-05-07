@@ -1,6 +1,6 @@
 //
 //  ZLASharedTypes.h
-//  AuthorizerExample
+//  ZLAuthorizer
 //
 //  Created by Ilya Dyakonov on 28/04/14.
 //  Copyright (c) 2014 ZappyLab. All rights reserved.

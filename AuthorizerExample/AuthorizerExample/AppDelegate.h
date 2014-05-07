@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "ZLAAppDelegate.h"
+
+/////////////////////////////////////////////////////
+
+@interface AppDelegate : ZLAAppDelegate
 
 @property (strong, nonatomic) UIWindow *window;
 
 @end
+
+/////////////////////////////////////////////////////

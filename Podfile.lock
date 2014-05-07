@@ -33,28 +33,25 @@ PODS:
   - BlocksKit/UIKit (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - Bolts (1.0.0)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
   - ZLNetworkRequestsPerformer (0.1):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
   - BlocksKit (~> 2.2.0)
-  - Bolts
   - Lockbox
   - NSString+Validation
-  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`, branch `dev`)
+  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`)
 
 EXTERNAL SOURCES:
   ZLNetworkRequestsPerformer:
-    :branch: dev
     :git: https://github.com/zappylab/ZLNetworkRequestsPerformer.git
 
 SPEC CHECKSUMS:
   AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
   BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
-  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
   Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
   NSString+Validation: 5b1f5c3b4f524352e889b46ade36a9ef47c060db
   ZLNetworkRequestsPerformer: 33963f1543a70b88834d30958b81546ae391d24e

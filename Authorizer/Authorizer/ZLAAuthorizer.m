@@ -22,22 +22,30 @@
 
 #import <UIAlertView+BlocksKit.h>
 
+#import "ZLAFacebookAuthorizer.h"
+#import "ZLAGooglePlusAuthorizer.h"
+
 /////////////////////////////////////////////////////
 
 @interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
 {
+    __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
+
     __strong ZLANativeAuthorizer *_nativeAuthorizer;
     __strong ZLATwitterAuthorizer *_twitterAuthorizer;
-    __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
+    __strong ZLAFacebookAuthorizer *_facebookAuthorizer;
+    __strong ZLAGooglePlusAuthorizer *_googlePlusAuthorizer;
 }
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 @property (strong) ZLNetworkReachabilityObserver *reachabilityObserver;
 
-@property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
-@property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
+@property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
+@property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
+@property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
 
+@property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 @property (strong) ZLAUserInfoContainer *userInfo;
 
@@ -172,6 +180,24 @@
     return _accountInfoUpdater;
 }
 
+-(ZLAFacebookAuthorizer *) facebookAuthorizer
+{
+    if (!_facebookAuthorizer) {
+        _facebookAuthorizer = [[ZLAFacebookAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _facebookAuthorizer;
+}
+
+-(ZLAGooglePlusAuthorizer *) googlePlusAuthorizer
+{
+    if (!_googlePlusAuthorizer) {
+        _googlePlusAuthorizer = [[ZLAGooglePlusAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
+    }
+
+    return _googlePlusAuthorizer;
+}
+
 #pragma mark - Authorization
 
 -(void) performAutomaticAuthorization
@@ -293,6 +319,36 @@
     self.performingRequest = NO;
 }
 
+-(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
+    {
+        if (success) {
+            [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+        }
+
+        [self handleAuthorizationResponse:response
+                                  success:success
+                          completionBlock:completionBlock];
+    }];
+}
+
+-(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
+                                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
+                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                {
+                                                    if (success) {
+                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+                                                    }
+
+                                                    [self handleAuthorizationResponse:response
+                                                                              success:success
+                                                                      completionBlock:completionBlock];
+                                                }];
+}
+
 -(void) signOut
 {
     if (self.signedIn) {
@@ -300,6 +356,22 @@
         [self generateUserIdentifier];
         self.signedIn = NO;
     }
+    switch ([ZLACredentialsStorage authorizationMethod]) {
+        case ZLAAuthorizationMethodFacebook:
+            [self.facebookAuthorizer signOut];
+            break;
+
+        case ZLAAuthorizationMethodGooglePlus:
+            [self.googlePlusAuthorizer signOut];
+            break;
+
+        default:
+            break;
+    }
+
+    [ZLACredentialsStorage wipeOutExistingCredentials];
+    [ZLACredentialsStorage resetAuthorizationMethod];
+    self.signedIn = NO;
 }
 
 #pragma mark -
