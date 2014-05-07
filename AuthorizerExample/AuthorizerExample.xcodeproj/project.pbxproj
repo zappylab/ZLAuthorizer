@@ -36,9 +36,9 @@
 		BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */; };
 		BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */; };
 		BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */; };
-		BDE60B2A191ADDB400534088 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B27191ADDB400534088 /* FacebookSDK.framework */; };
-		BDE60B2B191ADDB400534088 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */; };
-		BDE60B2C191ADDB400534088 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B29191ADDB400534088 /* GooglePlus.framework */; };
+		BDE60B31191ADF1200534088 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B2E191ADF0300534088 /* FacebookSDK.framework */; };
+		BDE60B32191ADF1200534088 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B2F191ADF0300534088 /* GoogleOpenSource.framework */; };
+		BDE60B33191ADF1200534088 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B30191ADF0300534088 /* GooglePlus.framework */; };
 		C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */; };
 		C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */; };
 		C7DFE315DAEC2C31D4B1A3E8 /* ZLAUserInfoPersistentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */; };
@@ -218,6 +218,9 @@
 		BDE60B27191ADDB400534088 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../Authorizer/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = ../Authorizer/Frameworks/GoogleOpenSource.framework; sourceTree = "<group>"; };
 		BDE60B29191ADDB400534088 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = ../Authorizer/Frameworks/GooglePlus.framework; sourceTree = "<group>"; };
+		BDE60B2E191ADF0300534088 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		BDE60B2F191ADF0300534088 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
+		BDE60B30191ADF0300534088 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
 		C7DFE01DFD2A0A56D97C8BD3 /* ZLAUserInfoPersistentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoPersistentStore.h; sourceTree = "<group>"; };
 		C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAccountInfoUpdater.m; sourceTree = "<group>"; };
 		C7DFE36D63A8F92817A0CD8E /* ZLAUserInfoValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAUserInfoValidator.h; sourceTree = "<group>"; };
@@ -250,9 +253,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDE60B2A191ADDB400534088 /* FacebookSDK.framework in Frameworks */,
-				BDE60B2B191ADDB400534088 /* GoogleOpenSource.framework in Frameworks */,
-				BDE60B2C191ADDB400534088 /* GooglePlus.framework in Frameworks */,
+				BDE60B31191ADF1200534088 /* FacebookSDK.framework in Frameworks */,
+				BDE60B32191ADF1200534088 /* GoogleOpenSource.framework in Frameworks */,
+				BDE60B33191ADF1200534088 /* GooglePlus.framework in Frameworks */,
 				E69D0D95190C533800AB00C6 /* SystemConfiguration.framework in Frameworks */,
 				E69D0D93190C532600AB00C6 /* Security.framework in Frameworks */,
 				E69D0D91190C531A00AB00C6 /* MediaPlayer.framework in Frameworks */,
@@ -403,6 +406,7 @@
 		BD46901D19006D53003EEC0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BDE60B2D191ADF0300534088 /* Frameworks */,
 				BDE60B27191ADDB400534088 /* FacebookSDK.framework */,
 				BDE60B28191ADDB400534088 /* GoogleOpenSource.framework */,
 				BDE60B29191ADDB400534088 /* GooglePlus.framework */,
@@ -652,6 +656,16 @@
 				BDE60B26191ADC3500534088 /* OpenInChromeController.h */,
 			);
 			path = Google;
+			sourceTree = "<group>";
+		};
+		BDE60B2D191ADF0300534088 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60B2E191ADF0300534088 /* FacebookSDK.framework */,
+				BDE60B2F191ADF0300534088 /* GoogleOpenSource.framework */,
+				BDE60B30191ADF0300534088 /* GooglePlus.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		E6DB4B2919143AC100959B9C /* Pods Headers */ = {
@@ -907,6 +921,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					/Users/ilushkanama/Projects/zappylab/modules/ZLAuthorizer/Authorizer/Frameworks,
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";
@@ -942,6 +957,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					/Users/ilushkanama/Projects/zappylab/modules/ZLAuthorizer/Authorizer/Frameworks,
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AuthorizerExample/AuthorizerExample-Prefix.pch";
