@@ -206,10 +206,12 @@
         return;
     }
 
-    ZLAAuthorizationRequestCompletionBlock autoAuthCompletionBlock = ^(BOOL success, NSDictionary *response) {
-        [self handleAuthorizationResponse:response
-                                  success:success
-                          completionBlock:nil];
+    ZLAAuthorizationRequestCompletionBlock autoAuthCompletionBlock = ^(BOOL success, NSDictionary *response)
+    {
+        if (response) {
+            [self.authorizationResponseHandler handleLoginResponse:response];
+        }
+
         self.performingRequest = NO;
     };
 
@@ -218,6 +220,7 @@
         case ZLAAuthorizationMethodNative:
         {
             self.performingRequest = YES;
+            self.signedIn = YES;
             [self.nativeAuthorizer performAuthorizationWithEmail:[ZLACredentialsStorage userEmail]
                                                         password:[ZLACredentialsStorage password]
                                                  completionBlock:autoAuthCompletionBlock];
@@ -227,18 +230,23 @@
         case ZLAAuthorizationMethodTwitter:
         {
             self.performingRequest = YES;
+            self.signedIn = YES;
             [self.twitterAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
             break;
         }
 
-        case ZLAAuthorizationMethodFacebook: {
+        case ZLAAuthorizationMethodFacebook:
+        {
             self.performingRequest = YES;
+            self.signedIn = YES;
             [self.facebookAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
             break;
         }
 
-        case ZLAAuthorizationMethodGooglePlus: {
+        case ZLAAuthorizationMethodGooglePlus:
+        {
             self.performingRequest = YES;
+            self.signedIn = YES;
             [self.googlePlusAuthorizer loginWithExistingCredentialsWithCompletionBlock:autoAuthCompletionBlock];
             break;
         }

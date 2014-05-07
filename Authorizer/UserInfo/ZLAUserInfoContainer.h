@@ -9,7 +9,7 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLAUserInfoContainer : NSObject
+@interface ZLAUserInfoContainer : NSObject <NSCoding>
 
 +(NSString *) firstNameOfFullName:(NSString *) fullName;
 +(NSString *) lastNameOfFullName:(NSString *) fullName;
