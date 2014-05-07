@@ -122,6 +122,18 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     [ZLACredentialsStorage setPassword:password];
 }
 
+#pragma mark -
+
+-(void) reset
+{
+    self.identifier = nil;
+    self.fullName = nil;
+    self.firstName = nil;
+    self.lastName = nil;
+    self.affiliation = nil;
+    self.profilePictureURL = nil;
+}
+
 #pragma mark - NSCoding encoding
 
 -(void) encodeWithCoder:(NSCoder *) coder

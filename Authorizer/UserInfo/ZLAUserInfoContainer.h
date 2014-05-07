@@ -24,6 +24,8 @@
 @property (strong) NSString *email;
 @property (strong) NSString *password;
 
+-(void) reset;
+
 @end
 
 /////////////////////////////////////////////////////

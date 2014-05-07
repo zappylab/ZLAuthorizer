@@ -376,11 +376,6 @@
 
 -(void) signOut
 {
-    if (self.signedIn) {
-        [ZLACredentialsStorage wipeOutExistingCredentials];
-        [self generateUserIdentifier];
-        self.signedIn = NO;
-    }
     switch ([ZLACredentialsStorage authorizationMethod]) {
         case ZLAAuthorizationMethodFacebook:
             [self.facebookAuthorizer signOut];
@@ -396,7 +391,11 @@
 
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
+    [self.userInfo reset];
+    [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     self.signedIn = NO;
+
+    [self generateUserIdentifier];
 }
 
 #pragma mark -
@@ -480,6 +479,7 @@
                                        self.performingRequest = NO;
                                        [self updateUserInfoWithInfo:completeInfo
                                                 accordingToResponse:response];
+                                       [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
 
                                        if (completionBlock)
                                        {
