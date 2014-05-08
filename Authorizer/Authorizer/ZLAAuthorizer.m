@@ -15,6 +15,7 @@
 #import "ZLATwitterAuthorizer.h"
 #import "ZLAFacebookAuthorizer.h"
 #import "ZLAGooglePlusAuthorizer.h"
+#import "ZLAAutoAuthorizationPerformer.h"
 
 #import "ZLAAuthorizationResponseHandler.h"
 #import "ZLAUserInfoContainer.h"
@@ -24,10 +25,7 @@
 
 #import "NSString+Validation.h"
 #import "UIDevice+IdentifierAddition.h"
-
 #import <UIAlertView+BlocksKit.h>
-
-
 
 /////////////////////////////////////////////////////
 
@@ -42,13 +40,11 @@
 }
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
-@property (strong) ZLNetworkReachabilityObserver *reachabilityObserver;
 
 @property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
 @property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
 @property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
-@property (strong) id<ZLAConcreteAuthorizer> activeAuthorizer;
 
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
@@ -57,7 +53,6 @@
 
 @property (readwrite, atomic) BOOL signedIn;
 @property (readwrite, atomic) BOOL performingRequest;
-@property (readwrite, atomic) BOOL shouldTryAuthorizeAutomatically;
 
 @end
 
@@ -95,7 +90,7 @@
                               appIdentifier:appIdentifier];
     [self setupAuthResponseHandler];
     [self resetState];
-    [self setupReachabilityObserverWithURL:baseURL];
+    [self tryToPerformAutomaticAuthorizationWithURL:baseURL];
 }
 
 -(void) setupUserInfoContainer
@@ -122,28 +117,6 @@
     self.requestsPerformer.userIdentifier = self.userInfo.identifier;
 }
 
--(void) setupReachabilityObserverWithURL:(NSURL *) URL
-{
-    self.reachabilityObserver = [[ZLNetworkReachabilityObserver alloc] initWithURL:URL];
-    [self tryToAuthorizeAutomatically];
-    [self subscribeForReachabilityNotifications];
-}
-
--(void) tryToAuthorizeAutomatically
-{
-    if (self.reachabilityObserver.networkReachable) {
-        [self performAutomaticAuthorization];
-    }
-}
-
--(void) subscribeForReachabilityNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(tryToAuthorizeAutomatically)
-                                                 name:ZLNNetworkReachabilityStatusChangeNotification
-                                               object:self.reachabilityObserver];
-}
-
 -(void) setupAuthResponseHandler
 {
     self.authorizationResponseHandler = [[ZLAAuthorizationResponseHandler alloc] initWithUserInfoContainer:self.userInfo];
@@ -154,7 +127,6 @@
 {
     self.signedIn = NO;
     self.performingRequest = NO;
-    self.shouldTryAuthorizeAutomatically = YES;
 }
 
 #pragma mark - Accessors
@@ -209,51 +181,50 @@
 
 #pragma mark - Authorization
 
--(void) performAutomaticAuthorization
+-(id<ZLAConcreteAuthorizer>) activeAuthorizer
 {
-    if (self.signedIn || self.performingRequest || !self.shouldTryAuthorizeAutomatically) {
-        return;
-    }
-
-    self.activeAuthorizer = nil;
+    id<ZLAConcreteAuthorizer> activeAuthorizer = nil;
 
     switch ([ZLACredentialsStorage authorizationMethod])
     {
         case ZLAAuthorizationMethodNative:
-            self.activeAuthorizer = self.nativeAuthorizer;
+            activeAuthorizer = self.nativeAuthorizer;
             break;
 
         case ZLAAuthorizationMethodTwitter:
-            self.activeAuthorizer = self.twitterAuthorizer;
+            activeAuthorizer = self.twitterAuthorizer;
             break;
 
         case ZLAAuthorizationMethodFacebook:
-            self.activeAuthorizer = self.facebookAuthorizer;
+            activeAuthorizer = self.facebookAuthorizer;
             break;
 
         case ZLAAuthorizationMethodGooglePlus:
-            self.activeAuthorizer = self.googlePlusAuthorizer;
+            activeAuthorizer = self.googlePlusAuthorizer;
             break;
 
         default:
             break;
     }
 
-    if (self.activeAuthorizer) {
+    return activeAuthorizer;
+}
+
+-(void) tryToPerformAutomaticAuthorizationWithURL:(NSURL *) URL
+{
+    id<ZLAConcreteAuthorizer> activeAuthorizer = [self activeAuthorizer];
+    if (activeAuthorizer) {
         self.signedIn = YES;
-        [self.activeAuthorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response)
-        {
-            if (success) {
-                self.shouldTryAuthorizeAutomatically = NO;
-            }
-
-            if (response) {
-                [self.authorizationResponseHandler handleLoginResponse:response];
-                [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-            }
-
-            self.performingRequest = NO;
-        }];
+        ZLNetworkReachabilityObserver *reachabilityObserver = [[ZLNetworkReachabilityObserver alloc] initWithURL:URL];
+        ZLAAutoAuthorizationPerformer *authorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
+        [authorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
+                                                       completionBlock:^(BOOL success, NSDictionary *response)
+                                                       {
+                                                           if (response) {
+                                                               [self.authorizationResponseHandler handleLoginResponse:response];
+                                                               [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                                                           }
+                                                       }];
     }
 }
 
@@ -269,7 +240,6 @@
         return;
     }
 
-    self.shouldTryAuthorizeAutomatically = NO;
     self.performingRequest = YES;
     [self.nativeAuthorizer performAuthorizationWithEmail:email
                                                 password:password
@@ -297,7 +267,6 @@
         return;
     }
 
-    self.shouldTryAuthorizeAutomatically = NO;
     self.performingRequest = YES;
 
     [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
