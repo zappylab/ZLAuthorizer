@@ -21,6 +21,7 @@
 @interface ZLAGooglePlusAuthorizer () <GPPSignInDelegate>
 
 @property (strong) ZLAGooglePlusAuthorizationRequester *requester;
+@property (strong) NSOperation *loginRequestOperation;
 
 @property (copy) void(^completionBlock)(BOOL success, NSDictionary *response);
 
@@ -73,7 +74,7 @@
     GPPSignIn *signIn = [GPPSignIn sharedInstance];
     signIn.shouldFetchGooglePlusUser = YES;
     signIn.shouldFetchGoogleUserEmail = YES;
-    signIn.scopes = @[ @"profile" ];
+    signIn.scopes = @[@"profile"];
     signIn.delegate = self;
 }
 
@@ -87,11 +88,6 @@
     self.completionBlock = completionBlock;
     [GPPSignIn sharedInstance].clientID = clientId;
     [[GPPSignIn sharedInstance] authenticate];
-}
-
--(void) signOut
-{
-    [[GPPSignIn sharedInstance] signOut];
 }
 
 #pragma mark - GPPSignInDelegate methods
@@ -117,7 +113,8 @@
 -(void) executeCompletionBlockWithSuccess:(BOOL) success
                                  response:(NSDictionary *) response
 {
-    if (self.completionBlock) {
+    if (self.completionBlock)
+    {
         self.completionBlock(success, response);
     }
 
@@ -133,24 +130,24 @@
 
     plusService.apiVersion = @"v1";
     [plusService executeQuery:query
-                completionHandler:^(GTLServiceTicket *ticket, GTLPlusPerson *person, NSError *error)
+            completionHandler:^(GTLServiceTicket *ticket, GTLPlusPerson *person, NSError *error)
+            {
+                if (person)
                 {
-                    if (person)
-                    {
-                        [self saveUserInfoFromPerson:person];
-                        [self.requester getProfilePictureAddressForUserWithIdentifier:self.userIdentifier
-                                                                  withCompletionBlock:^(NSString *profilePictureAddress)
-                                                                  {
-                                                                      self.profilePictureAddress = profilePictureAddress;
-                                                                      [self loginWithGooglePlusCredentials];
-                                                                  }];
-                    }
-                    else
-                    {
-                        [self executeCompletionBlockWithSuccess:NO
-                                                       response:nil];
-                    }
-                }];
+                    [self saveUserInfoFromPerson:person];
+                    [self.requester getProfilePictureAddressForUserWithIdentifier:self.userIdentifier
+                                                              withCompletionBlock:^(NSString *profilePictureAddress)
+                                                              {
+                                                                  self.profilePictureAddress = profilePictureAddress;
+                                                                  [self loginWithGooglePlusCredentials];
+                                                              }];
+                }
+                else
+                {
+                    [self executeCompletionBlockWithSuccess:NO
+                                                   response:nil];
+                }
+            }];
 }
 
 -(void) saveUserInfoFromPerson:(GTLPlusPerson *) person
@@ -175,21 +172,23 @@
                          lastName:(NSString *) lastName
             profilePictureAddress:(NSString *) profilePictureAddress
 {
-    [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkGooglePlus
-                                             userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
-                                                accessToken:[ZLACredentialsStorage socialAccessToken]
-                                                  firstName:firstName
-                                                   lastName:lastName
-                                      profilePictureAddress:profilePictureAddress
-                                            completionBlock:^(BOOL success, NSDictionary *response)
-                                            {
-                                                if (self.completionBlock)
-                                                {
-                                                    self.completionBlock(success, response);
-                                                }
+    self.loginRequestOperation = [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkGooglePlus
+                                                                          userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
+                                                                             accessToken:[ZLACredentialsStorage socialAccessToken]
+                                                                               firstName:firstName
+                                                                                lastName:lastName
+                                                                   profilePictureAddress:profilePictureAddress
+                                                                         completionBlock:^(BOOL success, NSDictionary *response)
+                                                                         {
+                                                                             self.loginRequestOperation = nil;
 
-                                                self.completionBlock = nil;
-                                            }];
+                                                                             if (self.completionBlock)
+                                                                             {
+                                                                                 self.completionBlock(success, response);
+                                                                             }
+
+                                                                             self.completionBlock = nil;
+                                                                         }];
 }
 
 -(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
@@ -197,6 +196,17 @@
     [self performLoginWithFirstName:@""
                            lastName:@""
               profilePictureAddress:@""];
+}
+
+-(void) stopLoggingInWithExistingCredentials
+{
+    [self.loginRequestOperation cancel];
+    self.loginRequestOperation = nil;
+}
+
+-(void) signOut
+{
+    [[GPPSignIn sharedInstance] signOut];
 }
 
 @end

@@ -19,6 +19,8 @@
 
 @property (strong) ZLASocialAuthorizationRequester *requester;
 @property (strong) FBLoginView *loginView;
+@property (strong) NSOperation *loginRequestOperation;
+
 @property (copy) void(^completionBlock)(BOOL success, NSDictionary *response);
 
 @end
@@ -121,6 +123,12 @@
               profilePictureAddress:@""];
 }
 
+-(void) stopLoggingInWithExistingCredentials
+{
+    [self.loginRequestOperation cancel];
+    self.loginRequestOperation = nil;
+}
+
 -(void) signOut
 {
     [FBSession.activeSession closeAndClearTokenInformation];
@@ -146,21 +154,23 @@
                          lastName:(NSString *) lastName
             profilePictureAddress:(NSString *) profilePictureAddress
 {
-    [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkFacebook
-                                             userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
-                                                accessToken:[ZLACredentialsStorage socialAccessToken]
-                                                  firstName:firstName
-                                                   lastName:lastName
-                                      profilePictureAddress:profilePictureAddress
-                                            completionBlock:^(BOOL success, NSDictionary *response)
-                                            {
-                                                if (self.completionBlock)
-                                                {
-                                                    self.completionBlock(success, response);
-                                                }
+    self.loginRequestOperation = [self.requester performLoginWithSocialNetworkIdentifier:ZLASocialNetworkFacebook
+                                                                          userIdentifier:[ZLACredentialsStorage socialUserIdentifier]
+                                                                             accessToken:[ZLACredentialsStorage socialAccessToken]
+                                                                               firstName:firstName
+                                                                                lastName:lastName
+                                                                   profilePictureAddress:profilePictureAddress
+                                                                         completionBlock:^(BOOL success, NSDictionary *response)
+                                                                         {
+                                                                             self.loginRequestOperation = nil;
 
-                                                self.completionBlock = nil;
-                                            }];
+                                                                             if (self.completionBlock)
+                                                                             {
+                                                                                 self.completionBlock(success, response);
+                                                                             }
+
+                                                                             self.completionBlock = nil;
+                                                                         }];
 }
 @end
 

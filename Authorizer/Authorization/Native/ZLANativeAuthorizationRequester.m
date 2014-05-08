@@ -29,7 +29,8 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 -(instancetype) init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
 
     }
 
@@ -38,23 +39,23 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 
 #pragma mark - Requests
 
--(void) performNativeLoginWithUserName:(NSString *) userName
-                              password:(NSString *) password
-                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(NSOperation *) performNativeLoginWithUserName:(NSString *) userName
+                                       password:(NSString *) password
+                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     NSParameterAssert(userName);
     NSParameterAssert(password);
 
-    [self.requestsPerformer POST:ZLALoginRequestPath
-                      parameters:@{ZLAUserNameKey      : userName,
-                                   ZLAUserPasswordKey  : password}
-               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-               {
-                   if (completionBlock)
-                   {
-                       completionBlock(success, response);
-                   }
-               }];
+    return [self.requestsPerformer POST:ZLALoginRequestPath
+                             parameters:@{ZLAUserNameKey     : userName,
+                                          ZLAUserPasswordKey : password}
+                      completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
+                      {
+                          if (completionBlock)
+                          {
+                              completionBlock(success, response);
+                          }
+                      }];
 }
 
 -(void) registerUserWithFullName:(NSString *) fullName
@@ -67,9 +68,9 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
     NSParameterAssert(fullName);
 
     [self.requestsPerformer POST:ZLARegisterRequestPath
-                      parameters:@{ZLAUserFullNameKey  : fullName,
-                                   ZLAUserNameKey      : email,
-                                   ZLAUserPasswordKey  : password}
+                      parameters:@{ZLAUserFullNameKey : fullName,
+                                   ZLAUserNameKey     : email,
+                                   ZLAUserPasswordKey : password}
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
                    if (completionBlock)

@@ -19,6 +19,7 @@
 @interface ZLANativeAuthorizer ()
 
 @property (strong) ZLANativeAuthorizationRequester *requester;
+@property (strong) NSOperation *loginRequestOperation;
 
 @end
 
@@ -69,22 +70,28 @@
     if ([self checkUserEmail:email
                  andPassword:password])
     {
-        [self.requester performNativeLoginWithUserName:email
-                                              password:password
-                                       completionBlock:^(BOOL success, NSDictionary *response)
-                                       {
-                                           if (success) {
-                                               [ZLACredentialsStorage setUserEmail:email];
-                                               [ZLACredentialsStorage setPassword:password];
-                                           }
+        self.loginRequestOperation = [self.requester performNativeLoginWithUserName:email
+                                                                           password:password
+                                                                    completionBlock:^(BOOL success, NSDictionary *response)
+                                                                    {
+                                                                        self.loginRequestOperation = nil;
 
-                                           if (completionBlock) {
-                                               completionBlock(success, response);
-                                           }
-                                       }];
+                                                                        if (success)
+                                                                        {
+                                                                            [ZLACredentialsStorage setUserEmail:email];
+                                                                            [ZLACredentialsStorage setPassword:password];
+                                                                        }
+
+                                                                        if (completionBlock)
+                                                                        {
+                                                                            completionBlock(success, response);
+                                                                        }
+                                                                    }];
     }
-    else {
-        if (completionBlock) {
+    else
+    {
+        if (completionBlock)
+        {
             completionBlock(NO, nil);
         }
     }
@@ -122,8 +129,10 @@
                                         password:password
                                  completionBlock:completionBlock];
     }
-    else {
-        if (completionBlock) {
+    else
+    {
+        if (completionBlock)
+        {
             completionBlock(NO, nil);
         }
     }
@@ -133,17 +142,20 @@
                                  email:(NSString *) email
                               password:(NSString *) password
 {
-    if (![email isValidEmail]) {
+    if (![email isValidEmail])
+    {
         [UIAlertView ZLA_showInvalidEmailAlertForRegistration:email];
         return NO;
     }
 
-    if (![ZLAUserInfoValidator isFullNameAcceptable:fullName]) {
+    if (![ZLAUserInfoValidator isFullNameAcceptable:fullName])
+    {
         [UIAlertView ZLA_showTooShowFullNameAlertForRegistration];
         return NO;
     }
 
-    if (![ZLAUserInfoValidator isPasswordAcceptable:password]) {
+    if (![ZLAUserInfoValidator isPasswordAcceptable:password])
+    {
         [UIAlertView ZLA_showTooShortPasswordAlertForRegistration];
         return NO;
     }
@@ -163,9 +175,15 @@
                         completionBlock:completionBlock];
 }
 
+-(void) stopLoggingInWithExistingCredentials
+{
+    [self.loginRequestOperation cancel];
+    self.loginRequestOperation = nil;
+}
+
 -(void) signOut
 {
-
+    // Do nothing?
 }
 
 @end

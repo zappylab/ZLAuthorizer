@@ -21,13 +21,13 @@
                    forUserWithName:(NSString *) userName
                    completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
--(void) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
-                                 userIdentifier:(NSString *) userName
-                                    accessToken:(NSString *) accessToken
-                                      firstName:(NSString *) firstName
-                                       lastName:(NSString *) lastName
-                          profilePictureAddress:(NSString *) profilePictureAddress
-                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(NSOperation *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
+                                          userIdentifier:(NSString *) userName
+                                             accessToken:(NSString *) accessToken
+                                               firstName:(NSString *) firstName
+                                                lastName:(NSString *) lastName
+                                   profilePictureAddress:(NSString *) profilePictureAddress
+                                         completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 @end
 
 /////////////////////////////////////////////////////

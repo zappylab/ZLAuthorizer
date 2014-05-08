@@ -64,13 +64,13 @@
                }];
 }
 
--(void) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
-                                 userIdentifier:(NSString *) userName
-                                    accessToken:(NSString *) accessToken
-                                      firstName:(NSString *) firstName
-                                       lastName:(NSString *) lastName
-                          profilePictureAddress:(NSString *) profilePictureAddress
-                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(NSOperation *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
+                                          userIdentifier:(NSString *) userName
+                                             accessToken:(NSString *) accessToken
+                                               firstName:(NSString *) firstName
+                                                lastName:(NSString *) lastName
+                                   profilePictureAddress:(NSString *) profilePictureAddress
+                                         completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
 {
     NSMutableDictionary *parameters = [self buildLoginParametersWithSocialNetworkIdentifier:socialNetworkKey
                                                                              userIdentifier:userName
@@ -78,15 +78,15 @@
                                                                                   firstName:firstName
                                                                                    lastName:lastName
                                                                       profilePictureAddress:profilePictureAddress];
-    [self.requestsPerformer POST:ZLALoginRequestPath
-                      parameters:parameters
-               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-               {
-                   if (completionBlock)
-                   {
-                       completionBlock(success, response);
-                   }
-               }];
+    return [self.requestsPerformer POST:ZLALoginRequestPath
+                             parameters:parameters
+                      completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
+                      {
+                          if (completionBlock)
+                          {
+                              completionBlock(success, response);
+                          }
+                      }];
 }
 
 -(NSMutableDictionary *) buildLoginParametersWithSocialNetworkIdentifier:(NSString *) socialNetworkKey

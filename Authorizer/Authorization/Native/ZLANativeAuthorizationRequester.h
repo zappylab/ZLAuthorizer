@@ -17,9 +17,9 @@
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
--(void) performNativeLoginWithUserName:(NSString *) userName
-                              password:(NSString *) password
-                       completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(NSOperation *) performNativeLoginWithUserName:(NSString *) userName
+                                       password:(NSString *) password
+                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
 
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
