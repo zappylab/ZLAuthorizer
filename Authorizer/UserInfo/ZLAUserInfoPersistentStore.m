@@ -55,6 +55,12 @@ static NSString *const ZLAPersistedUserInfoKey = @"ZLAAuthorizerUserInfo";
     return userInfoContainer;
 }
 
+-(void) removePersistedUserInfo
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ZLAPersistedUserInfoKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 @end
 
 /////////////////////////////////////////////////////

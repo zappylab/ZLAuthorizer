@@ -45,6 +45,7 @@
 @property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
 @property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
 @property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
+@property (strong) ZLAAutoAuthorizationPerformer *autoAuthorizationPerformer;
 
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
@@ -97,7 +98,8 @@
 {
     self.userInfoPersistentStore = [[ZLAUserInfoPersistentStore alloc] init];
     self.userInfo = [self.userInfoPersistentStore restorePersistedUserInfoContainer];
-    if (!self.userInfo) {
+    if (!self.userInfo)
+    {
         self.userInfo = [[ZLAUserInfoContainer alloc] init];
         [self generateUserIdentifier];
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
@@ -163,7 +165,8 @@
 
 -(ZLAFacebookAuthorizer *) facebookAuthorizer
 {
-    if (!_facebookAuthorizer) {
+    if (!_facebookAuthorizer)
+    {
         _facebookAuthorizer = [[ZLAFacebookAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
@@ -172,7 +175,8 @@
 
 -(ZLAGooglePlusAuthorizer *) googlePlusAuthorizer
 {
-    if (!_googlePlusAuthorizer) {
+    if (!_googlePlusAuthorizer)
+    {
         _googlePlusAuthorizer = [[ZLAGooglePlusAuthorizer alloc] initWithRequestsPerformer:self.requestsPerformer];
     }
 
@@ -181,9 +185,9 @@
 
 #pragma mark - Authorization
 
--(id<ZLAConcreteAuthorizer>) activeAuthorizer
+-(id <ZLAConcreteAuthorizer>) activeAuthorizer
 {
-    id<ZLAConcreteAuthorizer> activeAuthorizer = nil;
+    id <ZLAConcreteAuthorizer> activeAuthorizer = nil;
 
     switch ([ZLACredentialsStorage authorizationMethod])
     {
@@ -212,19 +216,21 @@
 
 -(void) tryToPerformAutomaticAuthorizationWithURL:(NSURL *) URL
 {
-    id<ZLAConcreteAuthorizer> activeAuthorizer = [self activeAuthorizer];
-    if (activeAuthorizer) {
+    id <ZLAConcreteAuthorizer> activeAuthorizer = [self activeAuthorizer];
+    if (activeAuthorizer)
+    {
         self.signedIn = YES;
         ZLNetworkReachabilityObserver *reachabilityObserver = [[ZLNetworkReachabilityObserver alloc] initWithURL:URL];
-        ZLAAutoAuthorizationPerformer *authorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
-        [authorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
-                                                       completionBlock:^(BOOL success, NSDictionary *response)
-                                                       {
-                                                           if (response) {
-                                                               [self.authorizationResponseHandler handleLoginResponse:response];
-                                                               [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-                                                           }
-                                                       }];
+        self.autoAuthorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
+        [self.autoAuthorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
+                                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                                {
+                                                                    if (response)
+                                                                    {
+                                                                        [self.authorizationResponseHandler handleLoginResponse:response];
+                                                                        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                                                                    }
+                                                                }];
     }
 }
 
@@ -232,8 +238,10 @@
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest) {
-        if (completionBlock) {
+    if (self.performingRequest)
+    {
+        if (completionBlock)
+        {
             completionBlock(NO);
         }
 
@@ -245,7 +253,8 @@
                                                 password:password
                                          completionBlock:^(BOOL success, NSDictionary *response)
                                          {
-                                             if (success) {
+                                             if (success)
+                                             {
                                                  [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodNative];
                                              }
 
@@ -259,8 +268,10 @@
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest) {
-        if (completionBlock) {
+    if (self.performingRequest)
+    {
+        if (completionBlock)
+        {
             completionBlock(NO);
         }
 
@@ -288,16 +299,19 @@
                             success:(BOOL) success
                     completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (!success) {
+    if (!success)
+    {
         [ZLACredentialsStorage wipeOutExistingCredentials];
     }
 
-    if (response) {
+    if (response)
+    {
         [self.authorizationResponseHandler handleLoginResponse:response];
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
 
-    if (completionBlock) {
+    if (completionBlock)
+    {
         completionBlock(success);
     }
 
@@ -309,7 +323,8 @@
 {
     [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
     {
-        if (success) {
+        if (success)
+        {
             [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
         }
 
@@ -325,7 +340,8 @@
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response)
                                                 {
-                                                    if (success) {
+                                                    if (success)
+                                                    {
                                                         [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
                                                     }
 
@@ -337,7 +353,8 @@
 
 -(void) signOut
 {
-    switch ([ZLACredentialsStorage authorizationMethod]) {
+    switch ([ZLACredentialsStorage authorizationMethod])
+    {
         case ZLAAuthorizationMethodFacebook:
             [self.facebookAuthorizer signOut];
             break;
@@ -350,6 +367,8 @@
             break;
     }
 
+    [self.autoAuthorizationPerformer stopAutoAuthorization];
+    [self.userInfoPersistentStore removePersistedUserInfo];
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
     [self.userInfo reset];

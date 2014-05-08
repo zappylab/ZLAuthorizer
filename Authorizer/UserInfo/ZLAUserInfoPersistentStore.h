@@ -18,6 +18,7 @@
 -(void) persistUserInfoContainer:(ZLAUserInfoContainer *) userInfoContainer;
 -(ZLAUserInfoContainer *) restorePersistedUserInfoContainer;
 
+-(void) removePersistedUserInfo;
 @end
 
 /////////////////////////////////////////////////////
