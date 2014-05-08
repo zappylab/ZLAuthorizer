@@ -342,7 +342,7 @@
                                                 {
                                                     if (success)
                                                     {
-                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodGooglePlus];
                                                     }
 
                                                     [self handleAuthorizationResponse:response
