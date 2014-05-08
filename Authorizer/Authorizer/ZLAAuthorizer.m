@@ -321,6 +321,7 @@
 
 -(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
+    self.performingRequest = YES;
     [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
     {
         if (success)
@@ -337,6 +338,7 @@
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
                                    completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
+    self.performingRequest = YES;
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response)
                                                 {
