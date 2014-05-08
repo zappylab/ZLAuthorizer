@@ -143,10 +143,10 @@
     [ZLACredentialsStorage setSocialAccessToken:FBSession.activeSession.accessTokenData.accessToken];
     [ZLACredentialsStorage setSocialUserIdentifier:user.id];
 
-    [self performLoginWithFirstName:user[@"last_name"]
-                           lastName:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
-                                                               user.id]
-              profilePictureAddress:nil ];
+    [self performLoginWithFirstName:user[@"first_name"]
+                           lastName:user[@"last_name"]
+              profilePictureAddress:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
+                                     user.id]];
 
 }
 
