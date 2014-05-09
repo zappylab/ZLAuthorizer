@@ -22,7 +22,7 @@
 -(instancetype) initWithReachabilityObserver:(ZLNetworkReachabilityObserver *) observer;
 
 -(void) performAutoAuthorizationWithAuthorizer:(id<ZLAConcreteAuthorizer>) authorizer
-                               completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+                               completionBlock:(ZLARequestCompletionBlock) completionBlock;
 -(void) stopAutoAuthorization;
 
 @end

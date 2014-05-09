@@ -41,7 +41,7 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 
 -(NSOperation *) performNativeLoginWithUserName:(NSString *) userName
                                        password:(NSString *) password
-                                completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+                                completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(userName);
     NSParameterAssert(password);
@@ -49,19 +49,13 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
     return [self.requestsPerformer POST:ZLALoginRequestPath
                              parameters:@{ZLAUserNameKey     : userName,
                                           ZLAUserPasswordKey : password}
-                      completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-                      {
-                          if (completionBlock)
-                          {
-                              completionBlock(success, response);
-                          }
-                      }];
+                      completionHandler:completionBlock];
 }
 
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
                         password:(NSString *) password
-                 completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+                 completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(email);
     NSParameterAssert(password);
@@ -71,13 +65,7 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
                       parameters:@{ZLAUserFullNameKey : fullName,
                                    ZLAUserNameKey     : email,
                                    ZLAUserPasswordKey : password}
-               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-               {
-                   if (completionBlock)
-                   {
-                       completionBlock(success, response);
-                   }
-               }];
+               completionHandler:completionBlock];
 }
 
 -(void) resetPassword
@@ -86,7 +74,7 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
                       parameters:nil
                completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
                {
-
+                   // TODO: ???
                }];
 }
 

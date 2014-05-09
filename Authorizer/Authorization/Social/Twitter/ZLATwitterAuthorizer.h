@@ -15,7 +15,7 @@
 
 -(void) performAuthorizationWithConsumerKey:(NSString *) consumerKey
                              consumerSecret:(NSString *) consumerSecret
-                            completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+                            completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 @end
 

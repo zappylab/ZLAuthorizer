@@ -36,6 +36,7 @@ PODS:
   - Expecta (0.3.0)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
+  - OHHTTPStubs (3.1.1)
   - Specta (0.2.1)
   - ZLNetworkRequestsPerformer (0.1):
     - AFNetworking (~> 2.0)
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - Expecta
   - Lockbox
   - NSString+Validation
+  - OHHTTPStubs
   - Specta
   - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`)
 
@@ -59,6 +61,7 @@ SPEC CHECKSUMS:
   Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
   Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
   NSString+Validation: 5b1f5c3b4f524352e889b46ade36a9ef47c060db
+  OHHTTPStubs: be1c4263e49191b586d8313dcd6068da6f699d2c
   Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
   ZLNetworkRequestsPerformer: 33963f1543a70b88834d30958b81546ae391d24e
 

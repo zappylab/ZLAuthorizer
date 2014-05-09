@@ -14,7 +14,6 @@
 #import "ZLNetworkRequestsPerformer.h"
 #import "ZLACredentialsStorage.h"
 #import "ZLAConstants.h"
-#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -23,7 +22,7 @@
 @property (strong) ZLAGooglePlusAuthorizationRequester *requester;
 @property (strong) NSOperation *loginRequestOperation;
 
-@property (copy) void(^completionBlock)(BOOL success, NSDictionary *response);
+@property (copy) ZLARequestCompletionBlock completionBlock;
 
 @property (strong) NSString *accessToken;
 @property (strong) NSString *userIdentifier;
@@ -81,7 +80,7 @@
 #pragma mark - Authorization
 
 -(void) performAuthorizationWithClientId:(NSString *) clientId
-                         completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+                         completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(clientId);
 
@@ -115,7 +114,7 @@
 {
     if (self.completionBlock)
     {
-        self.completionBlock(success, response);
+        self.completionBlock(success, response, nil);
     }
 
     self.completionBlock = nil;
@@ -178,20 +177,20 @@
                                                                                firstName:firstName
                                                                                 lastName:lastName
                                                                    profilePictureAddress:profilePictureAddress
-                                                                         completionBlock:^(BOOL success, NSDictionary *response)
+                                                                         completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                                          {
                                                                              self.loginRequestOperation = nil;
 
                                                                              if (self.completionBlock)
                                                                              {
-                                                                                 self.completionBlock(success, response);
+                                                                                 self.completionBlock(success, response, error);
                                                                              }
 
                                                                              self.completionBlock = nil;
                                                                          }];
 }
 
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     [self performLoginWithFirstName:@""
                            lastName:@""

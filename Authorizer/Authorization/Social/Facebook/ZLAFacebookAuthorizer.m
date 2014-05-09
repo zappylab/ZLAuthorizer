@@ -21,7 +21,7 @@
 @property (strong) FBLoginView *loginView;
 @property (strong) NSOperation *loginRequestOperation;
 
-@property (copy) void(^completionBlock)(BOOL success, NSDictionary *response);
+@property (copy) ZLARequestCompletionBlock completionBlock;
 
 @end
 
@@ -68,7 +68,7 @@
 
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+-(void) performAuthorizationWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     self.completionBlock = completionBlock;
 
@@ -115,7 +115,7 @@
     }
 }
 
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     self.completionBlock = completionBlock;
     [self performLoginWithFirstName:@""
@@ -160,13 +160,13 @@
                                                                                firstName:firstName
                                                                                 lastName:lastName
                                                                    profilePictureAddress:profilePictureAddress
-                                                                         completionBlock:^(BOOL success, NSDictionary *response)
+                                                                         completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                                          {
                                                                              self.loginRequestOperation = nil;
 
                                                                              if (self.completionBlock)
                                                                              {
-                                                                                 self.completionBlock(success, response);
+                                                                                 self.completionBlock(success, response, error);
                                                                              }
 
                                                                              self.completionBlock = nil;

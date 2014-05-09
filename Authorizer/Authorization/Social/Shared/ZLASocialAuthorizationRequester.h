@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ZLASharedTypes.h"
+
 /////////////////////////////////////////////////////
 
 @class ZLNetworkRequestsPerformer;
@@ -19,7 +21,7 @@
 
 -(void) validateTwitterAccessToken:(NSString *) accessToken
                    forUserWithName:(NSString *) userName
-                   completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+                   completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 -(NSOperation *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
                                           userIdentifier:(NSString *) userName
@@ -27,7 +29,7 @@
                                                firstName:(NSString *) firstName
                                                 lastName:(NSString *) lastName
                                    profilePictureAddress:(NSString *) profilePictureAddress
-                                         completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+                                         completionBlock:(ZLARequestCompletionBlock) completionBlock;
 @end
 
 /////////////////////////////////////////////////////

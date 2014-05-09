@@ -8,13 +8,14 @@
 #import <Foundation/Foundation.h>
 
 #import "ZLAConcreteAuthorizer.h"
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
 @interface ZLAGooglePlusAuthorizer : NSObject <ZLAConcreteAuthorizer>
 
 -(void) performAuthorizationWithClientId:(NSString *) clientId
-                         completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+                         completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 @end
 

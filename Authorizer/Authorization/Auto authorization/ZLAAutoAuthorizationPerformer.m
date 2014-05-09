@@ -25,7 +25,7 @@ static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = 2;
 @property (strong) NSTimer *authorizationRetryTimer;
 @property (readwrite) NSTimeInterval timeBetweenAuthorizationAttempts;
 
-@property (copy) ZLAAuthorizationRequestCompletionBlock completionBlock;
+@property (copy) ZLARequestCompletionBlock completionBlock;
 
 @end
 
@@ -78,32 +78,13 @@ static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = 2;
     }
 }
 
--(void) tryToAuthorize
-{
-    if (self.authorizer && !self.authorizationRetryTimer)
-    {
-        [self.authorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response)
-        {
-            if (success) {
-                self.authorizer = nil;
-
-                if (self.completionBlock) {
-                    self.completionBlock(success, response);
-                }
-
-                self.completionBlock = nil;
-            }
-        }];
-    }
-}
-
 -(void) resetAuthorizationAttemptsTimer
 {
-    [self stopWaitingForNextAuthorizationAttempt];
+    [self invalidateNextAttemptTimer];
     [self resetTimeBetweenAuthorizationAttempts];
 }
 
--(void) stopWaitingForNextAuthorizationAttempt
+-(void) invalidateNextAttemptTimer
 {
     [self.authorizationRetryTimer invalidate];
     self.authorizationRetryTimer = nil;
@@ -114,10 +95,50 @@ static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = 2;
     self.timeBetweenAuthorizationAttempts = ZLAAutoAuthDefaultTimeBetweenAttempts;
 }
 
+-(void) tryToAuthorize
+{
+    if (self.authorizer && !self.authorizationRetryTimer)
+    {
+        [self.authorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+        {
+            if (success || !error) {
+                // authorized successfully or
+                // failed to authorize not because of network issues
+                self.authorizer = nil;
+
+                if (self.completionBlock) {
+                    self.completionBlock(success, response, error);
+                }
+
+                self.completionBlock = nil;
+            }
+            else {
+                // network issues, retry later
+                [self startWaitingForNextAttempt];
+            }
+        }];
+    }
+}
+
+-(void) startWaitingForNextAttempt
+{
+    self.authorizationRetryTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeBetweenAuthorizationAttempts
+                                                                    target:self
+                                                                  selector:@selector(makeAnotherAuthorizationAttempt)
+                                                                  userInfo:nil
+                                                                   repeats:NO];
+}
+
+-(void) makeAnotherAuthorizationAttempt
+{
+    [self invalidateNextAttemptTimer];
+    [self tryToAuthorize];
+}
+
 #pragma mark - Auto auth
 
 -(void) performAutoAuthorizationWithAuthorizer:(id <ZLAConcreteAuthorizer>) authorizer
-                               completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+                               completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     [self resetAuthorizationAttemptsTimer];
 

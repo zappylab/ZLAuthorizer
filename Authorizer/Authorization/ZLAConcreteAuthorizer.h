@@ -19,7 +19,7 @@
 
 -(id) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock;
 -(void) stopLoggingInWithExistingCredentials;
 -(void) signOut;
 

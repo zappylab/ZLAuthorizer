@@ -110,7 +110,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) performAuthorizationWithConsumerKey:(NSString *) consumerKey
                              consumerSecret:(NSString *) consumerSecret
-                            completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+                            completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(consumerKey);
     NSParameterAssert(consumerSecret);
@@ -131,7 +131,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
         {
             if (completionBlock)
             {
-                completionBlock(NO, nil);
+                completionBlock(NO, nil, nil);
             }
         }
 
@@ -157,7 +157,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
         {
             if (completionBlock)
             {
-                completionBlock(NO, nil);
+                completionBlock(NO, nil, nil);
             }
         }
 
@@ -172,14 +172,14 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
             BOOL success = [result[ZLATwitterAuthorizerSuccessKey] boolValue];
             NSDictionary *response = result[ZLATwitterAuthorizerResponseKey];
 
-            completionBlock(success, response);
+            completionBlock(success, response, nil);
         }
 
         return nil;
     }];
 }
 
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     self.twitterUserName = [ZLACredentialsStorage socialUserIdentifier];
     self.accessToken = [ZLACredentialsStorage socialAccessToken];
@@ -190,13 +190,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
                                                   firstName:@""
                                                    lastName:@""
                                       profilePictureAddress:@""
-                                            completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
-                                            {
-                                                if (completionBlock)
-                                                {
-                                                    completionBlock(authorizationSuccess, authorizationResponse);
-                                                }
-                                            }];
+                                            completionBlock:completionBlock];
 }
 
 #pragma mark - OAuth
@@ -334,7 +328,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
     [self.requester validateTwitterAccessToken:self.accessToken
                                forUserWithName:self.twitterUserName
-                               completionBlock:^(BOOL success, NSDictionary *response)
+                               completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                {
                                    if (success)
                                    {
@@ -370,7 +364,7 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
                                                                                firstName:[ZLAUserInfoContainer firstNameOfFullName:self.fullUserName]
                                                                                 lastName:[ZLAUserInfoContainer lastNameOfFullName:self.fullUserName]
                                                                    profilePictureAddress:self.profilePictureAddress
-                                                                         completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse)
+                                                                         completionBlock:^(BOOL authorizationSuccess, NSDictionary *authorizationResponse, NSError *error)
                                                                          {
                                                                              self.loginRequestOperation = nil;
 

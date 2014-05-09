@@ -20,7 +20,7 @@
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer;
 
 -(void) updateAccountWithInfo:(NSDictionary *) accountInfo
-              completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock;
+              completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 @end
 

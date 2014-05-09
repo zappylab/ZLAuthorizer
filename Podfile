@@ -10,4 +10,5 @@ pod 'BlocksKit', '~> 2.2.0'
 target :AuthorizerTests do
 	pod 'Specta'
 	pod 'Expecta'
+	pod 'OHHTTPStubs'
 end

@@ -13,7 +13,7 @@
 
 @interface ZLAFacebookAuthorizer : NSObject <ZLAConcreteAuthorizer>
 
--(void) performAuthorizationWithCompletionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock;
+-(void) performAuthorizationWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 @end
 

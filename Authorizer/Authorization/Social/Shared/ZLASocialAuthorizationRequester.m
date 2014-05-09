@@ -8,8 +8,9 @@
 #import "ZLASocialAuthorizationRequester.h"
 
 #import "ZLNetworkRequestsPerformer.h"
-#import "ZLAConstants.h"
 #import "ZLACredentialsStorage.h"
+
+#import "ZLAConstants.h"
 
 /////////////////////////////////////////////////////
 
@@ -47,7 +48,7 @@
 
 -(void) validateTwitterAccessToken:(NSString *) accessToken
                    forUserWithName:(NSString *) userName
-                   completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+                   completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(accessToken);
     NSParameterAssert(userName);
@@ -55,13 +56,7 @@
     [self.requestsPerformer POST:ZLAValidateTwitterAccessTokenRequestPath
                       parameters:@{ZLASocialNetworkTwitter : userName,
                                    ZLAOAuthAccessTokenKey  : accessToken}
-               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-               {
-                   if (completionBlock)
-                   {
-                       completionBlock(success, response);
-                   }
-               }];
+               completionHandler:completionBlock];
 }
 
 -(NSOperation *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
@@ -70,7 +65,7 @@
                                                firstName:(NSString *) firstName
                                                 lastName:(NSString *) lastName
                                    profilePictureAddress:(NSString *) profilePictureAddress
-                                         completionBlock:(void (^)(BOOL success, NSDictionary *response)) completionBlock
+                                         completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSMutableDictionary *parameters = [self buildLoginParametersWithSocialNetworkIdentifier:socialNetworkKey
                                                                              userIdentifier:userName
@@ -80,13 +75,7 @@
                                                                       profilePictureAddress:profilePictureAddress];
     return [self.requestsPerformer POST:ZLALoginRequestPath
                              parameters:parameters
-                      completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-                      {
-                          if (completionBlock)
-                          {
-                              completionBlock(success, response);
-                          }
-                      }];
+                      completionHandler:completionBlock];
 }
 
 -(NSMutableDictionary *) buildLoginParametersWithSocialNetworkIdentifier:(NSString *) socialNetworkKey

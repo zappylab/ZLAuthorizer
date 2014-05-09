@@ -65,14 +65,14 @@
 
 -(void) performAuthorizationWithEmail:(NSString *) email
                              password:(NSString *) password
-                      completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+                      completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     if ([self checkUserEmail:email
                  andPassword:password])
     {
         self.loginRequestOperation = [self.requester performNativeLoginWithUserName:email
                                                                            password:password
-                                                                    completionBlock:^(BOOL success, NSDictionary *response)
+                                                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                                     {
                                                                         self.loginRequestOperation = nil;
 
@@ -84,7 +84,7 @@
 
                                                                         if (completionBlock)
                                                                         {
-                                                                            completionBlock(success, response);
+                                                                            completionBlock(success, response, error);
                                                                         }
                                                                     }];
     }
@@ -92,7 +92,7 @@
     {
         if (completionBlock)
         {
-            completionBlock(NO, nil);
+            completionBlock(NO, nil, nil);
         }
     }
 }
@@ -118,7 +118,7 @@
 -(void) registerUserWithFullName:(NSString *) fullName
                            email:(NSString *) email
                         password:(NSString *) password
-                 completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+                 completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     if ([self ableToRegisterUserWithFullName:fullName
                                        email:email
@@ -133,7 +133,7 @@
     {
         if (completionBlock)
         {
-            completionBlock(NO, nil);
+            completionBlock(NO, nil, nil);
         }
     }
 }
@@ -168,7 +168,7 @@
     [self.requester resetPassword];
 }
 
--(void) loginWithExistingCredentialsWithCompletionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+-(void) loginWithExistingCredentialsWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     [self performAuthorizationWithEmail:[ZLACredentialsStorage userEmail]
                                password:[ZLACredentialsStorage password]

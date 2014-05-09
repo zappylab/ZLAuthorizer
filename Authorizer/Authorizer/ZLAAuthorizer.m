@@ -223,11 +223,15 @@
         ZLNetworkReachabilityObserver *reachabilityObserver = [[ZLNetworkReachabilityObserver alloc] initWithURL:URL];
         self.autoAuthorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
         [self.autoAuthorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
-                                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                                completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                                 {
                                                                     if (response)
                                                                     {
                                                                         [self.authorizationResponseHandler handleLoginResponse:response];
+                                                                    }
+
+                                                                    if (success)
+                                                                    {
                                                                         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
                                                                     }
                                                                 }];
@@ -251,7 +255,7 @@
     self.performingRequest = YES;
     [self.nativeAuthorizer performAuthorizationWithEmail:email
                                                 password:password
-                                         completionBlock:^(BOOL success, NSDictionary *response)
+                                         completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                          {
                                              if (success)
                                              {
@@ -282,7 +286,7 @@
 
     [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
                                                  consumerSecret:APISecret
-                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                 {
                                                     if (success)
                                                     {
@@ -322,7 +326,7 @@
 -(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     self.performingRequest = YES;
-    [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response)
+    [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
     {
         if (success)
         {
@@ -340,7 +344,7 @@
 {
     self.performingRequest = YES;
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
-                                                completionBlock:^(BOOL success, NSDictionary *response)
+                                                completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                 {
                                                     if (success)
                                                     {
@@ -376,7 +380,7 @@
     [self.userInfo reset];
     [self generateUserIdentifier];
     [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-    
+
     self.signedIn = NO;
 }
 
@@ -391,7 +395,7 @@
     [self.nativeAuthorizer registerUserWithFullName:fullName
                                               email:email
                                            password:password
-                                    completionBlock:^(BOOL success, NSDictionary *response)
+                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                     {
                                         if (response)
                                         {
@@ -456,7 +460,7 @@
                                                                 password:password]];
     self.performingRequest = YES;
     [self.accountInfoUpdater updateAccountWithInfo:completeInfo
-                                   completionBlock:^(BOOL success, NSDictionary *response)
+                                   completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                    {
                                        self.performingRequest = NO;
                                        [self updateUserInfoWithInfo:completeInfo

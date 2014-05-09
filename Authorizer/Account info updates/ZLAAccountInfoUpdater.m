@@ -47,19 +47,13 @@ static NSString *const ZLAAccountInfoUpdateRequestPath = @"msaveuserinfo";
 #pragma mark - Requests
 
 -(void) updateAccountWithInfo:(NSDictionary *) accountInfo
-              completionBlock:(ZLAAuthorizationRequestCompletionBlock) completionBlock
+              completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(accountInfo);
 
     [self.requestsPerformer POST:ZLAAccountInfoUpdateRequestPath
                       parameters:accountInfo
-               completionHandler:^(BOOL success, NSDictionary *response, NSError *error)
-               {
-                   if (completionBlock)
-                   {
-                       completionBlock(success, response);
-                   }
-               }];
+               completionHandler:completionBlock];
 }
 
 @end
