@@ -17,9 +17,15 @@ beforeEach(^{
                                           appIdentifier:@"2"];
 });
 
-//it(@"should be non signed in by default", ^{
-//    expect(authorizer.signedIn).to.beFalsy();
-//});
+it(@"should be not signed in after sign out", ^{
+    [authorizer signOut];
+    expect(authorizer.signedIn).to.beFalsy();
+});
+
+it(@"should be not performing requests after sign out", ^{
+    [authorizer signOut];
+    expect(authorizer.performingRequest).to.beFalsy();
+});
 
 it(@"should should not perform any requests by default", ^{
     expect(authorizer.performingRequest).to.beFalsy();

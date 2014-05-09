@@ -314,13 +314,13 @@
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
 
+    self.signedIn = success;
+    self.performingRequest = NO;
+    
     if (completionBlock)
     {
         completionBlock(success);
     }
-
-    self.signedIn = success;
-    self.performingRequest = NO;
 }
 
 -(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock

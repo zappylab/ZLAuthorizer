@@ -68,6 +68,8 @@ it(@"should save email and password if authorized", ^AsyncBlock{
                                         completionBlock:^(BOOL success)
                                         {
                                             expect(success).to.beTruthy();
+                                            expect(authorizer.signedIn).to.beTruthy();
+                                            expect(authorizer.performingRequest).to.beFalsy();
                                             expect(authorizer.userInfo.email).to.equal(email);
                                             expect(authorizer.userInfo.password).to.equal(password);
                                             done();
