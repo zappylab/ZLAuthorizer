@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		92252B5810EC479B8C7A55C2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1FF1D4A5CB4B60978119A4 /* libPods.a */; };
+		BD067559191D0F21002D2231 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD067558191D0F21002D2231 /* XCTest.framework */; };
+		BD06755A191D0F21002D2231 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46901E19006D53003EEC0E /* Foundation.framework */; };
+		BD06755B191D0F21002D2231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902219006D53003EEC0E /* UIKit.framework */; };
+		BD067561191D0F21002D2231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD06755F191D0F21002D2231 /* InfoPlist.strings */; };
+		BD067563191D0F21002D2231 /* AuthorizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD067562191D0F21002D2231 /* AuthorizerTests.m */; };
 		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
 		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
 		BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */; };
@@ -45,6 +50,7 @@
 		C7DFE5E7584688E6CFE5DF74 /* ZLAAutoAuthorizationPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEC8B92FBBAF56201C5A9 /* ZLAAutoAuthorizationPerformer.m */; };
 		C7DFE6B3FB0EDE235CD75BCC /* ZLAUserInfoValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */; };
 		C7DFEA52FDCFA017F3749B31 /* ZLAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE4009CFC8E3E176DCD3E /* ZLAAppDelegate.m */; };
+		DF97EF9BB8444340A165DCD8 /* libPods-AuthorizerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E6B7ADBF8845FBA0035FF7 /* libPods-AuthorizerTests.a */; };
 		E69D0D87190C52B400AB00C6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D86190C52B400AB00C6 /* AddressBook.framework */; };
 		E69D0D89190C52BC00AB00C6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */; };
 		E69D0D8B190C52E800AB00C6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D8A190C52E800AB00C6 /* CoreLocation.framework */; };
@@ -57,6 +63,13 @@
 
 /* Begin PBXFileReference section */
 		0D1FF1D4A5CB4B60978119A4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E6B7ADBF8845FBA0035FF7 /* libPods-AuthorizerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AuthorizerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD067557191D0F21002D2231 /* AuthorizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthorizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD067558191D0F21002D2231 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		BD06755E191D0F21002D2231 /* AuthorizerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AuthorizerTests-Info.plist"; sourceTree = "<group>"; };
+		BD067560191D0F21002D2231 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BD067562191D0F21002D2231 /* AuthorizerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorizerTests.m; sourceTree = "<group>"; };
+		BD067564191D0F21002D2231 /* AuthorizerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AuthorizerTests-Prefix.pch"; sourceTree = "<group>"; };
 		BD1836C91912D91C00D8C129 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		BD1836CB1912D91C00D8C129 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
@@ -246,9 +259,21 @@
 		E6DB4B2E19143AE600959B9C /* Bolts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bolts.h; sourceTree = "<group>"; };
 		E6DB4B2F19143AE600959B9C /* BoltsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltsVersion.h; sourceTree = "<group>"; };
 		F4921F4F54A24C3FB127318C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		FEFE27F9A97D4E08BEE69FAB /* Pods-AuthorizerTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthorizerTests.xcconfig"; path = "../Pods/Pods-AuthorizerTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BD067554191D0F21002D2231 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD067559191D0F21002D2231 /* XCTest.framework in Frameworks */,
+				BD06755B191D0F21002D2231 /* UIKit.framework in Frameworks */,
+				BD06755A191D0F21002D2231 /* Foundation.framework in Frameworks */,
+				DF97EF9BB8444340A165DCD8 /* libPods-AuthorizerTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD46901819006D53003EEC0E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,6 +306,25 @@
 				C7DFE3C14A279A4239DC42CD /* ZLAAutoAuthorizationPerformer.h */,
 			);
 			path = "Auto authorization";
+			sourceTree = "<group>";
+		};
+		BD06755C191D0F21002D2231 /* AuthorizerTests */ = {
+			isa = PBXGroup;
+			children = (
+				BD067562191D0F21002D2231 /* AuthorizerTests.m */,
+				BD06755D191D0F21002D2231 /* Supporting Files */,
+			);
+			path = AuthorizerTests;
+			sourceTree = "<group>";
+		};
+		BD06755D191D0F21002D2231 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD06755E191D0F21002D2231 /* AuthorizerTests-Info.plist */,
+				BD06755F191D0F21002D2231 /* InfoPlist.strings */,
+				BD067564191D0F21002D2231 /* AuthorizerTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		BD1836B51912A0FA00D8C129 /* Account info updates */ = {
@@ -398,10 +442,12 @@
 			isa = PBXGroup;
 			children = (
 				BD46902419006D53003EEC0E /* AuthorizerExample */,
+				BD06755C191D0F21002D2231 /* AuthorizerTests */,
 				BD46901D19006D53003EEC0E /* Frameworks */,
 				BD46901C19006D53003EEC0E /* Products */,
 				E6DB4B2919143AC100959B9C /* Pods Headers */,
 				F4921F4F54A24C3FB127318C /* Pods.xcconfig */,
+				FEFE27F9A97D4E08BEE69FAB /* Pods-AuthorizerTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -409,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				BD46901B19006D53003EEC0E /* AuthorizerExample.app */,
+				BD067557191D0F21002D2231 /* AuthorizerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -429,6 +476,8 @@
 				BD46902019006D53003EEC0E /* CoreGraphics.framework */,
 				BD46902219006D53003EEC0E /* UIKit.framework */,
 				0D1FF1D4A5CB4B60978119A4 /* libPods.a */,
+				BD067558191D0F21002D2231 /* XCTest.framework */,
+				21E6B7ADBF8845FBA0035FF7 /* libPods-AuthorizerTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -699,6 +748,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BD067556191D0F21002D2231 /* AuthorizerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD067567191D0F21002D2231 /* Build configuration list for PBXNativeTarget "AuthorizerTests" */;
+			buildPhases = (
+				5C78F3277D0145109F6D23BC /* Check Pods Manifest.lock */,
+				BD067553191D0F21002D2231 /* Sources */,
+				BD067554191D0F21002D2231 /* Frameworks */,
+				BD067555191D0F21002D2231 /* Resources */,
+				FFA6525C3F29411CA669B427 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AuthorizerTests;
+			productName = AuthorizerTests;
+			productReference = BD067557191D0F21002D2231 /* AuthorizerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BD46901A19006D53003EEC0E /* AuthorizerExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD46904D19006D53003EEC0E /* Build configuration list for PBXNativeTarget "AuthorizerExample" */;
@@ -726,6 +794,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = ZappyLab;
+				TargetAttributes = {
+					BD067556191D0F21002D2231 = {
+						TestTargetID = BD46901A19006D53003EEC0E;
+					};
+				};
 			};
 			buildConfigurationList = BD46901619006D53003EEC0E /* Build configuration list for PBXProject "AuthorizerExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -738,14 +811,25 @@
 			mainGroup = BD46901219006D53003EEC0E;
 			productRefGroup = BD46901C19006D53003EEC0E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				BD46901A19006D53003EEC0E /* AuthorizerExample */,
+				BD067556191D0F21002D2231 /* AuthorizerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BD067555191D0F21002D2231 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD067561191D0F21002D2231 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD46901919006D53003EEC0E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -759,6 +843,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5C78F3277D0145109F6D23BC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		707C67F582E5432C948B3A20 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -789,9 +888,32 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FFA6525C3F29411CA669B427 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Pods-AuthorizerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BD067553191D0F21002D2231 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD067563191D0F21002D2231 /* AuthorizerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD46901719006D53003EEC0E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -830,6 +952,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BD06755F191D0F21002D2231 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD067560191D0F21002D2231 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		BD46902719006D53003EEC0E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -849,6 +979,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BD067565191D0F21002D2231 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEFE27F9A97D4E08BEE69FAB /* Pods-AuthorizerTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AuthorizerExample.app/AuthorizerExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AuthorizerTests/AuthorizerTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AuthorizerTests/AuthorizerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		BD067566191D0F21002D2231 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEFE27F9A97D4E08BEE69FAB /* Pods-AuthorizerTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AuthorizerExample.app/AuthorizerExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AuthorizerTests/AuthorizerTests-Prefix.pch";
+				INFOPLIST_FILE = "AuthorizerTests/AuthorizerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		BD46904B19006D53003EEC0E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -994,6 +1166,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BD067567191D0F21002D2231 /* Build configuration list for PBXNativeTarget "AuthorizerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD067565191D0F21002D2231 /* Debug */,
+				BD067566191D0F21002D2231 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		BD46901619006D53003EEC0E /* Build configuration list for PBXProject "AuthorizerExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -33,16 +33,20 @@ PODS:
   - BlocksKit/UIKit (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - Expecta (0.3.0)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
+  - Specta (0.2.1)
   - ZLNetworkRequestsPerformer (0.1):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BlocksKit (~> 2.2.0)
+  - Expecta
   - Lockbox
   - NSString+Validation
+  - Specta
   - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`)
 
 EXTERNAL SOURCES:
@@ -52,8 +56,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
   BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
+  Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
   Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
   NSString+Validation: 5b1f5c3b4f524352e889b46ade36a9ef47c060db
+  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
   ZLNetworkRequestsPerformer: 33963f1543a70b88834d30958b81546ae391d24e
 
 COCOAPODS: 0.32.1
