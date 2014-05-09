@@ -109,6 +109,7 @@
 -(void) generateUserIdentifier
 {
     self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
+    self.requestsPerformer.userIdentifier = self.userInfo.identifier;
 }
 
 -(void) setupRequestsPerformerWithBaseURL:(NSURL *) baseURL
@@ -316,7 +317,7 @@
 
     self.signedIn = success;
     self.performingRequest = NO;
-    
+
     if (completionBlock)
     {
         completionBlock(success);
