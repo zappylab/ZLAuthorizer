@@ -360,7 +360,7 @@
 
         return;
     }
-    
+
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                 {

@@ -14,6 +14,7 @@
 		BD067561191D0F21002D2231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD06755F191D0F21002D2231 /* InfoPlist.strings */; };
 		BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */; };
 		BD06758B191D1835002D2231 /* StateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = BD06758A191D1835002D2231 /* StateSpec.m */; };
+		BD06758C191D5F89002D2231 /* NativeAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE9B03C804C15726E55C /* NativeAuthorizationSpec.m */; };
 		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
 		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
 		BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */; };
@@ -247,6 +248,7 @@
 		C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAppDelegate.h; sourceTree = "<group>"; };
 		C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAConcreteAuthorizer.h; sourceTree = "<group>"; };
 		C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoValidator.m; sourceTree = "<group>"; };
+		C7DFEE9B03C804C15726E55C /* NativeAuthorizationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeAuthorizationSpec.m; sourceTree = "<group>"; };
 		E69D0D86190C52B400AB00C6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E69D0D8A190C52E800AB00C6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -731,6 +733,7 @@
 			children = (
 				BD06758A191D1835002D2231 /* StateSpec.m */,
 				C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */,
+				C7DFEE9B03C804C15726E55C /* NativeAuthorizationSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD06758C191D5F89002D2231 /* NativeAuthorizationSpec.m in Sources */,
 				BD06758B191D1835002D2231 /* StateSpec.m in Sources */,
 				BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */,
 			);
