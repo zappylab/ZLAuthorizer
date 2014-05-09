@@ -242,7 +242,7 @@
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest)
+    if (self.performingRequest || self.signedIn)
     {
         if (completionBlock)
         {
@@ -272,7 +272,7 @@
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest)
+    if (self.performingRequest || self.signedIn)
     {
         if (completionBlock)
         {
@@ -325,7 +325,16 @@
 
 -(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingRequest = YES;
+    if (self.performingRequest || self.signedIn)
+    {
+        if (completionBlock)
+        {
+            completionBlock(NO);
+        }
+
+        return;
+    }
+
     [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
     {
         if (success)
@@ -342,7 +351,16 @@
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
                                    completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingRequest = YES;
+    if (self.performingRequest || self.signedIn)
+    {
+        if (completionBlock)
+        {
+            completionBlock(NO);
+        }
+
+        return;
+    }
+    
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
                                                 {

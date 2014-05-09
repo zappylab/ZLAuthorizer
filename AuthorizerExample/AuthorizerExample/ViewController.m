@@ -21,7 +21,7 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-    self.authorizer = [[ZLAAuthorizer alloc] initWithBaseURL:[NSURL URLWithString:@"http://dev.passageo.com/api/v1/"]
+    self.authorizer = [[ZLAAuthorizer alloc] initWithBaseURL:[NSURL URLWithString:@"http://dev.pubchase.com/api/v1/"]
                                                appIdentifier:@"2"];
 }
 
