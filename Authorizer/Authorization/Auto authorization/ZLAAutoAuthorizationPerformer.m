@@ -13,9 +13,12 @@
 
 /////////////////////////////////////////////////////
 
-static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = 2;
+static const int ZLAAutoAuthTimeBetweenAttemptsMultiplier = 2;
+static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = ZLAAutoAuthTimeBetweenAttemptsMultiplier;
 
 /////////////////////////////////////////////////////
+
+static const int ZLAAutoAuthMaxTimeBetweenAttempts = 120;
 
 @interface ZLAAutoAuthorizationPerformer ()
 
@@ -127,12 +130,21 @@ static NSTimeInterval const ZLAAutoAuthDefaultTimeBetweenAttempts = 2;
                                                                   selector:@selector(makeAnotherAuthorizationAttempt)
                                                                   userInfo:nil
                                                                    repeats:NO];
+    [self updateTimeBetweenAttempts];
 }
 
 -(void) makeAnotherAuthorizationAttempt
 {
     [self invalidateNextAttemptTimer];
     [self tryToAuthorize];
+}
+
+-(void) updateTimeBetweenAttempts
+{
+    self.timeBetweenAuthorizationAttempts *= ZLAAutoAuthTimeBetweenAttemptsMultiplier;
+    if (self.timeBetweenAuthorizationAttempts > ZLAAutoAuthMaxTimeBetweenAttempts) {
+        self.timeBetweenAuthorizationAttempts = ZLAAutoAuthMaxTimeBetweenAttempts;
+    }
 }
 
 #pragma mark - Auto auth
