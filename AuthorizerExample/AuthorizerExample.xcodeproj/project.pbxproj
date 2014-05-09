@@ -12,7 +12,7 @@
 		BD06755A191D0F21002D2231 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46901E19006D53003EEC0E /* Foundation.framework */; };
 		BD06755B191D0F21002D2231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902219006D53003EEC0E /* UIKit.framework */; };
 		BD067561191D0F21002D2231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD06755F191D0F21002D2231 /* InfoPlist.strings */; };
-		BD067563191D0F21002D2231 /* AuthorizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD067562191D0F21002D2231 /* AuthorizerTests.m */; };
+		BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */; };
 		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
 		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
 		BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */; };
@@ -68,7 +68,6 @@
 		BD067558191D0F21002D2231 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BD06755E191D0F21002D2231 /* AuthorizerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AuthorizerTests-Info.plist"; sourceTree = "<group>"; };
 		BD067560191D0F21002D2231 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BD067562191D0F21002D2231 /* AuthorizerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorizerTests.m; sourceTree = "<group>"; };
 		BD067564191D0F21002D2231 /* AuthorizerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AuthorizerTests-Prefix.pch"; sourceTree = "<group>"; };
 		BD1836C91912D91C00D8C129 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
@@ -241,6 +240,7 @@
 		C7DFE70C5074A7B98B3A941F /* ZLAAccountInfoUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAccountInfoUpdater.h; sourceTree = "<group>"; };
 		C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoPersistentStore.m; sourceTree = "<group>"; };
 		C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+ZLAuthorizer.h"; sourceTree = "<group>"; };
+		C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoSpec.m; sourceTree = "<group>"; };
 		C7DFEC8B92FBBAF56201C5A9 /* ZLAAutoAuthorizationPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAutoAuthorizationPerformer.m; sourceTree = "<group>"; };
 		C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAppDelegate.h; sourceTree = "<group>"; };
 		C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAConcreteAuthorizer.h; sourceTree = "<group>"; };
@@ -311,8 +311,8 @@
 		BD06755C191D0F21002D2231 /* AuthorizerTests */ = {
 			isa = PBXGroup;
 			children = (
-				BD067562191D0F21002D2231 /* AuthorizerTests.m */,
 				BD06755D191D0F21002D2231 /* Supporting Files */,
+				C7DFEF8929B8DF794034841C /* Specs */,
 			);
 			path = AuthorizerTests;
 			sourceTree = "<group>";
@@ -724,6 +724,14 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		C7DFEF8929B8DF794034841C /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
 		E6DB4B2919143AC100959B9C /* Pods Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -811,8 +819,6 @@
 			mainGroup = BD46901219006D53003EEC0E;
 			productRefGroup = BD46901C19006D53003EEC0E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				BD46901A19006D53003EEC0E /* AuthorizerExample */,
@@ -910,7 +916,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD067563191D0F21002D2231 /* AuthorizerTests.m in Sources */,
+				BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1173,6 +1179,7 @@
 				BD067566191D0F21002D2231 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD46901619006D53003EEC0E /* Build configuration list for PBXProject "AuthorizerExample" */ = {
 			isa = XCConfigurationList;
