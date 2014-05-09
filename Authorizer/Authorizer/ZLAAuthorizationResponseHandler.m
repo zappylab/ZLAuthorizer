@@ -50,7 +50,7 @@
 {
     NSString *responseStatus = response[ZLAResponseStatusKey];
     if ([responseStatus isEqualToString:ZLAResponseStatusSocial]) {
-        [self.delegate responseHandlerDidDetectSocialLogin];
+        [self.delegate responseHandlerDidDetectSocialLoginWithNetwork:response[ZLAResponseStatusExplanationKey]];
     }
     else {
         [self handleSuccessfullResponse:response];

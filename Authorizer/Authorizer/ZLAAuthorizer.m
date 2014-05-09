@@ -413,12 +413,21 @@
 
 #pragma mark - ZLAAuthorizationResponseHandlerDelegate methods
 
--(void) responseHandlerDidDetectSocialLogin
+-(void) responseHandlerDidDetectSocialLoginWithNetwork:(NSString *) socialNetworkName
 {
+    NSString *firstLetterOfNameInCapital = [[socialNetworkName substringToIndex:1] capitalizedString];
+    NSString *capitalizedSocialNetworkName = [socialNetworkName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                                                                   withString:firstLetterOfNameInCapital];
+
     dispatch_async(dispatch_get_main_queue(), ^
     {
+        NSString *message = [NSString stringWithFormat:@"You used %@ to create your account, "
+                                                               "please use %@ to login or reset your"
+                                                               " password to login with ZappyLab account.",
+                                                       capitalizedSocialNetworkName,
+                                                       capitalizedSocialNetworkName];
         [UIAlertView bk_showAlertViewWithTitle:@"Sign in"
-                                       message:@"You used Twitter to create your account, please use Twitter to login or reset your password to login with ZappyLab account."
+                                       message:message
                              cancelButtonTitle:@"Close"
                              otherButtonTitles:@[@"Reset password"]
                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex)
