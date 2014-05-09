@@ -13,6 +13,7 @@
 		BD06755B191D0F21002D2231 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD46902219006D53003EEC0E /* UIKit.framework */; };
 		BD067561191D0F21002D2231 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD06755F191D0F21002D2231 /* InfoPlist.strings */; };
 		BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */; };
+		BD06758B191D1835002D2231 /* StateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = BD06758A191D1835002D2231 /* StateSpec.m */; };
 		BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */; };
 		BD1836CE1912D91C00D8C129 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1836CC1912D91C00D8C129 /* UIDevice+IdentifierAddition.m */; };
 		BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3D2A36191AB9A10078C879 /* ZLANativeAuthorizationRequester.m */; };
@@ -69,6 +70,7 @@
 		BD06755E191D0F21002D2231 /* AuthorizerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AuthorizerTests-Info.plist"; sourceTree = "<group>"; };
 		BD067560191D0F21002D2231 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BD067564191D0F21002D2231 /* AuthorizerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AuthorizerTests-Prefix.pch"; sourceTree = "<group>"; };
+		BD06758A191D1835002D2231 /* StateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateSpec.m; sourceTree = "<group>"; };
 		BD1836C91912D91C00D8C129 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		BD1836CA1912D91C00D8C129 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		BD1836CB1912D91C00D8C129 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 		C7DFEF8929B8DF794034841C /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				BD06758A191D1835002D2231 /* StateSpec.m */,
 				C7DFEB342B499A3AEF4C9E27 /* UserInfoSpec.m */,
 			);
 			path = Specs;
@@ -916,6 +919,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD06758B191D1835002D2231 /* StateSpec.m in Sources */,
 				BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
