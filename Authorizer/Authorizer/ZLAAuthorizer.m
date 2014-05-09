@@ -374,10 +374,10 @@
     [ZLACredentialsStorage wipeOutExistingCredentials];
     [ZLACredentialsStorage resetAuthorizationMethod];
     [self.userInfo reset];
-    [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-    self.signedIn = NO;
-
     [self generateUserIdentifier];
+    [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+    
+    self.signedIn = NO;
 }
 
 #pragma mark -
