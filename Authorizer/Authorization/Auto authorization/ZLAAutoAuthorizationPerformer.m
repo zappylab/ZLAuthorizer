@@ -157,9 +157,7 @@ static const int ZLAAutoAuthMaxTimeBetweenAttempts = 120;
     self.authorizer = authorizer;
     self.completionBlock = completionBlock;
 
-    if (self.reachabilityObserver.networkReachable) {
-        [self tryToAuthorize];
-    }
+    [self tryToAuthorize];
 }
 
 -(void) stopAutoAuthorization
