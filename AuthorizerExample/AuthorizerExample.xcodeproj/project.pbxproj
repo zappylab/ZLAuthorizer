@@ -47,6 +47,7 @@
 		BDE60B32191ADF1200534088 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B2F191ADF0300534088 /* GoogleOpenSource.framework */; };
 		BDE60B33191ADF1200534088 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B30191ADF0300534088 /* GooglePlus.framework */; };
 		C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE138E4A680F41132FD45 /* ZLAAccountInfoUpdater.m */; };
+		C7DFE222F20B892C3A68D6C3 /* ZLASettingsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE5A62781136AD838ABC /* ZLASettingsStorage.m */; };
 		C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */; };
 		C7DFE315DAEC2C31D4B1A3E8 /* ZLAUserInfoPersistentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */; };
 		C7DFE5E7584688E6CFE5DF74 /* ZLAAutoAuthorizationPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEC8B92FBBAF56201C5A9 /* ZLAAutoAuthorizationPerformer.m */; };
@@ -240,6 +241,7 @@
 		C7DFE3C14A279A4239DC42CD /* ZLAAutoAuthorizationPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAutoAuthorizationPerformer.h; sourceTree = "<group>"; };
 		C7DFE4009CFC8E3E176DCD3E /* ZLAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAAppDelegate.m; sourceTree = "<group>"; };
 		C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+ZLAuthorizer.m"; sourceTree = "<group>"; };
+		C7DFE632C1D35A4982CB1F98 /* ZLASettingsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLASettingsStorage.h; sourceTree = "<group>"; };
 		C7DFE70C5074A7B98B3A941F /* ZLAAccountInfoUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAccountInfoUpdater.h; sourceTree = "<group>"; };
 		C7DFE743E27F66C3839FBE04 /* ZLAUserInfoPersistentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoPersistentStore.m; sourceTree = "<group>"; };
 		C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+ZLAuthorizer.h"; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		C7DFEDD4490B988C56FB9EC2 /* ZLAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAAppDelegate.h; sourceTree = "<group>"; };
 		C7DFEDDF36D9E69186633DC5 /* ZLAConcreteAuthorizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAConcreteAuthorizer.h; sourceTree = "<group>"; };
 		C7DFEE47B032C02DE8AC6021 /* ZLAUserInfoValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAUserInfoValidator.m; sourceTree = "<group>"; };
+		C7DFEE5A62781136AD838ABC /* ZLASettingsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLASettingsStorage.m; sourceTree = "<group>"; };
 		C7DFEE9B03C804C15726E55C /* NativeAuthorizationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeAuthorizationSpec.m; sourceTree = "<group>"; };
 		E69D0D86190C52B400AB00C6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E69D0D88190C52BC00AB00C6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -515,6 +518,7 @@
 		BDA78E12190071E1001484C5 /* Authorizer */ = {
 			isa = PBXGroup;
 			children = (
+				BDAAD5F6191DE2B1003007B1 /* Settings */,
 				BDE60ABA191ADC3500534088 /* Pods Headers */,
 				BD3D2A33191AB9A10078C879 /* Authorization */,
 				BD1836C81912D91C00D8C129 /* Device identifier */,
@@ -549,6 +553,15 @@
 				BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */,
 			);
 			path = CredentialsStorage;
+			sourceTree = "<group>";
+		};
+		BDAAD5F6191DE2B1003007B1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C7DFEE5A62781136AD838ABC /* ZLASettingsStorage.m */,
+				C7DFE632C1D35A4982CB1F98 /* ZLASettingsStorage.h */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		BDC454B319193C3E001B8A5D /* AppDelegate */ = {
@@ -925,6 +938,7 @@
 				BD06758C191D5F89002D2231 /* NativeAuthorizationSpec.m in Sources */,
 				BD06758B191D1835002D2231 /* StateSpec.m in Sources */,
 				BD067589191D1456002D2231 /* UserInfoSpec.m in Sources */,
+				C7DFE222F20B892C3A68D6C3 /* ZLASettingsStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
