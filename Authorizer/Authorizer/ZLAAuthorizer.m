@@ -10,6 +10,7 @@
 #import "ZLAAuthorizer.h"
 
 #import "ZLACredentialsStorage.h"
+#import "ZLASettingsStorage.h"
 
 #import "ZLANativeAuthorizer.h"
 #import "ZLATwitterAuthorizer.h"
@@ -52,6 +53,8 @@
 @property (strong) ZLAUserInfoContainer *userInfo;
 @property (strong) ZLAUserInfoPersistentStore *userInfoPersistentStore;
 
+@property (strong) ZLASettingsStorage *settingsStorage;
+
 @property (readwrite, atomic) BOOL signedIn;
 @property (readwrite, atomic) BOOL performingRequest;
 
@@ -86,12 +89,22 @@
 -(void) setupWithBaseURL:(NSURL *) baseURL
            appIdentifier:(NSString *) appIdentifier
 {
+    [self performFirstRunSetupIfNeeded];
     [self setupUserInfoContainer];
     [self setupRequestsPerformerWithBaseURL:baseURL
                               appIdentifier:appIdentifier];
     [self setupAuthResponseHandler];
     [self resetState];
     [self tryToPerformAutomaticAuthorizationWithURL:baseURL];
+}
+
+-(void) performFirstRunSetupIfNeeded
+{
+    self.settingsStorage = [[ZLASettingsStorage alloc] init];
+    if ([self.settingsStorage firstRun]) {
+        [ZLACredentialsStorage wipeOutExistingCredentials];
+        [ZLACredentialsStorage resetAuthorizationMethod];
+    }
 }
 
 -(void) setupUserInfoContainer
