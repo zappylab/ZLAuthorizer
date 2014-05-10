@@ -247,6 +247,11 @@
                                                                     if (success)
                                                                     {
                                                                         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                                                                        self.signedIn = YES;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [self signOut];
                                                                     }
                                                                 }];
     }
