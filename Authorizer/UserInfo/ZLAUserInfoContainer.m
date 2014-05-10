@@ -76,7 +76,6 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(void) unarchiveWithCoder:(NSCoder *) coder
 {
-    _identifier = [coder decodeObjectForKey:ZLAUserInfoIdentifierKey];
     _fullName = [coder decodeObjectForKey:ZLAUserInfoFullNameKey];
     _firstName = [coder decodeObjectForKey:ZLAUserInfoFirstNameKey];
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
@@ -122,6 +121,16 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     [ZLACredentialsStorage setPassword:password];
 }
 
+-(NSString *) identifier
+{
+    return [ZLACredentialsStorage userIdentifier];
+}
+
+-(void) setIdentifier:(NSString *) identifier
+{
+    [ZLACredentialsStorage setUserIdentifier:identifier];
+}
+
 #pragma mark -
 
 -(void) reset
@@ -138,8 +147,6 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(void) encodeWithCoder:(NSCoder *) coder
 {
-    [coder encodeObject:_identifier
-                 forKey:ZLAUserInfoIdentifierKey];
     [coder encodeObject:_fullName
                  forKey:ZLAUserInfoFullNameKey];
     [coder encodeObject:_firstName

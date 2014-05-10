@@ -46,6 +46,7 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
 
 +(void) wipeOutExistingCredentials
 {
+    [self setUserIdentifier:nil];
     [self setUserEmail:nil];
     [self setPassword:nil];
     [self setSocialUserIdentifier:nil];
