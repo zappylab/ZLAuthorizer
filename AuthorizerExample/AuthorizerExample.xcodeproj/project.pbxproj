@@ -42,6 +42,7 @@
 		BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E15190071E1001484C5 /* ZLAAuthorizationResponseHandler.m */; };
 		BDA78E1F190071E1001484C5 /* ZLAAuthorizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E19190071E1001484C5 /* ZLAAuthorizer.m */; };
 		BDA78E20190071E1001484C5 /* ZLACredentialsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA78E1C190071E1001484C5 /* ZLACredentialsStorage.m */; };
+		BDAA2662191FE7AC00C51EB0 /* ZLASettingsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DFEE5A62781136AD838ABC /* ZLASettingsStorage.m */; };
 		BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD802671901C53200C9B406 /* ZLAUserInfoContainer.m */; };
 		BDE60B31191ADF1200534088 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B2E191ADF0300534088 /* FacebookSDK.framework */; };
 		BDE60B32191ADF1200534088 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE60B2F191ADF0300534088 /* GoogleOpenSource.framework */; };
@@ -947,6 +948,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD3D2A5D191AB9A10078C879 /* OAuthCore.m in Sources */,
+				BDAA2662191FE7AC00C51EB0 /* ZLASettingsStorage.m in Sources */,
 				BD3D2A55191AB9A10078C879 /* ZLANativeAuthorizationRequester.m in Sources */,
 				BDA78E1D190071E1001484C5 /* ZLAAuthorizationResponseHandler.m in Sources */,
 				BD3D2A57191AB9A10078C879 /* ZLAFacebookAuthorizer.m in Sources */,

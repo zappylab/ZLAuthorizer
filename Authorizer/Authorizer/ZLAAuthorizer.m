@@ -117,12 +117,14 @@
         [self generateUserIdentifier];
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
+    
+    [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
 }
 
 -(void) generateUserIdentifier
 {
     self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
-    self.requestsPerformer.userIdentifier = self.userInfo.identifier;
+    [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
 }
 
 -(void) setupRequestsPerformerWithBaseURL:(NSURL *) baseURL
@@ -130,7 +132,6 @@
 {
     self.requestsPerformer = [[ZLNetworkRequestsPerformer alloc] initWithBaseURL:baseURL
                                                                    appIdentifier:appIdentifier];
-    self.requestsPerformer.userIdentifier = self.userInfo.identifier;
 }
 
 -(void) setupAuthResponseHandler

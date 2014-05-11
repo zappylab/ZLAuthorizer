@@ -49,10 +49,11 @@ DEPENDENCIES:
   - NSString+Validation
   - OHHTTPStubs
   - Specta
-  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`)
+  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`, branch `master`)
 
 EXTERNAL SOURCES:
   ZLNetworkRequestsPerformer:
+    :branch: master
     :git: https://github.com/zappylab/ZLNetworkRequestsPerformer.git
 
 SPEC CHECKSUMS:
