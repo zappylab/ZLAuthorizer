@@ -326,6 +326,7 @@
     if (!success)
     {
         [ZLACredentialsStorage wipeOutExistingCredentials];
+        [self generateUserIdentifier];
     }
 
     if (response)
