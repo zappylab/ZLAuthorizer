@@ -50,6 +50,7 @@
 
 @property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
 @property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
+
 @property (strong) ZLAUserInfoContainer *userInfo;
 @property (strong) ZLAUserInfoPersistentStore *userInfoPersistentStore;
 
@@ -69,18 +70,23 @@
 -(instancetype) init
 {
     @throw [NSException exceptionWithName:@"NoInitMethod"
-                                   reason:@"User initWithBaseURL:appIdentifier: for initialization purposes"
+                                   reason:@"Use initWithBaseURL:appIdentifier:userInfoContainerClass: for initialization purposes"
                                  userInfo:nil];
 }
 
 -(instancetype) initWithBaseURL:(NSURL *) baseURL
                   appIdentifier:(NSString *) appIdentifier
+         userInfoContainerClass:(Class) userInfoContainerClass
 {
+    NSParameterAssert(baseURL);
+    NSParameterAssert(appIdentifier);
+
     self = [super init];
     if (self)
     {
         [self setupWithBaseURL:baseURL
-                 appIdentifier:appIdentifier];
+                 appIdentifier:appIdentifier
+        userInfoContainerClass:userInfoContainerClass];
     }
 
     return self;
@@ -88,9 +94,10 @@
 
 -(void) setupWithBaseURL:(NSURL *) baseURL
            appIdentifier:(NSString *) appIdentifier
+  userInfoContainerClass:(Class) userInfoContainerClass
 {
     [self performFirstRunSetupIfNeeded];
-    [self setupUserInfoContainer];
+    [self setupUserInfoContainerWithClass:userInfoContainerClass];
     [self setupRequestsPerformerWithBaseURL:baseURL
                               appIdentifier:appIdentifier];
     [self setupAuthResponseHandler];
@@ -101,23 +108,29 @@
 -(void) performFirstRunSetupIfNeeded
 {
     self.settingsStorage = [[ZLASettingsStorage alloc] init];
-    if ([self.settingsStorage firstRun]) {
+    if ([self.settingsStorage firstRun])
+    {
         [ZLACredentialsStorage wipeOutExistingCredentials];
         [ZLACredentialsStorage resetAuthorizationMethod];
     }
 }
 
--(void) setupUserInfoContainer
+-(void) setupUserInfoContainerWithClass:(Class) userInfoContainerClass
 {
+    if (!userInfoContainerClass)
+    {
+        userInfoContainerClass = [ZLAUserInfoContainer class];
+    }
+
     self.userInfoPersistentStore = [[ZLAUserInfoPersistentStore alloc] init];
     self.userInfo = [self.userInfoPersistentStore restorePersistedUserInfoContainer];
     if (!self.userInfo)
     {
-        self.userInfo = [[ZLAUserInfoContainer alloc] init];
+        self.userInfo = [[userInfoContainerClass alloc] init];
         [self generateUserIdentifier];
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
-    
+
     [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
 }
 
@@ -239,22 +252,22 @@
         self.autoAuthorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
         [self.autoAuthorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
                                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                                                {
-                                                                    if (response)
-                                                                    {
-                                                                        [self.authorizationResponseHandler handleLoginResponse:response];
-                                                                    }
+                {
+                    if (response)
+                    {
+                        [self.authorizationResponseHandler handleLoginResponse:response];
+                    }
 
-                                                                    if (success)
-                                                                    {
-                                                                        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-                                                                        self.signedIn = YES;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        [self signOut];
-                                                                    }
-                                                                }];
+                    if (success)
+                    {
+                        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                        self.signedIn = YES;
+                    }
+                    else
+                    {
+                        [self signOut];
+                    }
+                }];
     }
 }
 
@@ -276,16 +289,16 @@
     [self.nativeAuthorizer performAuthorizationWithEmail:email
                                                 password:password
                                          completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                         {
-                                             if (success)
-                                             {
-                                                 [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodNative];
-                                             }
+            {
+                if (success)
+                {
+                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodNative];
+                }
 
-                                             [self handleAuthorizationResponse:response
-                                                                       success:success
-                                                               completionBlock:completionBlock];
-                                         }];
+                [self handleAuthorizationResponse:response
+                                          success:success
+                                  completionBlock:completionBlock];
+            }];
 }
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
@@ -307,16 +320,16 @@
     [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
                                                  consumerSecret:APISecret
                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                                {
-                                                    if (success)
-                                                    {
-                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
-                                                    }
+            {
+                if (success)
+                {
+                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
+                }
 
-                                                    [self handleAuthorizationResponse:response
-                                                                              success:success
-                                                                      completionBlock:completionBlock];
-                                                }];
+                [self handleAuthorizationResponse:response
+                                          success:success
+                                  completionBlock:completionBlock];
+            }];
 }
 
 -(void) handleAuthorizationResponse:(NSDictionary *) response
@@ -357,16 +370,16 @@
     }
 
     [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-    {
-        if (success)
-        {
-            [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
-        }
+            {
+                if (success)
+                {
+                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+                }
 
-        [self handleAuthorizationResponse:response
-                                  success:success
-                          completionBlock:completionBlock];
-    }];
+                [self handleAuthorizationResponse:response
+                                          success:success
+                                  completionBlock:completionBlock];
+            }];
 }
 
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
@@ -384,16 +397,16 @@
 
     [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                                {
-                                                    if (success)
-                                                    {
-                                                        [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodGooglePlus];
-                                                    }
+            {
+                if (success)
+                {
+                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodGooglePlus];
+                }
 
-                                                    [self handleAuthorizationResponse:response
-                                                                              success:success
-                                                                      completionBlock:completionBlock];
-                                                }];
+                [self handleAuthorizationResponse:response
+                                          success:success
+                                  completionBlock:completionBlock];
+            }];
 }
 
 -(void) signOut
@@ -435,19 +448,19 @@
                                               email:email
                                            password:password
                                     completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                    {
-                                        if (response)
-                                        {
-                                            [self.authorizationResponseHandler handleRegistrationResponse:response];
-                                        }
+            {
+                if (response)
+                {
+                    [self.authorizationResponseHandler handleRegistrationResponse:response];
+                }
 
-                                        if (completionBlock)
-                                        {
-                                            completionBlock(success);
-                                        }
+                if (completionBlock)
+                {
+                    completionBlock(success);
+                }
 
-                                        self.performingRequest = NO;
-                                    }];
+                self.performingRequest = NO;
+            }];
 }
 
 #pragma mark - ZLAAuthorizationResponseHandlerDelegate methods
@@ -456,10 +469,9 @@
 {
     NSString *firstLetterOfNameInCapital = [[socialNetworkName substringToIndex:1] capitalizedString];
     NSString *capitalizedSocialNetworkName = [socialNetworkName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                                                                   withString:firstLetterOfNameInCapital];
+                                                                                        withString:firstLetterOfNameInCapital];
 
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSString *message = [NSString stringWithFormat:@"You used %@ to create your account, "
                                                                "please use %@ to login or reset your"
                                                                " password to login with ZappyLab account.",
@@ -470,12 +482,12 @@
                              cancelButtonTitle:@"Close"
                              otherButtonTitles:@[@"Reset password"]
                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex)
-                                       {
-                                           if (buttonIndex != alertView.cancelButtonIndex)
-                                           {
-                                               [self resetPassword];
-                                           }
-                                       }];
+                {
+                    if (buttonIndex != alertView.cancelButtonIndex)
+                    {
+                        [self resetPassword];
+                    }
+                }];
     });
 }
 
@@ -486,8 +498,7 @@
 
 -(void) responseHandlerDidDetectErrorMessage:(NSString *) message
 {
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         [[[UIAlertView alloc] initWithTitle:@"Registration"
                                     message:message
                                    delegate:nil
@@ -509,17 +520,17 @@
     self.performingRequest = YES;
     [self.accountInfoUpdater updateAccountWithInfo:completeInfo
                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                                   {
-                                       self.performingRequest = NO;
-                                       [self updateUserInfoWithInfo:completeInfo
-                                                accordingToResponse:response];
-                                       [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+            {
+                self.performingRequest = NO;
+                [self updateUserInfoWithInfo:completeInfo
+                         accordingToResponse:response];
+                [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
 
-                                       if (completionBlock)
-                                       {
-                                           completionBlock(success);
-                                       }
-                                   }];
+                if (completionBlock)
+                {
+                    completionBlock(success);
+                }
+            }];
 }
 
 -(NSDictionary *) accountInfoWithFullName:(NSString *) fullName

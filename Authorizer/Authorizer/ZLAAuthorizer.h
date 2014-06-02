@@ -28,8 +28,11 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 @property (readonly) BOOL signedIn;
 @property (readonly) BOOL performingRequest;
 
+-(instancetype) init __attribute__((unavailable));
+
 -(instancetype) initWithBaseURL:(NSURL *) baseURL
-                  appIdentifier:(NSString *) appIdentifier;
+                  appIdentifier:(NSString *) appIdentifier
+         userInfoContainerClass:(Class) userInfoContainerClass;
 
 -(void) performNativeAuthorizationWithUserEmail:(NSString *) email
                                        password:(NSString *) password

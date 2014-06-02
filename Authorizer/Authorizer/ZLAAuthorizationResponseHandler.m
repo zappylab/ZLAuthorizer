@@ -6,9 +6,7 @@
 
 #import "ZLAAuthorizationResponseHandler.h"
 
-#import "ZLACredentialsStorage.h"
 #import "ZLAUserInfoContainer.h"
-
 #import "ZLAConstants.h"
 
 /////////////////////////////////////////////////////
@@ -53,30 +51,7 @@
         [self.delegate responseHandlerDidDetectSocialLoginWithNetwork:response[ZLAResponseStatusExplanationKey]];
     }
     else {
-        [self handleSuccessfullResponse:response];
-    }
-}
-
--(void) handleSuccessfullResponse:(NSDictionary *) response
-{
-    NSString *fullUserName = response[ZLAFullUserNameKey];
-    if (fullUserName.length > 0) {
-        self.userInfoContainer.fullName = fullUserName;
-    }
-    else {
-        self.userInfoContainer.fullName = [ZLACredentialsStorage userEmail];
-    }
-
-    self.userInfoContainer.firstName = response[ZLAFirstNameKey];
-    self.userInfoContainer.lastName = response[ZLALastNameKey];
-    self.userInfoContainer.affiliation = response[ZLAUserAffiliationKey];
-
-    NSString *profilePicture = response[ZLAProfilePictureKey];
-    if (profilePicture.length > 0) {
-        self.userInfoContainer.profilePictureURL = [NSURL URLWithString:profilePicture];
-    }
-    else {
-        self.userInfoContainer.profilePictureURL = nil;
+        [self.userInfoContainer handleUserInfoData:response];
     }
 }
 

@@ -8,6 +8,7 @@
 #import "ZLAUserInfoContainer.h"
 
 #import "ZLACredentialsStorage.h"
+#import "ZLAConstants.h"
 
 /////////////////////////////////////////////////////
 
@@ -132,6 +133,29 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 }
 
 #pragma mark -
+
+-(void) handleUserInfoData:(NSDictionary *) data
+{
+    NSString *fullUserName = data[ZLAFullUserNameKey];
+    if (fullUserName.length > 0) {
+        self.fullName = fullUserName;
+    }
+    else {
+        self.fullName = [ZLACredentialsStorage userEmail];
+    }
+
+    self.firstName = data[ZLAFirstNameKey];
+    self.lastName = data[ZLALastNameKey];
+    self.affiliation = data[ZLAUserAffiliationKey];
+
+    NSString *profilePicture = data[ZLAProfilePictureKey];
+    if (profilePicture.length > 0) {
+        self.profilePictureURL = [NSURL URLWithString:profilePicture];
+    }
+    else {
+        self.profilePictureURL = nil;
+    }
+}
 
 -(void) reset
 {

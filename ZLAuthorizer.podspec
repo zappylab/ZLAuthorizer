@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.platform       = :ios, "7.0"
   spec.name           = 'ZLAuthorizer'
-  spec.version        = '0.1'
+  spec.version        = '0.2'
   spec.homepage       = 'https://github.com/zappylab/ZLAuthorizer'
   spec.authors        = { 'Ilya Dyakonov' => 'ilya@zappylab.com' }
   spec.summary        = 'Authorization module used by ZappyLab'

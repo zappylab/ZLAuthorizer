@@ -24,6 +24,7 @@
 @property (strong) NSString *email;
 @property (strong) NSString *password;
 
+-(void) handleUserInfoData:(NSDictionary *) data;
 -(void) reset;
 
 @end

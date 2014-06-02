@@ -18,7 +18,8 @@ SpecBegin(NativeAuthorization)
                 beforeEach(^
                 {
                     authorizer = [[ZLAAuthorizer alloc] initWithBaseURL:[NSURL URLWithString:@"http://dev.passageo.com/api/v1"]
-                                                          appIdentifier:@"2"];
+                                                          appIdentifier:@"2"
+                                                 userInfoContainerClass:NULL];
                 });
 
                 afterEach(^

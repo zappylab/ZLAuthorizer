@@ -22,7 +22,8 @@
 {
     [super viewDidLoad];
     self.authorizer = [[ZLAAuthorizer alloc] initWithBaseURL:[NSURL URLWithString:@"http://dev.pubchase.com/api/v1/"]
-                                               appIdentifier:@"2"];
+                                               appIdentifier:@"2"
+                                      userInfoContainerClass:NULL];
 }
 
 -(IBAction) twitterAuthTapped:(id) sender
