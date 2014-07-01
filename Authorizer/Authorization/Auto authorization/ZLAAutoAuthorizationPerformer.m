@@ -100,7 +100,7 @@ static const int ZLAAutoAuthMaxTimeBetweenAttempts = 120;
 
 -(void) tryToAuthorize
 {
-    if (self.authorizer && !self.authorizationRetryTimer)
+    if (self.authorizer && !self.authorizationRetryTimer && self.reachabilityObserver.networkReachable)
     {
         [self.authorizer loginWithExistingCredentialsWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
         {
