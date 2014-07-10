@@ -512,12 +512,17 @@
 -(void) updateAccountWithUserName:(NSString *) userName
                          password:(NSString *) password
                    additionalInfo:(NSDictionary *) info
+                         silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     NSMutableDictionary *completeInfo = [NSMutableDictionary dictionaryWithDictionary:info];
     [completeInfo addEntriesFromDictionary:[self accountInfoWithFullName:userName
                                                                 password:password]];
-    self.performingRequest = YES;
+    if (!silently)
+    {
+        self.performingRequest = YES;
+    }
+
     [self.accountInfoUpdater updateAccountWithInfo:completeInfo
                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
             {

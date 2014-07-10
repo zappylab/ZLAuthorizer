@@ -57,6 +57,7 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 -(void) updateAccountWithUserName:(NSString *) userName
                          password:(NSString *) password
                    additionalInfo:(NSDictionary *) info
+                         silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 @end
