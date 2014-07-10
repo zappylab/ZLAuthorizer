@@ -22,6 +22,11 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 /////////////////////////////////////////////////////
 
 @interface ZLAUserInfoContainer ()
+{
+    __strong NSString *_password;
+    __strong NSString *_email;
+    __strong NSString *_identifier;
+}
 
 @end
 
@@ -54,7 +59,8 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 -(instancetype) init
 {
     self = [self initWithCoder:nil];
-    if (self) {
+    if (self)
+    {
 
     }
 
@@ -68,7 +74,8 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 -(id) initWithCoder:(NSCoder *) coder
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self unarchiveWithCoder:coder];
     }
 
@@ -77,6 +84,7 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(void) unarchiveWithCoder:(NSCoder *) coder
 {
+    self.persistent = YES;
     _fullName = [coder decodeObjectForKey:ZLAUserInfoFullNameKey];
     _firstName = [coder decodeObjectForKey:ZLAUserInfoFirstNameKey];
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
@@ -104,32 +112,53 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(NSString *) email
 {
-    return [ZLACredentialsStorage userEmail];
+    return self.persistent ? [ZLACredentialsStorage userEmail] : _email;
 }
 
 -(void) setEmail:(NSString *) email
 {
-    [ZLACredentialsStorage setUserEmail:email];
+    if (self.persistent)
+    {
+        [ZLACredentialsStorage setUserEmail:email];
+    }
+    else
+    {
+        _email = email;
+    }
 }
 
 -(NSString *) password
 {
-    return [ZLACredentialsStorage password];
+    return self.persistent ? [ZLACredentialsStorage password] : _password;
 }
 
 -(void) setPassword:(NSString *) password
 {
-    [ZLACredentialsStorage setPassword:password];
+    if (self.persistent)
+    {
+        [ZLACredentialsStorage setPassword:password];
+    }
+    else
+    {
+        _password = password;
+    }
 }
 
 -(NSString *) identifier
 {
-    return [ZLACredentialsStorage userIdentifier];
+    return self.persistent ? [ZLACredentialsStorage userIdentifier] : _identifier;
 }
 
 -(void) setIdentifier:(NSString *) identifier
 {
-    [ZLACredentialsStorage setUserIdentifier:identifier];
+    if (self.persistent)
+    {
+        [ZLACredentialsStorage setUserIdentifier:identifier];
+    }
+    else
+    {
+        _identifier = identifier;
+    }
 }
 
 #pragma mark -
@@ -137,10 +166,12 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 -(void) handleUserInfoData:(NSDictionary *) data
 {
     NSString *fullUserName = data[ZLAFullUserNameKey];
-    if (fullUserName.length > 0) {
+    if (fullUserName.length > 0)
+    {
         self.fullName = fullUserName;
     }
-    else {
+    else
+    {
         self.fullName = [ZLACredentialsStorage userEmail];
     }
 
@@ -149,12 +180,33 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     self.affiliation = data[ZLAUserAffiliationKey];
 
     NSString *profilePicture = data[ZLAProfilePictureKey];
-    if (profilePicture.length > 0) {
+    if (profilePicture.length > 0)
+    {
         self.profilePictureURL = [NSURL URLWithString:profilePicture];
     }
-    else {
+    else
+    {
         self.profilePictureURL = nil;
     }
+}
+
++(id) containerWithContainer:(ZLAUserInfoContainer *) container
+                  persistent:(BOOL) persistent
+{
+    // subclasses have no need to override this method
+    // unless you decide not to save any critical piece of state with encodeWithCoder:,
+    // like this class does with email, identifier and password (look a few lines below)
+    //
+    NSData *archivedSourceContainer = [NSKeyedArchiver archivedDataWithRootObject:container];
+    ZLAUserInfoContainer *newContainer = [NSKeyedUnarchiver unarchiveObjectWithData:archivedSourceContainer];
+
+    // user email, identifier and password are not transferred through encodeWithCoder:
+    newContainer.persistent = persistent;
+    newContainer.email = container.email;
+    newContainer.password = container.password;
+    newContainer.identifier = container.identifier;
+
+    return newContainer;
 }
 
 -(void) reset

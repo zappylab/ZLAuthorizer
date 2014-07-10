@@ -14,6 +14,16 @@
 +(NSString *) firstNameOfFullName:(NSString *) fullName;
 +(NSString *) lastNameOfFullName:(NSString *) fullName;
 
+//
+// using id instead of instancetype because this method may return
+// any of ZLAUserInfoContainer's children
+//
++(id) containerWithContainer:(ZLAUserInfoContainer *) container
+                  persistent:(BOOL) persistent;
+
+// turned on by default
+@property (readwrite) BOOL persistent;
+
 @property (strong) NSString *identifier;
 @property (strong) NSString *fullName;
 @property (strong) NSString *firstName;
@@ -25,6 +35,7 @@
 @property (strong) NSString *password;
 
 -(void) handleUserInfoData:(NSDictionary *) data;
+
 -(void) reset;
 
 @end
