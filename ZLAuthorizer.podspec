@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
   spec.preserve_paths = "Frameworks/*.framework"
   spec.vendored_frameworks = 'FacebookSDK.framework', 'GoogleOpenSource.framework', 'GooglePlus.framework'
   spec.frameworks = 'Accounts', 'Social', 'FacebookSDK', 'GoogleOpenSource', 'GooglePlus'
-  spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/ZLAuthorizer/Frameworks"' }
+  spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/ZLAuthorizer/Authorizer/Frameworks"' }
   spec.requires_arc = true
 
   non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
