@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'BlocksKit', '~> 2.2.0'
   spec.preserve_paths = "Frameworks/*.framework"
   spec.vendored_frameworks = 'FacebookSDK.framework', 'GoogleOpenSource.framework', 'GooglePlus.framework'
-  spec.frameworks = 'Accounts', 'Social', 'FacebookSDK', 'GoogleOpenSource', 'GooglePlus'
+  spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'FacebookSDK', 'GoogleOpenSource', 'GooglePlus'
   spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/ZLAuthorizer/Authorizer/Frameworks"' }
   spec.requires_arc = true
 
