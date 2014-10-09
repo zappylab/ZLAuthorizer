@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'BlocksKit', '~> 2.2.0'
   spec.preserve_paths = "Authorizer/Frameworks/*.framework"
   spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary', 'FacebookSDK', 'GoogleOpenSource', 'GooglePlus'
-  spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/ZLAuthorizer/Authorizer/Frameworks"' }
+  spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(SRCROOT)/../ZLAuthorizer/Authorizer/Frameworks"' }
   spec.requires_arc = true
 
   non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
