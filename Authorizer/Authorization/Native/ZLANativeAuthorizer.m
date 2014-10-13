@@ -100,19 +100,7 @@
 -(BOOL) checkUserEmail:(NSString *) email
            andPassword:(NSString *) password
 {
-    if (![email isValidEmail])
-    {
-        [UIAlertView ZLA_showInvalidEmailAlertForSignin:email];
-        return NO;
-    }
-
-    if (![ZLAUserInfoValidator isPasswordAcceptable:password])
-    {
-        [UIAlertView ZLA_showTooShortPasswordAlertForSignin];
-        return NO;
-    }
-
-    return YES;
+    return [email isValidEmail] && [ZLAUserInfoValidator isPasswordAcceptable:password];
 }
 
 -(void) registerUserWithFullName:(NSString *) fullName
