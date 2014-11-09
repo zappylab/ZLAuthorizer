@@ -78,6 +78,16 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
                }];
 }
 
+-(void) resetPasswordForUserWithEmail:(NSString *) email
+                      completionBlock:(ZLARequestCompletionBlock) completionBlock
+{
+    NSParameterAssert(email);
+
+    [self.requestsPerformer POST:kZLAResetPasswordRequestPath
+                      parameters:@{@"email" : email}
+               completionHandler:completionBlock];
+}
+
 @end
 
 /////////////////////////////////////////////////////

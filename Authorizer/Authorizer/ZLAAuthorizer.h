@@ -62,6 +62,9 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success, NSError *error);
                          silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
+-(void) resetPasswordForUserWithEmail:(NSString *) email
+                      completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+
 @end
 
 /////////////////////////////////////////////////////

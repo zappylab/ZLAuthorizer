@@ -100,6 +100,28 @@
     }
 }
 
+-(void) resetPasswordForUserWithEmail:(NSString *) email
+                      completionBlock:(ZLARequestCompletionBlock) completionBlock
+{
+    if ([email isValidEmail])
+    {
+        [self.requester resetPasswordForUserWithEmail:email
+                                      completionBlock:completionBlock];
+    }
+    else
+    {
+        NSString *message = [NSString stringWithFormat:@"%@ is not a valid email",
+                                                       email.length > 0 ? email : @"Empty email"];
+        NSError *error = [NSError errorWithDomain:ZLAErrorDomain
+                                     code:ZLAErrorCodeInvalidEmail
+                                 userInfo:@{ZLAErrorMessageKey : message}];
+        if (completionBlock)
+        {
+            completionBlock(NO, nil, error);
+        }
+    }
+}
+
 -(BOOL) checkUserEmail:(NSString *) email
            andPassword:(NSString *) password
                  error:(NSError **) error

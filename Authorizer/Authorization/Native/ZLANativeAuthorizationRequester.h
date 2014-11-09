@@ -30,6 +30,9 @@
 
 -(void) resetPassword;
 
+-(void) resetPasswordForUserWithEmail:(NSString *) email
+                      completionBlock:(ZLARequestCompletionBlock) completionBlock;
+
 @end
 
 /////////////////////////////////////////////////////

@@ -258,22 +258,22 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
         self.autoAuthorizationPerformer = [[ZLAAutoAuthorizationPerformer alloc] initWithReachabilityObserver:reachabilityObserver];
         [self.autoAuthorizationPerformer performAutoAuthorizationWithAuthorizer:activeAuthorizer
                                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-                {
-                    if (response)
-                    {
-                        [self.authorizationResponseHandler handleLoginResponse:response];
-                    }
+                                                                {
+                                                                    if (response)
+                                                                    {
+                                                                        [self.authorizationResponseHandler handleLoginResponse:response];
+                                                                    }
 
-                    if (success)
-                    {
-                        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
-                        self.signedIn = YES;
-                    }
-                    else
-                    {
-                        [self signOut];
-                    }
-                }];
+                                                                    if (success)
+                                                                    {
+                                                                        [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                                                                        self.signedIn = YES;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [self signOut];
+                                                                    }
+                                                                }];
     }
 }
 
@@ -281,7 +281,7 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if ([self isAbleToKickOffNewAuthorization])
+    if ([self isAbleToMakeNewRequest])
     {
         self.performingRequest = YES;
         [self.nativeAuthorizer performAuthorizationWithEmail:email
@@ -312,7 +312,7 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if ([self isAbleToKickOffNewAuthorization])
+    if ([self isAbleToMakeNewRequest])
     {
         self.performingRequest = YES;
 
@@ -342,7 +342,7 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 
 -(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if ([self isAbleToKickOffNewAuthorization])
+    if ([self isAbleToMakeNewRequest])
     {
         [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
         {
@@ -369,7 +369,7 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
                                    completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if ([self isAbleToKickOffNewAuthorization])
+    if ([self isAbleToMakeNewRequest])
     {
         [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
                                                     completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
@@ -394,7 +394,7 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
     }
 }
 
--(BOOL) isAbleToKickOffNewAuthorization
+-(BOOL) isAbleToMakeNewRequest
 {
     return !(self.performingRequest || self.signedIn);
 }
@@ -469,19 +469,19 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
                                               email:email
                                            password:password
                                     completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (!success && response)
-                {
-                    error = [self.authorizationResponseHandler errorFromResponse:response];
-                }
+                                    {
+                                        if (!success && response)
+                                        {
+                                            error = [self.authorizationResponseHandler errorFromResponse:response];
+                                        }
 
-                if (completionBlock)
-                {
-                    completionBlock(success, error);
-                }
+                                        if (completionBlock)
+                                        {
+                                            completionBlock(success, error);
+                                        }
 
-                self.performingRequest = NO;
-            }];
+                                        self.performingRequest = NO;
+                                    }];
 }
 
 #pragma mark - ZLAAuthorizationResponseHandlerDelegate methods
@@ -492,7 +492,8 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
     NSString *capitalizedSocialNetworkName = [socialNetworkName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                                                                                         withString:firstLetterOfNameInCapital];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
         NSString *message = [NSString stringWithFormat:@"You used %@ to create your account, "
                                                                "please use %@ to login or reset your"
                                                                " password to login with ZappyLab account.",
@@ -503,18 +504,60 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
                              cancelButtonTitle:@"Close"
                              otherButtonTitles:@[@"Reset password"]
                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex)
-                {
-                    if (buttonIndex != alertView.cancelButtonIndex)
-                    {
-                        [self resetPassword];
-                    }
-                }];
+                                       {
+                                           if (buttonIndex != alertView.cancelButtonIndex)
+                                           {
+                                               [self resetPassword];
+                                           }
+                                       }];
     });
 }
 
 -(void) resetPassword
 {
     [self.nativeAuthorizer resetPassword];
+}
+
+-(void) resetPasswordForUserWithEmail:(NSString *) email
+                      completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    if ([self isAbleToMakeNewRequest])
+    {
+        self.performingRequest = YES;
+        [self.nativeAuthorizer resetPasswordForUserWithEmail:email
+                                             completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+                                             {
+                                                 [self handleResetPassword:success
+                                                                  response:response
+                                                                     error:error
+                                                           completionBlock:completionBlock];
+                                             }];
+    }
+    else
+    {
+        if (completionBlock)
+        {
+            completionBlock(NO, nil);
+        }
+    }
+}
+
+-(void) handleResetPassword:(BOOL) success
+                   response:(NSDictionary *) response
+                      error:(NSError *) error
+            completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    if (!success && response)
+    {
+        error = [self.authorizationResponseHandler errorFromResponse:response];
+    }
+
+    if (completionBlock)
+    {
+        completionBlock(success, error);
+    }
+
+    self.performingRequest = NO;
 }
 
 #pragma mark - Account info
@@ -535,17 +578,17 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 
     [self.accountInfoUpdater updateAccountWithInfo:completeInfo
                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                self.performingRequest = NO;
-                [self updateUserInfoWithInfo:completeInfo
-                         accordingToResponse:response];
-                [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+                                   {
+                                       self.performingRequest = NO;
+                                       [self updateUserInfoWithInfo:completeInfo
+                                                accordingToResponse:response];
+                                       [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
 
-                if (completionBlock)
-                {
-                    completionBlock(success, error);
-                }
-            }];
+                                       if (completionBlock)
+                                       {
+                                           completionBlock(success, error);
+                                       }
+                                   }];
 }
 
 -(NSDictionary *) accountInfoWithFullName:(NSString *) fullName
