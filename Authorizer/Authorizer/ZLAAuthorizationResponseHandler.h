@@ -12,7 +12,6 @@
 @protocol ZLAAuthorizationResponseHandlerDelegate
 
 -(void) responseHandlerDidDetectSocialLoginWithNetwork:(NSString *) socialNetworkName;
--(void) responseHandlerDidDetectErrorMessage:(NSString *) message;
 
 @end
 

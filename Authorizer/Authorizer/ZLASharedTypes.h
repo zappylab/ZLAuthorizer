@@ -16,8 +16,9 @@ typedef void(^ZLARequestCompletionBlock)(BOOL success,
         NSDictionary *response,
         NSError *error);
 
-extern NSString *const ZLAErrorDomain;
+extern NSString *const ZLAErrorDataValidationDomain;
 extern NSInteger const ZLAErrorCodeInvalidEmail;
 extern NSString *const ZLAErrorMessageKey;
+extern NSString *const ZLAErrorServersideDomain;
 
 #endif /* __OBJC__ */

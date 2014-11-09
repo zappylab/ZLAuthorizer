@@ -63,7 +63,7 @@
     NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
     if (responseStatusExplanation)
     {
-        error = [NSError errorWithDomain:ZLAErrorDomain
+        error = [NSError errorWithDomain:ZLAErrorServersideDomain
                                     code:0
                                 userInfo:@{ZLAErrorMessageKey : responseStatusExplanation}];
     }

@@ -112,7 +112,7 @@
     {
         NSString *message = [NSString stringWithFormat:@"%@ is not a valid email",
                                                        email.length > 0 ? email : @"Empty email"];
-        NSError *error = [NSError errorWithDomain:ZLAErrorDomain
+        NSError *error = [NSError errorWithDomain:ZLAErrorDataValidationDomain
                                      code:ZLAErrorCodeInvalidEmail
                                  userInfo:@{ZLAErrorMessageKey : message}];
         if (completionBlock)
@@ -131,7 +131,7 @@
     {
         NSString *message = [NSString stringWithFormat:@"%@ is not a valid email",
                                                        email.length > 0 ? email : @"Empty email"];
-        *error = [NSError errorWithDomain:ZLAErrorDomain
+        *error = [NSError errorWithDomain:ZLAErrorDataValidationDomain
                                      code:ZLAErrorCodeInvalidEmail
                                  userInfo:@{ZLAErrorMessageKey : message}];
         bothEmailAndPasswordAreValid = NO;

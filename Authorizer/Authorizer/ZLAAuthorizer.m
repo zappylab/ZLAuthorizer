@@ -30,7 +30,8 @@
 
 /////////////////////////////////////////////////////
 
-NSString *const ZLAErrorDomain = @"com.zappylab.authorizer.error";
+NSString *const ZLAErrorDataValidationDomain = @"com.zappylab.authorizer.error.data.validation";
+NSString *const ZLAErrorServersideDomain = @"com.zappylab.authorizer.error.serverside";
 NSInteger const ZLAErrorCodeInvalidEmail = 10;
 NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 

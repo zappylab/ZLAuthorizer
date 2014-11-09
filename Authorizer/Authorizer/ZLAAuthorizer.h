@@ -17,6 +17,8 @@ static NSString *ZLAAuthorizerSignedInKeyPath = @"signedIn";
 @class ZLAUserInfoContainer;
 
 extern NSString *const ZLAErrorMessageKey;
+extern NSString *const ZLAErrorDataValidationDomain;
+extern NSString *const ZLAErrorServersideDomain;
 
 /////////////////////////////////////////////////////
 
