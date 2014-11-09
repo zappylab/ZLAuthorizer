@@ -8,6 +8,7 @@
 
 #import "ZLAUserInfoContainer.h"
 #import "ZLAConstants.h"
+#import "ZLASharedTypes.h"
 
 /////////////////////////////////////////////////////
 
@@ -55,13 +56,19 @@
     }
 }
 
--(void) handleRegistrationResponse:(NSDictionary *) response
+-(NSError *) errorFromResponse:(NSDictionary *) response
 {
-    NSString *responseStatus = response[ZLAResponseStatusKey];
-    if (![responseStatus isEqualToString:ZLAResponseStatusOK]) {
-        NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
-        [self.delegate responseHandlerDidDetectErrorMessage:responseStatusExplanation];
+    NSError *error = nil;
+
+    NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
+    if (responseStatusExplanation)
+    {
+        error = [NSError errorWithDomain:ZLAErrorDomain
+                                    code:0
+                                userInfo:@{ZLAErrorMessageKey : responseStatusExplanation}];
     }
+
+    return error;
 }
 
 @end

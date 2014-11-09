@@ -6,16 +6,18 @@
 //  Copyright (c) 2014 ZappyLab. All rights reserved.
 //
 
-#ifndef AuthorizerExample_ZLASharedTypes_h
-#define AuthorizerExample_ZLASharedTypes_h
+#pragma once
 
 #ifdef __OBJC__
+
 #import <Foundation/Foundation.h>
 
 typedef void(^ZLARequestCompletionBlock)(BOOL success,
         NSDictionary *response,
         NSError *error);
 
-#endif /* __OBJC__ */
+extern NSString *const ZLAErrorDomain;
+extern NSInteger const ZLAErrorCodeInvalidEmail;
+extern NSString *const ZLAErrorMessageKey;
 
-#endif /* AuthorizerExample_ZLASharedTypes_h */
+#endif /* __OBJC__ */

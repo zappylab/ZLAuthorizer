@@ -10,7 +10,7 @@
 
 /////////////////////////////////////////////////////
 
-static NSString *const ZLAAccountInfoUpdateRequestPath = @"msaveuserinfo";
+static NSString *const ZLAAccountInfoUpdateRequestPath = @"msave_user_info";
 
 /////////////////////////////////////////////////////
 

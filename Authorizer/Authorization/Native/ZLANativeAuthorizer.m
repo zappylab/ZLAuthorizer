@@ -67,8 +67,11 @@
                              password:(NSString *) password
                       completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
-    if ([self checkUserEmail:email
-                 andPassword:password])
+    NSError *emailAndPasswordCheckError = nil;
+    BOOL bothEmailAndPasswordAreValid = [self checkUserEmail:email
+                                                 andPassword:password
+                                                       error:&emailAndPasswordCheckError];
+    if (bothEmailAndPasswordAreValid)
     {
         self.loginRequestOperation = [self.requester performNativeLoginWithUserName:email
                                                                            password:password
@@ -92,27 +95,32 @@
     {
         if (completionBlock)
         {
-            completionBlock(NO, nil, nil);
+            completionBlock(NO, nil, emailAndPasswordCheckError);
         }
     }
 }
 
 -(BOOL) checkUserEmail:(NSString *) email
            andPassword:(NSString *) password
+                 error:(NSError **) error
 {
+    BOOL bothEmailAndPasswordAreValid = YES;
     if (![email isValidEmail])
     {
-        [UIAlertView ZLA_showInvalidEmailAlertForSignin:email];
-        return NO;
+        NSString *message = [NSString stringWithFormat:@"%@ is not a valid email",
+                                                       email.length > 0 ? email : @"Empty email"];
+        *error = [NSError errorWithDomain:ZLAErrorDomain
+                                     code:ZLAErrorCodeInvalidEmail
+                                 userInfo:@{ZLAErrorMessageKey : message}];
+        bothEmailAndPasswordAreValid = NO;
     }
 
     if (![ZLAUserInfoValidator isPasswordAcceptable:password])
     {
-        [UIAlertView ZLA_showTooShortPasswordAlertForSignin];
-        return NO;
+        bothEmailAndPasswordAreValid = NO;
     }
 
-    return YES;
+    return bothEmailAndPasswordAreValid;
 }
 
 -(void) registerUserWithFullName:(NSString *) fullName

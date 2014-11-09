@@ -16,9 +16,11 @@ static NSString *ZLAAuthorizerSignedInKeyPath = @"signedIn";
 
 @class ZLAUserInfoContainer;
 
+extern NSString *const ZLAErrorMessageKey;
+
 /////////////////////////////////////////////////////
 
-typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
+typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success, NSError *error);
 
 /////////////////////////////////////////////////////
 

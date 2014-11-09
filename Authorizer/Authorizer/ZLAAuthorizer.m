@@ -30,6 +30,12 @@
 
 /////////////////////////////////////////////////////
 
+NSString *const ZLAErrorDomain = @"com.zappylab.authorizer.error";
+NSInteger const ZLAErrorCodeInvalidEmail = 10;
+NSString *const ZLAErrorMessageKey = @"ErrorMessage";
+
+/////////////////////////////////////////////////////
+
 @interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
 {
     __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
@@ -275,71 +281,138 @@
                                        password:(NSString *) password
                                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest || self.signedIn)
+    if ([self isAbleToKickOffNewAuthorization])
+    {
+        self.performingRequest = YES;
+        [self.nativeAuthorizer performAuthorizationWithEmail:email
+                                                    password:password
+                                             completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+                                             {
+                                                 if (success)
+                                                 {
+                                                     [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodNative];
+                                                 }
+
+                                                 [self handleAuthorizationResponse:response
+                                                                           success:success
+                                                                             error:error
+                                                                   completionBlock:completionBlock];
+                                             }];
+    }
+    else
     {
         if (completionBlock)
         {
-            completionBlock(NO);
+            completionBlock(NO, nil);
         }
-
-        return;
     }
-
-    self.performingRequest = YES;
-    [self.nativeAuthorizer performAuthorizationWithEmail:email
-                                                password:password
-                                         completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodNative];
-                }
-
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
 }
 
 -(void) performTwitterAuthorizationWithAPIKey:(NSString *) APIKey
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    if (self.performingRequest || self.signedIn)
+    if ([self isAbleToKickOffNewAuthorization])
+    {
+        self.performingRequest = YES;
+
+        [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
+                                                     consumerSecret:APISecret
+                                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+                                                    {
+                                                        if (success)
+                                                        {
+                                                            [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
+                                                        }
+
+                                                        [self handleAuthorizationResponse:response
+                                                                                  success:success
+                                                                                    error:error
+                                                                          completionBlock:completionBlock];
+                                                    }];
+    }
+    else
     {
         if (completionBlock)
         {
-            completionBlock(NO);
+            completionBlock(NO, nil);
         }
-
-        return;
     }
+}
 
-    self.performingRequest = YES;
-
-    [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
-                                                 consumerSecret:APISecret
-                                                completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+-(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    if ([self isAbleToKickOffNewAuthorization])
+    {
+        [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+        {
+            if (success)
             {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
-                }
+                [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+            }
 
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
+            [self handleAuthorizationResponse:response
+                                      success:success
+                                        error:nil
+                              completionBlock:completionBlock];
+        }];
+    }
+    else
+    {
+        if (completionBlock)
+        {
+            completionBlock(NO, nil);
+        }
+    }
+}
+
+-(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
+                                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+{
+    if ([self isAbleToKickOffNewAuthorization])
+    {
+        [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
+                                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+                                                    {
+                                                        if (success)
+                                                        {
+                                                            [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodGooglePlus];
+                                                        }
+
+                                                        [self handleAuthorizationResponse:response
+                                                                                  success:success
+                                                                                    error:error
+                                                                          completionBlock:completionBlock];
+                                                    }];
+    }
+    else
+    {
+        if (completionBlock)
+        {
+            completionBlock(NO, nil);
+        }
+    }
+}
+
+-(BOOL) isAbleToKickOffNewAuthorization
+{
+    return !(self.performingRequest || self.signedIn);
 }
 
 -(void) handleAuthorizationResponse:(NSDictionary *) response
                             success:(BOOL) success
+                              error:(NSError *) error
                     completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     if (!success)
     {
         [ZLACredentialsStorage wipeOutExistingCredentials];
         [self generateUserIdentifier];
+
+        if (response)
+        {
+            error = [self.authorizationResponseHandler errorFromResponse:response];
+        }
     }
 
     if (response)
@@ -353,60 +426,8 @@
 
     if (completionBlock)
     {
-        completionBlock(success);
+        completionBlock(success, error);
     }
-}
-
--(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
-{
-    if (self.performingRequest || self.signedIn)
-    {
-        if (completionBlock)
-        {
-            completionBlock(NO);
-        }
-
-        return;
-    }
-
-    [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
-                }
-
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
-}
-
--(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
-                                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
-{
-    if (self.performingRequest || self.signedIn)
-    {
-        if (completionBlock)
-        {
-            completionBlock(NO);
-        }
-
-        return;
-    }
-
-    [self.googlePlusAuthorizer performAuthorizationWithClientId:clientId
-                                                completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodGooglePlus];
-                }
-
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
 }
 
 -(void) signOut
@@ -449,14 +470,14 @@
                                            password:password
                                     completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
             {
-                if (response)
+                if (!success && response)
                 {
-                    [self.authorizationResponseHandler handleRegistrationResponse:response];
+                    error = [self.authorizationResponseHandler errorFromResponse:response];
                 }
 
                 if (completionBlock)
                 {
-                    completionBlock(success);
+                    completionBlock(success, error);
                 }
 
                 self.performingRequest = NO;
@@ -496,17 +517,6 @@
     [self.nativeAuthorizer resetPassword];
 }
 
--(void) responseHandlerDidDetectErrorMessage:(NSString *) message
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[[UIAlertView alloc] initWithTitle:@"Registration"
-                                    message:message
-                                   delegate:nil
-                          cancelButtonTitle:@"Close"
-                          otherButtonTitles:nil] show];
-    });
-}
-
 #pragma mark - Account info
 
 -(void) updateAccountWithUserName:(NSString *) userName
@@ -533,7 +543,7 @@
 
                 if (completionBlock)
                 {
-                    completionBlock(success);
+                    completionBlock(success, error);
                 }
             }];
 }

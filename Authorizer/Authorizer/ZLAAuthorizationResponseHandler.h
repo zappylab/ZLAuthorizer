@@ -31,7 +31,7 @@
 -(instancetype) initWithUserInfoContainer:(ZLAUserInfoContainer *) userInfoContainer;
 
 -(void) handleLoginResponse:(NSDictionary *) response;
--(void) handleRegistrationResponse:(NSDictionary *) response;
+-(NSError *) errorFromResponse:(NSDictionary *) response;
 
 @end
 
