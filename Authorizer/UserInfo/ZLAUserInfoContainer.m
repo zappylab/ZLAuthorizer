@@ -5,6 +5,7 @@
 //
 
 
+#import <ZLCategories/NSDictionary+ZLClearFromNulls.h>
 #import "ZLAUserInfoContainer.h"
 
 #import "ZLACredentialsStorage.h"
@@ -165,7 +166,8 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(void) handleUserInfoData:(NSDictionary *) data
 {
-    NSString *fullUserName = data[ZLAFullUserNameKey];
+    NSDictionary *cleanData = [data ZL_clearFromNulls];
+    NSString *fullUserName = cleanData[ZLAFullUserNameKey];
     if (fullUserName.length > 0)
     {
         self.fullName = fullUserName;
@@ -175,11 +177,11 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
         self.fullName = [ZLACredentialsStorage userEmail];
     }
 
-    self.firstName = data[ZLAFirstNameKey];
-    self.lastName = data[ZLALastNameKey];
-    self.affiliation = data[ZLAUserAffiliationKey];
+    self.firstName = cleanData[ZLAFirstNameKey];
+    self.lastName = cleanData[ZLALastNameKey];
+    self.affiliation = cleanData[ZLAUserAffiliationKey];
 
-    NSString *profilePicture = data[ZLAProfilePictureKey];
+    NSString *profilePicture = cleanData[ZLAProfilePictureKey];
     if (profilePicture.length > 0)
     {
         self.profilePictureURL = [NSURL URLWithString:profilePicture];
@@ -223,16 +225,35 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 -(void) encodeWithCoder:(NSCoder *) coder
 {
-    [coder encodeObject:_fullName
-                 forKey:ZLAUserInfoFullNameKey];
-    [coder encodeObject:_firstName
-                 forKey:ZLAUserInfoFirstNameKey];
-    [coder encodeObject:_lastName
-                 forKey:ZLAUserInfoLastNameKey];
-    [coder encodeObject:_affiliation
-                 forKey:ZLAUserInfoAffiliationKey];
-    [coder encodeObject:_profilePictureURL
-                 forKey:ZLAUserInfoProfilePictureURLKey];
+    if (self.fullName)
+    {
+        [coder encodeObject:_fullName
+                     forKey:ZLAUserInfoFullNameKey];
+    }
+
+    if (self.firstName)
+    {
+        [coder encodeObject:_firstName
+                     forKey:ZLAUserInfoFirstNameKey];
+    }
+
+    if (self.lastName)
+    {
+        [coder encodeObject:_lastName
+                     forKey:ZLAUserInfoLastNameKey];
+    }
+
+    if (self.affiliation)
+    {
+        [coder encodeObject:_affiliation
+                     forKey:ZLAUserInfoAffiliationKey];
+    }
+
+    if (self.profilePictureURL)
+    {
+        [coder encodeObject:_profilePictureURL
+                     forKey:ZLAUserInfoProfilePictureURLKey];
+    }
 }
 
 @end
