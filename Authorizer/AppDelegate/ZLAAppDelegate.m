@@ -23,7 +23,14 @@
 -(BOOL) application:(UIApplication *) application
       handleOpenURL:(NSURL *) url
 {
-    return [FBSession.activeSession handleOpenURL:url];
+    BOOL result = NO;
+
+    if (!self.signedIn)
+    {
+        result = [FBSession.activeSession handleOpenURL:url];
+    }
+
+    return result;
 }
 
 -(BOOL) application:(UIApplication *) application
@@ -33,17 +40,20 @@
 {
     BOOL result = NO;
 
-    if ([url.scheme rangeOfString:@"fb"
-                          options:NSCaseInsensitiveSearch].location != NSNotFound)
+    if (!self.signedIn)
     {
-        result = [FBAppCall handleOpenURL:url
-                        sourceApplication:sourceApplication];
-    }
-    else
-    {
-        result = [GPPURLHandler handleURL:url
-                        sourceApplication:sourceApplication
-                               annotation:annotation];
+        if ([url.scheme rangeOfString:@"fb"
+                              options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
+            result = [FBAppCall handleOpenURL:url
+                            sourceApplication:sourceApplication];
+        }
+        else
+        {
+            result = [GPPURLHandler handleURL:url
+                            sourceApplication:sourceApplication
+                                   annotation:annotation];
+        }
     }
 
     return result;

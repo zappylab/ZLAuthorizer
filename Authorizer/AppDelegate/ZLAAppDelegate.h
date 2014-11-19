@@ -11,6 +11,8 @@
 
 @interface ZLAAppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (readwrite, nonatomic) BOOL signedIn;
+
 @end
 
 /////////////////////////////////////////////////////

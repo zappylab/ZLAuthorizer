@@ -28,9 +28,9 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success, NSError *error);
 
 @interface ZLAAuthorizer : NSObject
 
-@property (readonly) ZLAUserInfoContainer *userInfo;
-@property (readonly) BOOL signedIn;
-@property (readonly) BOOL performingRequest;
+@property (readonly, nonatomic) ZLAUserInfoContainer *userInfo;
+@property (readonly, nonatomic) BOOL signedIn;
+@property (readonly, nonatomic) BOOL performingRequest;
 
 -(instancetype) init __attribute__((unavailable));
 

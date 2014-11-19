@@ -8,6 +8,7 @@
 #import <ZLNetworkRequestsPerformer/ZLNetworkReachabilityObserver.h>
 
 #import "ZLAAuthorizer.h"
+#import "ZLAAppDelegate.h"
 
 #import "ZLACredentialsStorage.h"
 #import "ZLASettingsStorage.h"
@@ -38,33 +39,25 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 /////////////////////////////////////////////////////
 
 @interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
-{
-    __strong ZLAAccountInfoUpdater *_accountInfoUpdater;
-
-    __strong ZLANativeAuthorizer *_nativeAuthorizer;
-    __strong ZLATwitterAuthorizer *_twitterAuthorizer;
-    __strong ZLAFacebookAuthorizer *_facebookAuthorizer;
-    __strong ZLAGooglePlusAuthorizer *_googlePlusAuthorizer;
-}
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
-@property (readonly) ZLANativeAuthorizer *nativeAuthorizer;
-@property (readonly) ZLATwitterAuthorizer *twitterAuthorizer;
-@property (readonly) ZLAFacebookAuthorizer *facebookAuthorizer;
-@property (readonly) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
-@property (strong) ZLAAutoAuthorizationPerformer *autoAuthorizationPerformer;
+@property (strong, nonatomic) ZLANativeAuthorizer *nativeAuthorizer;
+@property (strong, nonatomic) ZLATwitterAuthorizer *twitterAuthorizer;
+@property (strong, nonatomic) ZLAFacebookAuthorizer *facebookAuthorizer;
+@property (strong, nonatomic) ZLAGooglePlusAuthorizer *googlePlusAuthorizer;
+@property (strong, nonatomic) ZLAAutoAuthorizationPerformer *autoAuthorizationPerformer;
 
-@property (readonly) ZLAAccountInfoUpdater *accountInfoUpdater;
-@property (strong) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
+@property (strong, nonatomic) ZLAAccountInfoUpdater *accountInfoUpdater;
+@property (strong, nonatomic) ZLAAuthorizationResponseHandler *authorizationResponseHandler;
 
-@property (strong) ZLAUserInfoContainer *userInfo;
-@property (strong) ZLAUserInfoPersistentStore *userInfoPersistentStore;
+@property (strong, nonatomic) ZLAUserInfoContainer *userInfo;
+@property (strong, nonatomic) ZLAUserInfoPersistentStore *userInfoPersistentStore;
 
-@property (strong) ZLASettingsStorage *settingsStorage;
+@property (strong, nonatomic) ZLASettingsStorage *settingsStorage;
 
 @property (readwrite, atomic) BOOL signedIn;
-@property (readwrite, atomic) BOOL performingRequest;
+@property (readwrite, nonatomic) BOOL performingRequest;
 
 @end
 
@@ -167,6 +160,13 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 }
 
 #pragma mark - Accessors
+
+-(void) setSignedIn:(BOOL) signedIn
+{
+    _signedIn = signedIn;
+    ZLAAppDelegate *appDelegate = (ZLAAppDelegate *) [UIApplication sharedApplication].delegate;
+    appDelegate.signedIn = signedIn;
+}
 
 -(ZLANativeAuthorizer *) nativeAuthorizer
 {
