@@ -29,8 +29,13 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success, NSError *error);
 @interface ZLAAuthorizer : NSObject
 
 @property (readonly, nonatomic) ZLAUserInfoContainer *userInfo;
-@property (readonly, nonatomic) BOOL signedIn;
+@property (readonly, atomic) BOOL signedIn;
 @property (readonly, nonatomic) BOOL performingRequest;
+
+-(BOOL) handleOpenURL:(NSURL *) url;
+-(BOOL) handleOpenURL:(NSURL *) url
+  sourceApplication:(NSString *) sourceApplication
+         annotation:(id) annotation;
 
 -(instancetype) init __attribute__((unavailable));
 

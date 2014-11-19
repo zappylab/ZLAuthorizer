@@ -8,7 +8,6 @@
 #import <ZLNetworkRequestsPerformer/ZLNetworkReachabilityObserver.h>
 
 #import "ZLAAuthorizer.h"
-#import "ZLAAppDelegate.h"
 
 #import "ZLACredentialsStorage.h"
 #import "ZLASettingsStorage.h"
@@ -25,6 +24,9 @@
 #import "ZLAUserInfoPersistentStore.h"
 #import "ZLAConstants.h"
 
+#import "FacebookSDK.h"
+#import "GooglePlus.h"
+
 #import "NSString+Validation.h"
 #import "UIDevice+IdentifierAddition.h"
 #import <UIAlertView+BlocksKit.h>
@@ -39,9 +41,6 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 /////////////////////////////////////////////////////
 
 @interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
-{
-    BOOL _signedIn;
-}
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
@@ -67,6 +66,47 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 /////////////////////////////////////////////////////
 
 @implementation ZLAAuthorizer
+
+#pragma mark - Class methods
+
+-(BOOL) handleOpenURL:(NSURL *) url
+{
+    BOOL result = NO;
+
+    if (!self.signedIn)
+    {
+        self.performingRequest = YES;
+        result = [FBSession.activeSession handleOpenURL:url];
+    }
+
+    return result;
+}
+
+-(BOOL) handleOpenURL:(NSURL *) url
+    sourceApplication:(NSString *) sourceApplication
+           annotation:(id) annotation
+{
+    BOOL result = NO;
+
+    if (!self.signedIn)
+    {
+        self.performingRequest = YES;
+        if ([url.scheme rangeOfString:@"fb"
+                              options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
+            result = [FBAppCall handleOpenURL:url
+                            sourceApplication:sourceApplication];
+        }
+        else
+        {
+            result = [GPPURLHandler handleURL:url
+                            sourceApplication:sourceApplication
+                                   annotation:annotation];
+        }
+    }
+
+    return result;
+}
 
 #pragma mark - Initialization
 
@@ -163,24 +203,6 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 }
 
 #pragma mark - Accessors
-
--(BOOL) signedIn
-{
-    @synchronized (self)
-    {
-        return _signedIn;
-    }
-}
-
--(void) setSignedIn:(BOOL) signedIn
-{
-    @synchronized (self)
-    {
-        _signedIn = signedIn;
-        ZLAAppDelegate *appDelegate = (ZLAAppDelegate *) [UIApplication sharedApplication].delegate;
-        appDelegate.signedIn = signedIn;
-    }
-}
 
 -(ZLANativeAuthorizer *) nativeAuthorizer
 {

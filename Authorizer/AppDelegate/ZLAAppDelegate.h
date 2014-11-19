@@ -9,9 +9,13 @@
 
 /////////////////////////////////////////////////////
 
+@class ZLAAuthorizer;
+
+/////////////////////////////////////////////////////
+
 @interface ZLAAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (readwrite, nonatomic) BOOL signedIn;
+@property (strong, nonatomic) ZLAAuthorizer *authorizer;
 
 @end
 
