@@ -39,6 +39,9 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 /////////////////////////////////////////////////////
 
 @interface ZLAAuthorizer () <ZLAAuthorizationResponseHandlerDelegate>
+{
+    BOOL _signedIn;
+}
 
 @property (strong) ZLNetworkRequestsPerformer *requestsPerformer;
 
@@ -161,11 +164,22 @@ NSString *const ZLAErrorMessageKey = @"ErrorMessage";
 
 #pragma mark - Accessors
 
+-(BOOL) signedIn
+{
+    @synchronized (self)
+    {
+        return _signedIn;
+    }
+}
+
 -(void) setSignedIn:(BOOL) signedIn
 {
-    _signedIn = signedIn;
-    ZLAAppDelegate *appDelegate = (ZLAAppDelegate *) [UIApplication sharedApplication].delegate;
-    appDelegate.signedIn = signedIn;
+    @synchronized (self)
+    {
+        _signedIn = signedIn;
+        ZLAAppDelegate *appDelegate = (ZLAAppDelegate *) [UIApplication sharedApplication].delegate;
+        appDelegate.signedIn = signedIn;
+    }
 }
 
 -(ZLANativeAuthorizer *) nativeAuthorizer
