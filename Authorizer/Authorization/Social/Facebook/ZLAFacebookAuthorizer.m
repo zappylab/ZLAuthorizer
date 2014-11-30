@@ -141,12 +141,12 @@
 {
     [ZLACredentialsStorage setUserEmail:user[@"email"]];
     [ZLACredentialsStorage setSocialAccessToken:FBSession.activeSession.accessTokenData.accessToken];
-    [ZLACredentialsStorage setSocialUserIdentifier:user.id];
+    [ZLACredentialsStorage setSocialUserIdentifier:user.objectID];
 
     [self performLoginWithFirstName:user[@"first_name"]
                            lastName:user[@"last_name"]
               profilePictureAddress:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
-                                     user.id]];
+                                     user.objectID]];
 
 }
 
