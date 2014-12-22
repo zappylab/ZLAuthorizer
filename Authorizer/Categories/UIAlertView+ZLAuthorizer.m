@@ -42,20 +42,15 @@
                       otherButtonTitles:nil] show];
 }
 
-+(void) ZLA_showTooShortPasswordAlertForSignin
-{
-    [self ZLA_showTooShortPasswordAlertWithTitle:@"Sign in"];
-}
-
 +(void) ZLA_showTooShortPasswordAlertForRegistration
 {
-    [self ZLA_showTooShortPasswordAlertWithTitle:@"Registration"];
+    [self ZLA_showTooShortPasswordAlertWithTitle:@"Password is too short"];
 }
 
 +(void) ZLA_showTooShortPasswordAlertWithTitle:(NSString *) title
 {
     [[[UIAlertView alloc] initWithTitle:title
-                                message:@"Too short password"
+                                message:@"The password you chose is too short, please use 6 or more characters."
                                delegate:nil
                       cancelButtonTitle:@"Close"
                       otherButtonTitles:nil] show];
