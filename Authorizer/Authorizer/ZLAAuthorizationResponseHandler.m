@@ -60,15 +60,31 @@
 {
     NSError *error = nil;
 
-    NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
-    if (responseStatusExplanation)
+    NSString *responseStatus = response[ZLAResponseStatusExplanationKey];
+    if (responseStatus)
     {
         error = [NSError errorWithDomain:ZLAErrorServersideDomain
                                     code:0
-                                userInfo:@{ZLAErrorMessageKey : responseStatusExplanation}];
+                                userInfo:@{ZLAErrorMessageKey : [self humanReadableErrorMessageForResponseStatus:responseStatus]}];
     }
 
     return error;
+}
+
+-(NSString *) humanReadableErrorMessageForResponseStatus:(NSString *) status
+{
+    NSString *message = nil;
+    if ([status isEqualToString:@"not_verified"])
+    {
+        message = @"You must verify your email address before signing in. Please check your email and click the activation link.";
+    }
+    else
+    {
+        // TODO: use statuses as statuses, not messages (later)
+        message = status;
+    }
+
+    return message;
 }
 
 @end
