@@ -28,6 +28,8 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     __strong NSString *_identifier;
 }
 
+@property (strong, readwrite) NSString *identifier;
+
 @end
 
 /////////////////////////////////////////////////////
@@ -163,6 +165,16 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
 #pragma mark -
 
+-(void) setIdentifier:(NSString *) identifier
+withCompletionHandler:(void (^)(void)) completionHandler
+{
+    self.identifier = identifier;
+    if (completionHandler)
+    {
+        completionHandler();
+    }
+}
+
 -(void) handleUserInfoData:(NSDictionary *) data
 {
     NSString *fullUserName = data[ZLAFullUserNameKey];
@@ -204,7 +216,8 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     newContainer.persistent = persistent;
     newContainer.email = container.email;
     newContainer.password = container.password;
-    newContainer.identifier = container.identifier;
+    [newContainer setIdentifier:container.identifier
+          withCompletionHandler:nil];
 
     return newContainer;
 }

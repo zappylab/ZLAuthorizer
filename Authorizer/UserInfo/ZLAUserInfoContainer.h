@@ -24,7 +24,11 @@
 // turned on by default
 @property (readwrite) BOOL persistent;
 
-@property (strong) NSString *identifier;
+-(void) setIdentifier:(NSString *) identifier
+withCompletionHandler:(void (^)(void)) completionHandler;
+
+@property (strong, readonly) NSString *identifier;
+
 @property (strong) NSString *fullName;
 @property (strong) NSString *firstName;
 @property (strong) NSString *lastName;

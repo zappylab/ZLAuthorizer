@@ -124,20 +124,26 @@
 
     self.userInfoPersistentStore = [[ZLAUserInfoPersistentStore alloc] init];
     self.userInfo = [self.userInfoPersistentStore restorePersistedUserInfoContainer];
-    if (!self.userInfo)
+    if (self.userInfo)
+    {
+        [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
+    }
+    else
     {
         self.userInfo = [[userInfoContainerClass alloc] init];
         [self generateUserIdentifier];
         [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
     }
-
-    [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
 }
 
 -(void) generateUserIdentifier
 {
-    self.userInfo.identifier = [[UIDevice currentDevice] uniqueDeviceIdentifier];
-    [ZLNetworkRequestsPerformer setUserIdentifier:self.userInfo.identifier];
+    __weak ZLAAuthorizer *weakSelf = self;
+    [self.userInfo setIdentifier:[[UIDevice currentDevice] uniqueDeviceIdentifier]
+           withCompletionHandler:^
+     {
+         [ZLNetworkRequestsPerformer setUserIdentifier:weakSelf.userInfo.identifier];
+     }];
 }
 
 -(void) setupRequestsPerformerWithBaseURL:(NSURL *) baseURL
