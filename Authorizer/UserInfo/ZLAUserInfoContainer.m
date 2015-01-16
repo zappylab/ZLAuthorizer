@@ -19,6 +19,8 @@ static NSString *const ZLAUserInfoLastNameKey = @"lastName";
 static NSString *const ZLAUserInfoAffiliationKey = @"affiliation";
 static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
 
+static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTimestamp";
+
 /////////////////////////////////////////////////////
 
 @interface ZLAUserInfoContainer ()
@@ -26,6 +28,7 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     __strong NSString *_password;
     __strong NSString *_email;
     __strong NSString *_identifier;
+    __strong NSDate *_userDataSynchTimestamp;
 }
 
 @property (strong, readwrite) NSString *identifier;
@@ -92,6 +95,7 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
     _affiliation = [coder decodeObjectForKey:ZLAUserInfoAffiliationKey];
     _profilePictureURL = [coder decodeObjectForKey:ZLAUserInfoProfilePictureURLKey];
+    _userDataSynchTimestamp = [coder decodeObjectForKey:ZLUserInfoDataSynchTimestampKeyPath];
 }
 
 #pragma mark - Helpers
@@ -163,6 +167,23 @@ static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
     }
 }
 
+-(NSDate *) userDataSynchTimestamp
+{
+    return self.persistent ? [ZLACredentialsStorage userDataSynchTimestamp] : _userDataSynchTimestamp;
+}
+
+-(void) setUserDataSynchTimestamp:(NSDate *) userDataSynchTimestamp
+{
+    if (self.persistent)
+    {
+        [ZLACredentialsStorage setUserDataSynchTimestamp:userDataSynchTimestamp];
+    }
+    else
+    {
+        _userDataSynchTimestamp = userDataSynchTimestamp;
+    }
+}
+
 #pragma mark -
 
 -(void) setIdentifier:(NSString *) identifier
@@ -216,6 +237,7 @@ withCompletionHandler:(void (^)(void)) completionHandler
     newContainer.persistent = persistent;
     newContainer.email = container.email;
     newContainer.password = container.password;
+    newContainer.userDataSynchTimestamp = container.userDataSynchTimestamp;
     [newContainer setIdentifier:container.identifier
           withCompletionHandler:nil];
 
@@ -230,6 +252,7 @@ withCompletionHandler:(void (^)(void)) completionHandler
     self.lastName = nil;
     self.affiliation = nil;
     self.profilePictureURL = nil;
+    self.userDataSynchTimestamp = nil;
 }
 
 #pragma mark - NSCoding encoding
@@ -246,6 +269,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
                  forKey:ZLAUserInfoAffiliationKey];
     [coder encodeObject:_profilePictureURL
                  forKey:ZLAUserInfoProfilePictureURLKey];
+    [coder encodeObject:_userDataSynchTimestamp
+                 forKey:ZLUserInfoDataSynchTimestampKeyPath];
 }
 
 @end
