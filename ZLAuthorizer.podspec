@@ -12,8 +12,8 @@ Pod::Spec.new do |spec|
   spec.dependency 'AFNetworking', '~> 2.0'
   spec.dependency 'BlocksKit', '~> 2.2.0'
   spec.preserve_paths = "Authorizer/Frameworks/*.framework"
-  spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary', 'FacebookSDK', 'GoogleOpenSource', 'GooglePlus'
-  spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"$(SRCROOT)/../ZLAuthorizer/Authorizer/Frameworks"' }
+  spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
+  spec.vendored_frameworks = 'Authorizer/Frameworks/FacebookSDK.framework', 'Authorizer/Frameworks/GoogleOpenSource.framework', 'Authorizer/Frameworks/GooglePlus.framework'
   spec.requires_arc = true
 
   non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
