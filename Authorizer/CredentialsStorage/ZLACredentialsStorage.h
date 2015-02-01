@@ -36,6 +36,9 @@ typedef NS_ENUM(NSInteger, ZLAAuthorizationMethod) {
 +(NSString *) socialAccessToken;
 +(void) setSocialAccessToken:(NSString *) socialAccessToken;
 
++(NSDate *) userDataSynchTimestamp;
++(void) setUserDataSynchTimestamp:(NSDate *) userDataSynchTimestamp;
+
 +(ZLAAuthorizationMethod) authorizationMethod;
 +(void) setAuthorizationMethod:(ZLAAuthorizationMethod) method;
 +(void) resetAuthorizationMethod;

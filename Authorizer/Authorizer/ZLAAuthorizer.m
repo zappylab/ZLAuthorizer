@@ -58,6 +58,7 @@
 
 @property (readwrite, atomic) BOOL signedIn;
 @property (readwrite, atomic) BOOL performingRequest;
+@property (readwrite, atomic) NSDate *userDataSynchTimestamp;
 
 @end
 
@@ -163,6 +164,7 @@
 {
     self.signedIn = NO;
     self.performingRequest = NO;
+    [self resetUserDataSynchTimestamp];
 }
 
 #pragma mark - Accessors
@@ -438,6 +440,7 @@
     [self.userInfo reset];
     [self generateUserIdentifier];
     [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+    [self resetUserDataSynchTimestamp];
 
     self.signedIn = NO;
 }
@@ -576,6 +579,23 @@
             }
         }
     }
+}
+
+-(void) updateUserDataSynchTimestamp
+{
+    self.userInfo.userDataSynchTimestamp = [NSDate date];
+    [self updateInternalUserDataSynchTimestamp];
+}
+
+-(void) resetUserDataSynchTimestamp
+{
+    self.userInfo.userDataSynchTimestamp = nil;
+    [self updateInternalUserDataSynchTimestamp];
+}
+
+-(void) updateInternalUserDataSynchTimestamp
+{
+    self.userDataSynchTimestamp = self.userInfo.userDataSynchTimestamp;
 }
 
 @end

@@ -35,6 +35,8 @@ withCompletionHandler:(void (^)(void)) completionHandler;
 @property (strong) NSString *affiliation;
 @property (strong) NSURL *profilePictureURL;
 
+@property (strong) NSDate *userDataSynchTimestamp;
+
 @property (strong) NSString *email;
 @property (strong) NSString *password;
 

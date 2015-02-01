@@ -9,8 +9,9 @@
 
 /////////////////////////////////////////////////////
 
-static NSString *ZLAAuthorizerPerformingRequestKeyPath = @"performingRequest";
-static NSString *ZLAAuthorizerSignedInKeyPath = @"signedIn";
+static NSString *const ZLAAuthorizerPerformingRequestKeyPath = @"performingRequest";
+static NSString *const ZLAAuthorizerSignedInKeyPath = @"signedIn";
+static NSString *const ZLAAuthorizerUserDataSynchTimestampKeyPath = @"userDataSynchTimestamp";
 
 /////////////////////////////////////////////////////
 
@@ -27,6 +28,7 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 @property (readonly) ZLAUserInfoContainer *userInfo;
 @property (readonly) BOOL signedIn;
 @property (readonly) BOOL performingRequest;
+@property (readonly) NSDate *userDataSynchTimestamp;
 
 -(instancetype) init __attribute__((unavailable));
 
@@ -59,6 +61,8 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
                    additionalInfo:(NSDictionary *) info
                          silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+
+-(void) updateUserDataSynchTimestamp;
 
 @end
 

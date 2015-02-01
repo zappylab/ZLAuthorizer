@@ -14,6 +14,7 @@
 static NSString *const ZLAKeychainUserIdentifierKey = @"identifier";
 static NSString *const ZLAKeychainUserNameKey = @"username";
 static NSString *const ZLAKeychainPasswordKey = @"password";
+static NSString *const ZLAKeychainUserDataSynchTimestampKey = @"userDataSynchTimestamp";
 
 static NSString *const ZLAKeychainSocialUserIdentifierKey = @"SocialUserIdentifier";
 static NSString *const ZLAKeychainSocialAccessTokenKey = @"SocialAccessToken";
@@ -131,6 +132,17 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
 {
     [Lockbox setString:nil
                 forKey:ZLAKeychainAuthorizationMethodKey];
+}
+
++(NSDate *) userDataSynchTimestamp
+{
+    return [Lockbox dateForKey:ZLAKeychainUserDataSynchTimestampKey];
+}
+
++(void) setUserDataSynchTimestamp:(NSDate *) userDataSynchTimestamp
+{
+    [Lockbox setDate:userDataSynchTimestamp
+              forKey:ZLAKeychainUserDataSynchTimestampKey];
 }
 
 @end
