@@ -552,10 +552,12 @@
 {
     NSParameterAssert(fullName);
     NSParameterAssert(password);
-
+    NSString *email = self.userInfo.email.length > 0
+                      ? self.userInfo.email
+                      : @"";
     return @{ZLAFirstNameKey            : [ZLAUserInfoContainer firstNameOfFullName:fullName],
              ZLALastNameKey             : [ZLAUserInfoContainer lastNameOfFullName:fullName],
-             ZLAUserEmailKey            : emptyIfNil(self.userInfo.email),
+             ZLAUserEmailKey            : email,
              ZLAUserPasswordOnUpdateKey : password};
 }
 
