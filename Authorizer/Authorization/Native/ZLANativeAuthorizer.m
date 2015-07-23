@@ -108,22 +108,10 @@
                         password:(NSString *) password
                  completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
-    if ([self ableToRegisterUserWithFullName:fullName
+    [self.requester registerUserWithFullName:fullName
                                        email:email
-                                    password:password])
-    {
-        [self.requester registerUserWithFullName:fullName
-                                           email:email
-                                        password:password
-                                 completionBlock:completionBlock];
-    }
-    else
-    {
-        if (completionBlock)
-        {
-            completionBlock(NO, nil, nil);
-        }
-    }
+                                    password:password
+                             completionBlock:completionBlock];
 }
 
 -(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName

@@ -452,24 +452,28 @@
                         password:(NSString *) password
                  completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingRequest = YES;
-    [self.nativeAuthorizer registerUserWithFullName:fullName
-                                              email:email
-                                           password:password
-                                    completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (response)
-                {
-                    [self.authorizationResponseHandler handleRegistrationResponse:response];
-                }
-
-                if (completionBlock)
-                {
-                    completionBlock(success);
-                }
-
-                self.performingRequest = NO;
-            }];
+    self.performingRequest = [self.nativeAuthorizer ableToRegisterUserWithFullName:fullName
+                                                                             email:email
+                                                                          password:password];
+    if (self.performingRequest)
+    {
+        [self.nativeAuthorizer registerUserWithFullName:fullName
+                                                  email:email
+                                               password:password
+                                        completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+         {
+             if (response)
+             {
+                 [self.authorizationResponseHandler handleRegistrationResponse:response];
+             }
+             
+             self.performingRequest = NO;
+             if (completionBlock)
+             {
+                 completionBlock(success);
+             }
+         }];
+    }
 }
 
 #pragma mark - ZLAAuthorizationResponseHandlerDelegate methods
