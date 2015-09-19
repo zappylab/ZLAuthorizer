@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "88EEBF4789863C1B67C07A9B5C136CE3D1D638B0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "88EEBF4789863C1B67C07A9B5C136CE3D1D638B0" : 0,
+    "5EB45E40DBE4ECF8513615436C8C645D68C66EEF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2AF80044-06B7-45FF-9012-EEA622D64F79",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "88EEBF4789863C1B67C07A9B5C136CE3D1D638B0" : "ZLAuthorizer",
+    "5EB45E40DBE4ECF8513615436C8C645D68C66EEF" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ZLAuthorizer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ZLAuthorizer.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:zappylab\/protocols-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5EB45E40DBE4ECF8513615436C8C645D68C66EEF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zappylab\/ZLAuthorizer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88EEBF4789863C1B67C07A9B5C136CE3D1D638B0"
+    }
+  ]
+}

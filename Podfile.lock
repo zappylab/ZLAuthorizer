@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.2.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.2.3)
+    - AFNetworking/NSURLSession (= 2.2.3)
+    - AFNetworking/Reachability (= 2.2.3)
+    - AFNetworking/Security (= 2.2.3)
+    - AFNetworking/Serialization (= 2.2.3)
+    - AFNetworking/UIKit (= 2.2.3)
   - AFNetworking/NSURLConnection (2.2.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -19,7 +19,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BlocksKit (2.2.2):
-    - BlocksKit/All
+    - BlocksKit/All (= 2.2.2)
   - BlocksKit/All (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
@@ -33,7 +33,15 @@ PODS:
   - BlocksKit/UIKit (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.2.2)
   - Expecta (0.3.0)
+  - Facebook-iOS-SDK (3.24.0):
+    - Bolts (~> 1.2)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
   - OHHTTPStubs (3.1.1)
@@ -45,25 +53,34 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BlocksKit (~> 2.2.0)
   - Expecta
+  - Facebook-iOS-SDK (= 3.24.0)
   - Lockbox
   - NSString+Validation
   - OHHTTPStubs
   - Specta
-  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`, branch `master`)
+  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`,
+    branch `master`)
 
 EXTERNAL SOURCES:
   ZLNetworkRequestsPerformer:
     :branch: master
     :git: https://github.com/zappylab/ZLNetworkRequestsPerformer.git
 
-SPEC CHECKSUMS:
-  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
-  BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
-  Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
-  Lockbox: 33fad03fc7dd73e53f7108d9abff6fa0cfa1058b
-  NSString+Validation: 5b1f5c3b4f524352e889b46ade36a9ef47c060db
-  OHHTTPStubs: be1c4263e49191b586d8313dcd6068da6f699d2c
-  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
-  ZLNetworkRequestsPerformer: 33963f1543a70b88834d30958b81546ae391d24e
+CHECKOUT OPTIONS:
+  ZLNetworkRequestsPerformer:
+    :commit: dcc74957e9e5882822a091f353ed411471db791a
+    :git: https://github.com/zappylab/ZLNetworkRequestsPerformer.git
 
-COCOAPODS: 0.32.1
+SPEC CHECKSUMS:
+  AFNetworking: fd6df10652c90fe082b188b5af0660f123423f80
+  BlocksKit: 8557ca36d58151724e4027b81e429812ed7dc06c
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  Expecta: 917bda2935b63ca7175741b8cf1b26796db6205f
+  Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
+  Lockbox: d1a05c873b775c43976d4dce898f3749c133e026
+  NSString+Validation: 7ef1a5a42ac7a7d843f45d1018f952fc5f549587
+  OHHTTPStubs: cc1b9cb45b963daf891aa736f35d29d74308f0c9
+  Specta: 15a276a6343867b426d5ed135d5aa4d04123a573
+  ZLNetworkRequestsPerformer: baefdd58da7e75f672a01795e67fe7acd2ccb0d0
+
+COCOAPODS: 0.37.2
