@@ -61,6 +61,7 @@
 		E69D0D93190C532600AB00C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D92190C532600AB00C6 /* Security.framework */; };
 		E69D0D95190C533800AB00C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69D0D94190C533800AB00C6 /* SystemConfiguration.framework */; };
 		F2F4F7441BB58294006C62C5 /* ZLAGooglePlusAuthorizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F4F7431BB58294006C62C5 /* ZLAGooglePlusAuthorizerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F2F4F74B1BB5884C006C62C5 /* NSString+ZLAUserNameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F4F74A1BB5884C006C62C5 /* NSString+ZLAUserNameParser.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -266,6 +267,8 @@
 		E6DB4B2F19143AE600959B9C /* BoltsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltsVersion.h; sourceTree = "<group>"; };
 		F2F4F7421BB58294006C62C5 /* ZLAGooglePlusAuthorizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLAGooglePlusAuthorizerViewController.h; sourceTree = "<group>"; };
 		F2F4F7431BB58294006C62C5 /* ZLAGooglePlusAuthorizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLAGooglePlusAuthorizerViewController.m; sourceTree = "<group>"; };
+		F2F4F7491BB5884C006C62C5 /* NSString+ZLAUserNameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZLAUserNameParser.h"; sourceTree = "<group>"; };
+		F2F4F74A1BB5884C006C62C5 /* NSString+ZLAUserNameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZLAUserNameParser.m"; sourceTree = "<group>"; };
 		FFEC3664D8FCF02E0DFFAC9C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -600,6 +603,8 @@
 			children = (
 				C7DFE5593D556C35A9C86DEA /* UIAlertView+ZLAuthorizer.m */,
 				C7DFE8D64AF7E33F39C20B17 /* UIAlertView+ZLAuthorizer.h */,
+				F2F4F7491BB5884C006C62C5 /* NSString+ZLAUserNameParser.h */,
+				F2F4F74A1BB5884C006C62C5 /* NSString+ZLAUserNameParser.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -966,6 +971,7 @@
 				BDD802681901C53200C9B406 /* ZLAUserInfoContainer.m in Sources */,
 				BD1836CD1912D91C00D8C129 /* NSString+MD5Addition.m in Sources */,
 				BD46902B19006D53003EEC0E /* main.m in Sources */,
+				F2F4F74B1BB5884C006C62C5 /* NSString+ZLAUserNameParser.m in Sources */,
 				BD3D2A5C191AB9A10078C879 /* OAuth+Additions.m in Sources */,
 				C7DFE28B9BE94F34F54475E2 /* UIAlertView+ZLAuthorizer.m in Sources */,
 				C7DFE001374973369A5CA354 /* ZLAAccountInfoUpdater.m in Sources */,
