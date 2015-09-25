@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZLAGooglePlusAuthorizerViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : ZLAGooglePlusAuthorizerViewController
 
 @end

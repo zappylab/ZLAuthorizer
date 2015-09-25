@@ -2,19 +2,11 @@
 // Created by Ilya Dyakonov on 06/05/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
-
 
 #import "ZLAAppDelegate.h"
 
 #import "FacebookSDK.h"
-#import "GooglePlus.h"
-
-/////////////////////////////////////////////////////
-
-@interface ZLAAppDelegate ()
-
-@end
+#import <Google/SignIn.h>
 
 /////////////////////////////////////////////////////
 
@@ -32,7 +24,7 @@
          annotation:(id) annotation
 {
     BOOL result = NO;
-
+    
     if ([url.scheme rangeOfString:@"fb"
                           options:NSCaseInsensitiveSearch].location != NSNotFound)
     {
@@ -41,11 +33,11 @@
     }
     else
     {
-        result = [GPPURLHandler handleURL:url
-                        sourceApplication:sourceApplication
-                               annotation:annotation];
+        result = [[GIDSignIn sharedInstance] handleURL:url
+                                     sourceApplication:sourceApplication
+                                            annotation:annotation];
     }
-
+    
     return result;
 }
 

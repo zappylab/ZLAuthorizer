@@ -2,11 +2,8 @@
 // Created by Ilya Dyakonov on 06/05/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
 
-
-#import "GooglePlus.h"
-#import "GoogleOpenSource.h"
+#import <GoogleSignIn/GoogleSignIn.h>
 
 #import "ZLAGooglePlusAuthorizer.h"
 #import "ZLAGooglePlusAuthorizationRequester.h"
@@ -15,9 +12,14 @@
 #import "ZLACredentialsStorage.h"
 #import "ZLAConstants.h"
 
+#import "NSString+ZLAUserNameParser.h"
+
 /////////////////////////////////////////////////////
 
-@interface ZLAGooglePlusAuthorizer () <GPPSignInDelegate>
+@interface ZLAGooglePlusAuthorizer ()
+         <
+         GIDSignInDelegate
+         >
 
 @property (strong) ZLAGooglePlusAuthorizationRequester *requester;
 @property (strong) NSOperation *loginRequestOperation;
@@ -70,10 +72,10 @@
 
 -(void) setupGoogleSignIn
 {
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
-    signIn.shouldFetchGooglePlusUser = YES;
-    signIn.shouldFetchGoogleUserEmail = YES;
-    signIn.scopes = @[@"profile"];
+    GIDSignIn *signIn = [GIDSignIn sharedInstance];
+    signIn.shouldFetchBasicProfile = YES;
+    signIn.delegate = self;
+    signIn.scopes = @[@"https://www.googleapis.com/auth/plus.login"];
     signIn.delegate = self;
 }
 
@@ -85,28 +87,41 @@
     NSParameterAssert(clientId);
 
     self.completionBlock = completionBlock;
-    [GPPSignIn sharedInstance].clientID = clientId;
-    [[GPPSignIn sharedInstance] authenticate];
+    [GIDSignIn sharedInstance].clientID = clientId;
+    [[GIDSignIn sharedInstance] signIn];
 }
 
-#pragma mark - GPPSignInDelegate methods
+#pragma mark - GIDSignInDelegate methods
 
--(void) finishedWithAuth:(GTMOAuth2Authentication *) auth
-                   error:(NSError *) error
+
+-(void)   signIn:(GIDSignIn *) signIn
+didSignInForUser:(GIDGoogleUser *) user
+       withError:(NSError *) error
 {
-    if (auth)
+    if (error == nil)
     {
-        self.accessToken = auth.accessToken;
-        self.email = [GPPSignIn sharedInstance].authentication.userEmail;
-
+        self.userIdentifier = user.userID;
+        self.accessToken = user.authentication.idToken;
+        self.email = user.profile.email;
+        
+        NSString *name = user.profile.name;
+        self.firstName = [name zl_firstNameOfFullName];
+        self.lastName = [name zl_lastNameOfFullName];
+        
         [self getUserInfoAndLogin];
-
     }
     else
     {
         [self executeCompletionBlockWithSuccess:NO
                                        response:nil];
     }
+}
+
+-(void)        signIn:(GIDSignIn *) signIn
+didDisconnectWithUser:(GIDGoogleUser *) user
+            withError:(NSError *) error
+{
+    [[GIDSignIn sharedInstance] signOut];
 }
 
 -(void) executeCompletionBlockWithSuccess:(BOOL) success
@@ -122,38 +137,12 @@
 
 -(void) getUserInfoAndLogin
 {
-    GTLServicePlus *plusService = [[GTLServicePlus alloc] init];
-    plusService.retryEnabled = YES;
-    [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
-    GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
-
-    plusService.apiVersion = @"v1";
-    [plusService executeQuery:query
-            completionHandler:^(GTLServiceTicket *ticket, GTLPlusPerson *person, NSError *error)
-            {
-                if (person)
-                {
-                    [self saveUserInfoFromPerson:person];
-                    [self.requester getProfilePictureAddressForUserWithIdentifier:self.userIdentifier
-                                                              withCompletionBlock:^(NSString *profilePictureAddress)
-                                                              {
-                                                                  self.profilePictureAddress = profilePictureAddress;
-                                                                  [self loginWithGooglePlusCredentials];
-                                                              }];
-                }
-                else
-                {
-                    [self executeCompletionBlockWithSuccess:NO
-                                                   response:nil];
-                }
-            }];
-}
-
--(void) saveUserInfoFromPerson:(GTLPlusPerson *) person
-{
-    self.userIdentifier = person.identifier;
-    self.firstName = person.name.givenName;
-    self.lastName = person.name.familyName;
+    [self.requester getProfilePictureAddressForUserWithIdentifier:self.userIdentifier
+                                              withCompletionBlock:^(NSString *profilePictureAddress)
+     {
+         self.profilePictureAddress = profilePictureAddress;
+         [self loginWithGooglePlusCredentials];
+     }];
 }
 
 -(void) loginWithGooglePlusCredentials
@@ -205,7 +194,7 @@
 
 -(void) signOut
 {
-    [[GPPSignIn sharedInstance] signOut];
+    [[GIDSignIn sharedInstance] signOut];
 }
 
 @end

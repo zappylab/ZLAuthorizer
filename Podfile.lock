@@ -42,6 +42,31 @@ PODS:
   - Expecta (0.3.0)
   - Facebook-iOS-SDK (3.24.0):
     - Bolts (~> 1.2)
+  - Google/Core (1.1.0):
+    - GoogleInterchangeUtilities (~> 1.0)
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.1)
+  - Google/SignIn (1.1.0):
+    - Google/Core
+    - GoogleSignIn (~> 2.0)
+  - GoogleAppUtilities (1.0.0):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleAuthUtilities (1.0.1):
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleInterchangeUtilities (1.0.0):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleNetworkingUtilities (1.0.0):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleSignIn (2.2.0):
+    - GoogleAppUtilities (~> 1)
+    - GoogleAuthUtilities (~> 1)
+    - GoogleNetworkingUtilities (~> 1)
+    - GoogleUtilities (~> 1)
+  - GoogleSymbolUtilities (1.0.0)
+  - GoogleUtilities (1.1.0):
+    - GoogleSymbolUtilities (~> 1.0.0)
   - Lockbox (1.4.8)
   - NSString+Validation (1.0.1)
   - OHHTTPStubs (3.1.1)
@@ -54,6 +79,7 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2.0)
   - Expecta
   - Facebook-iOS-SDK (= 3.24.0)
+  - Google/SignIn
   - Lockbox
   - NSString+Validation
   - OHHTTPStubs
@@ -77,6 +103,14 @@ SPEC CHECKSUMS:
   Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   Expecta: 917bda2935b63ca7175741b8cf1b26796db6205f
   Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
+  Google: ec6c7729037b9579e52a4880ba06eb38ddb1de68
+  GoogleAppUtilities: c01c6a5671e9da8b9d690fdaec5959d6c2aac699
+  GoogleAuthUtilities: 049ffd3a297cdffd271451b82fd4e75304f15ef3
+  GoogleInterchangeUtilities: fe088bea8c936218e52324a004d279c4491b9d65
+  GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
+  GoogleSignIn: c45d8d1a873784a3283b4f47f331dc06d8a727b6
+  GoogleSymbolUtilities: a7b0feed1fe667c8d5e647177938d0ecd62d6948
+  GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   Lockbox: d1a05c873b775c43976d4dce898f3749c133e026
   NSString+Validation: 7ef1a5a42ac7a7d843f45d1018f952fc5f549587
   OHHTTPStubs: cc1b9cb45b963daf891aa736f35d29d74308f0c9

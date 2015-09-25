@@ -25,6 +25,15 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>com.zappylab.authorizer</string>
+				<string>com.googleusercontent.apps.17100019704-o162em5ouc56mcel4omjbr9v7b9p10lt</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>fb410377909099705</string>
 			</array>
 		</dict>
