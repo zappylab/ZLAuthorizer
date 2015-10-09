@@ -2,8 +2,6 @@
 // Created by Ilya Dyakonov on 24/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
-
 
 #import "ZLANativeAuthorizer.h"
 
@@ -32,6 +30,7 @@
 -(instancetype) init
 {
     self = [super init];
+    
     if (self)
     {
 
@@ -47,6 +46,7 @@
 -(instancetype) initWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     self = [super init];
+    
     if (self)
     {
         [self setupWithRequestsPerformer:requestsPerformer];
@@ -103,30 +103,21 @@
     return [email isValidEmail] && [ZLAUserInfoValidator isPasswordAcceptable:password];
 }
 
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(ZLARequestCompletionBlock) completionBlock
+-(void) registerUserWithEmail:(NSString *) email
+                     password:(NSString *) password
+              completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
-    [self.requester registerUserWithFullName:fullName
-                                       email:email
-                                    password:password
-                             completionBlock:completionBlock];
+    [self.requester registerUserWithEmail:email
+                                 password:password
+                          completionBlock:completionBlock];
 }
 
--(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName
-                                 email:(NSString *) email
-                              password:(NSString *) password
+-(BOOL) ableToRegisterUserWithEmail:(NSString *) email
+                           password:(NSString *) password
 {
     if (![email isValidEmail])
     {
         [UIAlertView ZLA_showInvalidEmailAlertForRegistration:email];
-        return NO;
-    }
-
-    if (![ZLAUserInfoValidator isFullNameAcceptable:fullName])
-    {
-        [UIAlertView ZLA_showTooShowFullNameAlertForRegistration];
         return NO;
     }
 

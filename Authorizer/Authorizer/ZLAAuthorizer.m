@@ -2,7 +2,6 @@
 // Created by Ilya Dyakonov on 05/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
 
 #import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
 #import <ZLNetworkRequestsPerformer/ZLNetworkReachabilityObserver.h>
@@ -83,6 +82,7 @@
     NSParameterAssert(appIdentifier);
 
     self = [super init];
+    
     if (self)
     {
         [self setupWithBaseURL:baseURL
@@ -447,20 +447,17 @@
 
 #pragma mark -
 
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+-(void) registerUserWithEmail:(NSString *) email
+                     password:(NSString *) password
+              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
-    self.performingRequest = [self.nativeAuthorizer ableToRegisterUserWithFullName:fullName
-                                                                             email:email
-                                                                          password:password];
+    self.performingRequest = [self.nativeAuthorizer ableToRegisterUserWithEmail:email
+                                                                       password:password];
     if (self.performingRequest)
     {
-        [self.nativeAuthorizer registerUserWithFullName:fullName
-                                                  email:email
-                                               password:password
-                                        completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+        [self.nativeAuthorizer registerUserWithEmail:email
+                                            password:password
+                                     completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
          {
              if (response)
              {

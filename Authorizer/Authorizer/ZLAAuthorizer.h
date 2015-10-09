@@ -2,8 +2,6 @@
 // Created by Ilya Dyakonov on 05/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
-
 
 #import <Foundation/Foundation.h>
 
@@ -51,10 +49,9 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
 
 -(void) signOut;
 
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+-(void) registerUserWithEmail:(NSString *) email
+                     password:(NSString *) password
+              completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 -(void) updateAccountWithUserName:(NSString *) userName
                          password:(NSString *) password

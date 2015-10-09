@@ -15,14 +15,12 @@
                              password:(NSString *) password
                       completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
--(BOOL) ableToRegisterUserWithFullName:(NSString *) fullName
-                                 email:(NSString *) email
-                              password:(NSString *) password;
+-(BOOL) ableToRegisterUserWithEmail:(NSString *) email
+                           password:(NSString *) password;
 
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(ZLARequestCompletionBlock) completionBlock;
+-(void) registerUserWithEmail:(NSString *) email
+                     password:(NSString *) password
+              completionBlock:(ZLARequestCompletionBlock) completionBlock;
 
 -(void) resetPassword;
 

@@ -2,7 +2,6 @@
 // Created by Ilya Dyakonov on 24/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
 
 #import <ZLNetworkRequestsPerformer/ZLNetworkRequestsPerformer.h>
 
@@ -29,6 +28,7 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 -(instancetype) init
 {
     self = [super init];
+    
     if (self)
     {
 
@@ -52,18 +52,15 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
                       completionHandler:completionBlock];
 }
 
--(void) registerUserWithFullName:(NSString *) fullName
-                           email:(NSString *) email
-                        password:(NSString *) password
-                 completionBlock:(ZLARequestCompletionBlock) completionBlock
+-(void) registerUserWithEmail:(NSString *) email
+                     password:(NSString *) password
+              completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(email);
     NSParameterAssert(password);
-    NSParameterAssert(fullName);
 
     [self.requestsPerformer POST:ZLARegisterRequestPath
-                      parameters:@{ZLAUserFullNameKey : fullName,
-                                   ZLAUserNameKey     : email,
+                      parameters:@{ZLAUserNameKey     : email,
                                    ZLAUserPasswordKey : password}
                completionHandler:completionBlock];
 }
