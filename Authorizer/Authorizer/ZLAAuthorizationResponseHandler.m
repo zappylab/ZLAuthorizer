@@ -58,8 +58,14 @@
 -(void) handleRegistrationResponse:(NSDictionary *) response
 {
     NSString *responseStatus = response[ZLAResponseStatusKey];
-    if (![responseStatus isEqualToString:ZLAResponseStatusOK]) {
-        NSString *responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
+    if (![responseStatus isEqualToString:ZLAResponseStatusOK])
+    {
+        NSString *responseStatusExplanation = response[ZLAResponseStatusErrorMessage];
+        if (responseStatusExplanation == nil)
+        {
+            responseStatusExplanation = response[ZLAResponseStatusExplanationKey];
+        }
+        
         [self.delegate responseHandlerDidDetectErrorMessage:responseStatusExplanation];
     }
 }

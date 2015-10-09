@@ -39,6 +39,7 @@ static NSString *const ZLAOAuthAccessTokenKey = @"token";
 static NSString *const ZLAResponseStatusKey = @"request";
 static NSString *const ZLAResponseStatusOK = @"OK";
 static NSString *const ZLAResponseStatusSocial = @"SOCIAL";
+static NSString *const ZLAResponseStatusErrorMessage = @"error_message";
 
 static NSString *const ZLAResponseStatusExplanationKey = @"status";
 
