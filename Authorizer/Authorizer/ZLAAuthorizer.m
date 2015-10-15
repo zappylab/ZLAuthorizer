@@ -322,22 +322,24 @@
 
         return;
     }
-
-    self.performingRequest = YES;
-
+    
     [self.twitterAuthorizer performAuthorizationWithConsumerKey:APIKey
                                                  consumerSecret:APISecret
+                                         performingRequestBlock:^(BOOL success)
+     {
+         self.performingRequest = success;
+     }
                                                 completionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
-                }
-
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
+     {
+         if (success)
+         {
+             [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodTwitter];
+         }
+         
+         [self handleAuthorizationResponse:response
+                                   success:success
+                           completionBlock:completionBlock];
+     }];
 }
 
 -(void) handleAuthorizationResponse:(NSDictionary *) response

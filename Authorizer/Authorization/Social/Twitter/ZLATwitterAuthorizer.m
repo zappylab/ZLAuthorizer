@@ -110,7 +110,8 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
 
 -(void) performAuthorizationWithConsumerKey:(NSString *) consumerKey
                              consumerSecret:(NSString *) consumerSecret
-                            completionBlock:(ZLARequestCompletionBlock) completionBlock
+                     performingRequestBlock:(void(^)(BOOL success)) performRequest
+                            completionBlock:(ZLARequestCompletionBlock) completionBlock;
 {
     NSParameterAssert(consumerKey);
     NSParameterAssert(consumerSecret);
@@ -122,10 +123,14 @@ static NSString *const ZLATwitterAuthorizerResponseKey = @"response";
     BFTask *accessTokenValidationTask = [reverseAuthTask continueWithBlock:^id(BFTask *task)
     {
         BFTask *nextTask = nil;
-
+        if (performRequest)
+        {
+            performRequest(YES);
+        }
+        
         if ([task.result boolValue])
         {
-            nextTask = [self validateAccessToken];;
+            nextTask = [self validateAccessToken];
         }
         else
         {
