@@ -15,10 +15,14 @@
 static NSString *const ZLAProfilePictureKey = @"profile_image";
 static NSString *const ZLAProfilePictureURLKey = @"img_url";
 static NSString *const ZLAUserAffiliationKey = @"affiliation";
+static NSString *const ZLAUserAffiliationURLKey = @"affiliation_url";
+
+static NSString *const ZLAUserBioKey = @"bio";
 
 static NSString *const ZLAFullUserNameKey = @"full_name";
 static NSString *const ZLAFirstNameKey = @"first_name";
 static NSString *const ZLALastNameKey = @"last_name";
+static NSString *const ZLAUsernameKey = @"username";
 
 static NSString *const ZLARegisterRequestPath = @"mregister";
 static NSString *const ZLALoginRequestPath = @"mlogin";

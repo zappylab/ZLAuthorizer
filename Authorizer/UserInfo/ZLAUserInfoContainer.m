@@ -2,8 +2,6 @@
 // Created by Ilya Dyakonov on 17/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
-
 
 #import "ZLAUserInfoContainer.h"
 
@@ -17,7 +15,9 @@ static NSString *const ZLAUserInfoFullNameKey = @"fullName";
 static NSString *const ZLAUserInfoFirstNameKey = @"firstName";
 static NSString *const ZLAUserInfoLastNameKey = @"lastName";
 static NSString *const ZLAUserInfoAffiliationKey = @"affiliation";
+static NSString *const ZLAUserInfoAffiliationURLKey = @"affiliationURL";
 static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
+static NSString *const ZLAUserInfoBioKey = @"bio";
 
 static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTimestamp";
 
@@ -94,7 +94,9 @@ static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTime
     _firstName = [coder decodeObjectForKey:ZLAUserInfoFirstNameKey];
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
     _affiliation = [coder decodeObjectForKey:ZLAUserInfoAffiliationKey];
+    _affiliationURL = [coder decodeObjectForKey:ZLAUserInfoAffiliationURLKey];
     _profilePictureURL = [coder decodeObjectForKey:ZLAUserInfoProfilePictureURLKey];
+    _bio = [coder decodeObjectForKey:ZLAUserInfoBioKey];
     _userDataSynchTimestamp = [coder decodeObjectForKey:ZLUserInfoDataSynchTimestampKeyPath];
 }
 
@@ -211,6 +213,17 @@ withCompletionHandler:(void (^)(void)) completionHandler
     self.firstName = data[ZLAFirstNameKey];
     self.lastName = data[ZLALastNameKey];
     self.affiliation = data[ZLAUserAffiliationKey];
+    self.bio = data[ZLAUserBioKey];
+    
+    NSString *affiliationURL = data[ZLAUserAffiliationURLKey];
+    if (affiliationURL.length > 0)
+    {
+    self.affiliationURL = [NSURL URLWithString:affiliationURL];
+    }
+    else
+    {
+        self.affiliationURL = nil;
+    }
 
     NSString *profilePicture = data[ZLAProfilePictureKey];
     if (profilePicture.length > 0)
@@ -253,6 +266,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
     self.affiliation = nil;
     self.profilePictureURL = nil;
     self.userDataSynchTimestamp = nil;
+    self.bio = nil;
+    self.affiliationURL = nil;
 }
 
 #pragma mark - NSCoding encoding
@@ -267,10 +282,14 @@ withCompletionHandler:(void (^)(void)) completionHandler
                  forKey:ZLAUserInfoLastNameKey];
     [coder encodeObject:_affiliation
                  forKey:ZLAUserInfoAffiliationKey];
+    [coder encodeObject:_affiliationURL
+                 forKey:ZLAUserInfoAffiliationURLKey];
     [coder encodeObject:_profilePictureURL
                  forKey:ZLAUserInfoProfilePictureURLKey];
     [coder encodeObject:_userDataSynchTimestamp
                  forKey:ZLUserInfoDataSynchTimestampKeyPath];
+    [coder encodeObject:_bio
+                 forKey:ZLAUserInfoBioKey];
 }
 
 @end

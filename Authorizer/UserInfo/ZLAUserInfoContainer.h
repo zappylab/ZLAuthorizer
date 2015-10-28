@@ -2,8 +2,6 @@
 // Created by Ilya Dyakonov on 17/04/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
-
 
 #import <Foundation/Foundation.h>
 
@@ -32,7 +30,9 @@ withCompletionHandler:(void (^)(void)) completionHandler;
 @property (strong) NSString *fullName;
 @property (strong) NSString *firstName;
 @property (strong) NSString *lastName;
+@property (strong) NSString *bio;
 @property (strong) NSString *affiliation;
+@property (strong) NSURL *affiliationURL;
 @property (strong) NSURL *profilePictureURL;
 
 @property (strong) NSDate *userDataSynchTimestamp;
