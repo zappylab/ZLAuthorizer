@@ -550,6 +550,14 @@
             }];
 }
 
+-(void) handleUpdatingUserInfoWithSerializedInfo:(NSDictionary *) serializedInfo
+                                    withResponse:(NSDictionary *) response
+{
+    [self updateUserInfoWithInfo:serializedInfo
+             accordingToResponse:response];
+    [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+}
+
 -(NSDictionary *) accountInfoWithFullName:(NSString *) fullName
                                  password:(NSString *) password
 {
@@ -580,7 +588,7 @@
             }
             @catch (NSException *exception)
             {
-                // no such value in user info!
+                NSLog(@"ZLAAuthorizer: no such value in user info %@", key);
             }
         }
     }

@@ -59,6 +59,9 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
                          silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
+-(void) handleUpdatingUserInfoWithSerializedInfo:(NSDictionary *) serializedInfo
+                                    withResponse:(NSDictionary *) response;
+
 -(void) updateUserDataSynchTimestamp;
 
 @end
