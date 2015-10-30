@@ -47,6 +47,17 @@ static NSString *const ZLAResponseStatusErrorMessage = @"error_message";
 
 static NSString *const ZLAResponseStatusExplanationKey = @"status";
 
+static NSString *const ZLAUserInfoIdentifierKey = @"identifier";
+static NSString *const ZLAUserInfoFullNameKey = @"fullName";
+static NSString *const ZLAUserInfoFirstNameKey = @"firstName";
+static NSString *const ZLAUserInfoLastNameKey = @"lastName";
+static NSString *const ZLAUserInfoAffiliationKey = @"affiliation";
+static NSString *const ZLAUserInfoAffiliationURLKey = @"affiliationURL";
+static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
+static NSString *const ZLAUserInfoBioKey = @"bio";
+
+static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTimestamp";
+
 #endif /* __OBJC__ */
 
 #endif /* AuthorizerExample_ZLAConstants_h */

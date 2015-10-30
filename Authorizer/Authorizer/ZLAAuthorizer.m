@@ -64,6 +64,7 @@
 /////////////////////////////////////////////////////
 
 @implementation ZLAAuthorizer
+static NSDictionary *userInfoKeysAccodingToResponseKeys = nil;
 
 #pragma mark - Initialization
 
@@ -575,20 +576,35 @@
 -(void) updateUserInfoWithInfo:(NSDictionary *) info
            accordingToResponse:(NSDictionary *) response
 {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+                  {
+                      userInfoKeysAccodingToResponseKeys =
+                      @{ ZLAUserAffiliationKey    : ZLAUserAffiliationKey,
+                         ZLAUserAffiliationURLKey : ZLAUserInfoAffiliationURLKey,
+                         ZLAUserBioKey            : ZLAUserBioKey,
+                         ZLAUserEmailKey          : ZLAUserEmailKey,
+                         ZLAFirstNameKey          : ZLAUserInfoFirstNameKey,
+                         ZLALastNameKey           : ZLAUserInfoLastNameKey,
+                         ZLAUserPasswordOnUpdateKey : ZLAUserPasswordOnUpdateKey};
+                  });
+    
     NSArray *keys = response.allKeys;
-    for (NSString *key in keys)
+    for (NSString *keyFromResponse in keys)
     {
-        BOOL shouldUpdateValue = [response[key] boolValue];
+        BOOL shouldUpdateValue = [response[keyFromResponse] boolValue];
         if (shouldUpdateValue)
         {
-            @try
+            NSString *userInfoKey = userInfoKeysAccodingToResponseKeys[keyFromResponse];
+            NSLog(@"%@ -> %@", keyFromResponse, userInfoKey);
+            if (userInfoKey)
             {
-                [self.userInfo setValue:info[key]
-                                 forKey:key];
+                [self.userInfo setValue:info[keyFromResponse]
+                                 forKey:userInfoKey];
             }
-            @catch (NSException *exception)
+            else
             {
-                NSLog(@"ZLAAuthorizer: no such value in user info %@", key);
+                NSLog(@"ZLAAuthorizer: no such value in user info %@", keyFromResponse);
             }
         }
     }
