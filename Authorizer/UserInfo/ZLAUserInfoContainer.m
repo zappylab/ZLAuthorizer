@@ -10,25 +10,13 @@
 
 /////////////////////////////////////////////////////
 
-static NSString *const ZLAUserInfoIdentifierKey = @"identifier";
-static NSString *const ZLAUserInfoFullNameKey = @"fullName";
-static NSString *const ZLAUserInfoFirstNameKey = @"firstName";
-static NSString *const ZLAUserInfoLastNameKey = @"lastName";
-static NSString *const ZLAUserInfoAffiliationKey = @"affiliation";
-static NSString *const ZLAUserInfoAffiliationURLKey = @"affiliationURL";
-static NSString *const ZLAUserInfoProfilePictureURLKey = @"profilePictureURL";
-static NSString *const ZLAUserInfoBioKey = @"bio";
-
-static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTimestamp";
-
-/////////////////////////////////////////////////////
-
 @interface ZLAUserInfoContainer ()
 {
     __strong NSString *_password;
     __strong NSString *_email;
     __strong NSString *_identifier;
     __strong NSDate *_userDataSynchTimestamp;
+    
 }
 
 @property (strong, readwrite) NSString *identifier;
@@ -38,6 +26,8 @@ static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTime
 /////////////////////////////////////////////////////
 
 @implementation ZLAUserInfoContainer
+@synthesize affiliationURL = _affiliationURL;
+@synthesize profilePictureURL = _profilePictureURL;
 
 #pragma mark - Class methods
 
@@ -184,6 +174,40 @@ static NSString *const ZLUserInfoDataSynchTimestampKeyPath = @"userDataSynchTime
     {
         _userDataSynchTimestamp = userDataSynchTimestamp;
     }
+}
+
+-(void) setAffiliationURL:(NSURL *) affiliationURL
+{
+    if ([affiliationURL isKindOfClass:[NSString class]])
+    {
+        _affiliationURL = [NSURL URLWithString:(NSString *)affiliationURL];
+    }
+    else
+    {
+        _affiliationURL = affiliationURL;
+    }
+}
+
+-(NSURL *) affiliationURL
+{
+    return _affiliationURL;
+}
+
+-(void) setProfilePictureURL:(NSURL *) profilePictureURL
+{
+    if ([profilePictureURL isKindOfClass:[NSString class]])
+    {
+        _profilePictureURL = [NSURL URLWithString:(NSString *)profilePictureURL];
+    }
+    else
+    {
+        _profilePictureURL = profilePictureURL;
+    }
+}
+
+-(NSURL *) profilePictureURL
+{
+    return _profilePictureURL;
 }
 
 #pragma mark -
