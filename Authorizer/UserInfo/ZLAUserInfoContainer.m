@@ -28,6 +28,8 @@
 @implementation ZLAUserInfoContainer
 @synthesize affiliationURL = _affiliationURL;
 @synthesize profilePictureURL = _profilePictureURL;
+@synthesize firstName = _firstName;
+@synthesize lastName = _lastName;
 
 #pragma mark - Class methods
 
@@ -208,6 +210,33 @@
 -(NSURL *) profilePictureURL
 {
     return _profilePictureURL;
+}
+
+-(void) setFirstName:(NSString *) firstName
+{
+    _firstName = firstName;
+    [self updateFullName];
+}
+
+-(NSString *) firstName
+{
+    return _firstName;
+}
+
+-(void) setLastName:(NSString *) lastName
+{
+    _lastName = lastName;
+    [self updateFullName];
+}
+
+-(NSString *) lastName
+{
+    return _lastName;
+}
+
+-(void) updateFullName
+{
+    self.fullName = [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
 }
 
 #pragma mark -
