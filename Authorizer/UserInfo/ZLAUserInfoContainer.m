@@ -253,7 +253,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
 
 -(void) handleUserInfoData:(NSDictionary *) data
 {
-    NSString *fullUserName = data[ZLAFullUserNameKey];
+    NSString *fullUserName = [self stringValueOfKey:ZLAFullUserNameKey
+                                       ofDictionary:data];
     if (fullUserName.length > 0)
     {
         self.fullName = fullUserName;
@@ -263,22 +264,28 @@ withCompletionHandler:(void (^)(void)) completionHandler
         self.fullName = [ZLACredentialsStorage userEmail];
     }
 
-    self.firstName = data[ZLAFirstNameKey];
-    self.lastName = data[ZLALastNameKey];
-    self.affiliation = data[ZLAUserAffiliationKey];
-    self.bio = data[ZLAUserBioKey];
+    self.firstName = [self stringValueOfKey:ZLAFirstNameKey
+                               ofDictionary:data];
+    self.lastName = [self stringValueOfKey:ZLALastNameKey
+                              ofDictionary:data];
+    self.affiliation = [self stringValueOfKey:ZLAUserAffiliationKey
+                                 ofDictionary:data];
+    self.bio = [self stringValueOfKey:ZLAUserBioKey
+                         ofDictionary:data];
     
-    NSString *affiliationURL = data[ZLAUserAffiliationURLKey];
+    NSString *affiliationURL = [self stringValueOfKey:ZLAUserAffiliationURLKey
+                                         ofDictionary:data];
     if (affiliationURL.length > 0)
     {
-    self.affiliationURL = [NSURL URLWithString:affiliationURL];
+        self.affiliationURL = [NSURL URLWithString:affiliationURL];
     }
     else
     {
         self.affiliationURL = nil;
     }
-
-    NSString *profilePicture = data[ZLAProfilePictureKey];
+    
+    NSString *profilePicture = [self stringValueOfKey:ZLAProfilePictureKey
+                                         ofDictionary:data];
     if (profilePicture.length > 0)
     {
         self.profilePictureURL = [NSURL URLWithString:profilePicture];
@@ -287,6 +294,29 @@ withCompletionHandler:(void (^)(void)) completionHandler
     {
         self.profilePictureURL = nil;
     }
+}
+
+-(NSString *) stringValueOfKey:(NSString *) key
+                  ofDictionary:(NSDictionary *) dictionary
+{
+    NSString *value = @"";
+    if ([dictionary isKindOfClass:[NSDictionary class]])
+    {
+        if (dictionary[key])
+        {
+            id valueOfUnknownType = dictionary[key];
+            if ([valueOfUnknownType isKindOfClass:[NSString class]])
+            {
+                value = (NSString *) valueOfUnknownType;
+            }
+            else if ([valueOfUnknownType isKindOfClass:[NSNumber class]])
+            {
+                value = [valueOfUnknownType stringValue];
+            }
+        }
+    }
+    
+    return value;
 }
 
 +(id) containerWithContainer:(ZLAUserInfoContainer *) container
