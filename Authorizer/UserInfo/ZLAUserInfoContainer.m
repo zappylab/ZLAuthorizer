@@ -58,7 +58,7 @@
     self = [self initWithCoder:nil];
     if (self)
     {
-
+        [self setup];
     }
 
     return self;
@@ -73,10 +73,16 @@
     self = [super init];
     if (self)
     {
+        [self setup];
         [self unarchiveWithCoder:coder];
     }
 
     return self;
+}
+
+-(void) setup
+{
+    [ZLACredentialsStorage migrateUserDataIfNeeded];
 }
 
 -(void) unarchiveWithCoder:(NSCoder *) coder
