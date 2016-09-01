@@ -67,7 +67,15 @@ static NSString *const ZLAKeychainAuthorizationMethodKey = @"authorizationMethod
         return NO;
     
     NSString *userIdentifierBeforeMigration = [Lockbox stringForKey:ZLAKeychainUserIdentifierKey];
-    NSString *userIdentifierAfterMigration = [Lockbox unarchiveObjectForKey:ZLAKeychainUserIdentifierKey];
+    NSString *userIdentifierAfterMigration = nil;
+    @try {
+        userIdentifierAfterMigration = [Lockbox unarchiveObjectForKey:ZLAKeychainUserIdentifierKey];
+    }
+    @catch (NSException *exception)
+    {
+        
+    }
+    
     return userIdentifierBeforeMigration.length > 0
            && userIdentifierAfterMigration == nil;
 }
