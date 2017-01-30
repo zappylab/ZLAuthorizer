@@ -30,6 +30,7 @@
 @synthesize profilePictureURL = _profilePictureURL;
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
+@synthesize username = _username;
 
 #pragma mark - Class methods
 
@@ -91,6 +92,7 @@
     _fullName = [coder decodeObjectForKey:ZLAUserInfoFullNameKey];
     _firstName = [coder decodeObjectForKey:ZLAUserInfoFirstNameKey];
     _lastName = [coder decodeObjectForKey:ZLAUserInfoLastNameKey];
+    _username = [coder decodeObjectForKey:ZLAUsernameKey];
     _affiliation = [coder decodeObjectForKey:ZLAUserInfoAffiliationKey];
     _affiliationURL = [coder decodeObjectForKey:ZLAUserInfoAffiliationURLKey];
     _profilePictureURL = [coder decodeObjectForKey:ZLAUserInfoProfilePictureURLKey];
@@ -278,6 +280,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
                                  ofDictionary:data];
     self.bio = [self stringValueOfKey:ZLAUserBioKey
                          ofDictionary:data];
+    self.username = [self stringValueOfKey:ZLAUsernameKey
+                              ofDictionary:data];
     
     NSString *affiliationURL = [self stringValueOfKey:ZLAUserAffiliationURLKey
                                          ofDictionary:data];
@@ -352,6 +356,7 @@ withCompletionHandler:(void (^)(void)) completionHandler
     self.fullName = nil;
     self.firstName = nil;
     self.lastName = nil;
+    self.username = nil;
     self.affiliation = nil;
     self.profilePictureURL = nil;
     self.userDataSynchTimestamp = nil;
@@ -379,6 +384,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
                  forKey:ZLUserInfoDataSynchTimestampKeyPath];
     [coder encodeObject:_bio
                  forKey:ZLAUserInfoBioKey];
+    [coder encodeObject:_username
+                 forKey:ZLAUsernameKey];
 }
 
 @end

@@ -30,6 +30,7 @@ withCompletionHandler:(void (^)(void)) completionHandler;
 @property (strong) NSString *fullName;
 @property (strong) NSString *firstName;
 @property (strong) NSString *lastName;
+@property (strong) NSString *username;
 @property (strong) NSString *bio;
 @property (strong) NSString *affiliation;
 @property (strong) NSURL *affiliationURL;
