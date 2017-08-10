@@ -31,6 +31,7 @@
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
 @synthesize username = _username;
+@synthesize bio = _bio;
 
 #pragma mark - Class methods
 
