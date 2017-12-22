@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
   spec.source_files = 'Authorizer/**/*.{h,m}'
   spec.dependency 'Lockbox'
   spec.dependency 'NSString+Validation'
-  spec.dependency 'AFNetworking', '~> 2.0'
+  spec.dependency 'AFNetworking'
   spec.dependency 'BlocksKit', '~> 2.2.0'
   spec.preserve_paths = "Authorizer/Frameworks/*.framework"
   spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
