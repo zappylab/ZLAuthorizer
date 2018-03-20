@@ -368,7 +368,8 @@ static NSDictionary *userInfoKeysAccodingToResponseKeys = nil;
     }
 }
 
--(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
+-(void) performFacebookAuthorizationFrom:(UIViewController *) viewController
+                     withCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock
 {
     if (self.performingRequest || self.signedIn)
     {
@@ -376,21 +377,22 @@ static NSDictionary *userInfoKeysAccodingToResponseKeys = nil;
         {
             completionBlock(NO);
         }
-
+        
         return;
     }
 
-    [self.facebookAuthorizer performAuthorizationWithCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
-            {
-                if (success)
-                {
-                    [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
-                }
-
-                [self handleAuthorizationResponse:response
-                                          success:success
-                                  completionBlock:completionBlock];
-            }];
+    [self.facebookAuthorizer performAuthorizationFrom:viewController
+                                  withCompletionBlock:^(BOOL success, NSDictionary *response, NSError *error)
+     {
+         if (success)
+         {
+             [ZLACredentialsStorage setAuthorizationMethod:ZLAAuthorizationMethodFacebook];
+         }
+         
+         [self handleAuthorizationResponse:response
+                                   success:success
+                           completionBlock:completionBlock];
+     }];
 }
 
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId

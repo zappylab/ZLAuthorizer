@@ -42,7 +42,8 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
                                     APISecret:(NSString *) APISecret
                               completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
--(void) performFacebookAuthorizationWithCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+-(void) performFacebookAuthorizationFrom:(UIViewController *) viewController
+                     withCompletionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
 
 -(void) performGooglePlusAuthorizationWithClientId:(NSString *) clientId
                                    completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;

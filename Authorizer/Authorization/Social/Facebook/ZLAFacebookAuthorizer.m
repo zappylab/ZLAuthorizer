@@ -2,9 +2,10 @@
 // Created by Ilya Dyakonov on 05/05/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
 
-#import "FacebookSDK.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKCoreKit/FBSDKGraphRequest.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "ZLAFacebookAuthorizer.h"
 #import "ZLASocialAuthorizationRequester.h"
@@ -15,10 +16,10 @@
 
 /////////////////////////////////////////////////////
 
-@interface ZLAFacebookAuthorizer () <FBLoginViewDelegate>
+@interface ZLAFacebookAuthorizer () <FBSDKLoginTooltipViewDelegate>
 
 @property (strong) ZLASocialAuthorizationRequester *requester;
-@property (strong) FBLoginView *loginView;
+@property (strong) FBSDKLoginManager *loginManager;
 @property (strong) NSOperation *loginRequestOperation;
 
 @property (copy) ZLARequestCompletionBlock completionBlock;
@@ -52,7 +53,7 @@
 -(void) setupWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
 {
     [self setupRequesterWithRequestsPerformer:requestsPerformer];
-    [self setupLoginView];
+    self.loginManager = [[FBSDKLoginManager alloc] init];
 }
 
 -(void) setupRequesterWithRequestsPerformer:(ZLNetworkRequestsPerformer *) requestsPerformer
@@ -60,58 +61,54 @@
     _requester = [[ZLASocialAuthorizationRequester alloc] initWithRequestsPerformer:requestsPerformer];
 }
 
--(void) setupLoginView
-{
-    self.loginView = [[FBLoginView alloc] init];
-    self.loginView.delegate = self;
-}
-
 #pragma mark - Authorization
 
--(void) performAuthorizationWithCompletionBlock:(ZLARequestCompletionBlock) completionBlock
+-(void) performAuthorizationFrom:(UIViewController *) viewController
+             withCompletionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     self.completionBlock = completionBlock;
-
-    if (!(FBSession.activeSession.state == FBSessionStateOpen
-            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended))
-    {
-        FBSession *session = [[FBSession alloc] init];
-        [session setStateChangeHandler:^(FBSession *changedSession, FBSessionState status, NSError *error)
-        {
-            [self sessionStateChanged:changedSession
-                                state:status
-                                error:error];
-        }];
-
-        [FBSession setActiveSession:session];
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
-                                           allowLoginUI:YES
-                                      completionHandler:
-                                              ^(FBSession *openedSession, FBSessionState state, NSError *error)
-                                              {
-                                                  [self sessionStateChanged:openedSession
-                                                                      state:state
-                                                                      error:error];
-                                              }];
-    }
+    [self.loginManager logInWithReadPermissions: @[@"public_profile", @"email"]
+                             fromViewController:viewController
+                                        handler:^(FBSDKLoginManagerLoginResult *result,
+                                                  NSError *error)
+     {
+         if (error || result.isCancelled)
+         {
+             [self.loginManager logOut];
+         }
+         else
+         {
+             [self updateCredentials];
+         }
+     }];
 }
 
--(void) sessionStateChanged:(FBSession *) session
-                      state:(FBSessionState) state
-                      error:(NSError *) error
+-(void) updateCredentials
 {
-    switch (state)
+    id token = [FBSDKAccessToken currentAccessToken];
+    if (token != nil)
     {
-        case FBSessionStateOpen:
-            break;
-
-        case FBSessionStateClosed:
-        case FBSessionStateClosedLoginFailed:
-            [FBSession.activeSession closeAndClearTokenInformation];
-            break;
-
-        default:
-            break;
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                       parameters:@{@"fields": @"id, first_name, last_name, email"}];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                              id result,
+                                              NSError *error)
+         {
+             if (error == nil)
+             {
+                 [ZLACredentialsStorage setUserEmail:result[@"email"]];
+                 [ZLACredentialsStorage setSocialAccessToken:token];
+                 [ZLACredentialsStorage setSocialUserIdentifier:result[@"id"]];
+                 [self performLoginWithFirstName:result[@"first_name"]
+                                        lastName:result[@"last_name"]
+                           profilePictureAddress:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
+                                                  result[@"id"]]];
+             }
+             else
+             {
+                 self.completionBlock(NO, result, error);
+             }
+         }];
     }
 }
 
@@ -131,24 +128,10 @@
 
 -(void) signOut
 {
-    [FBSession.activeSession closeAndClearTokenInformation];
+    [self.loginManager logOut];
 }
 
 #pragma mark - FBLoginViewDelegate methods
-
--(void) loginViewFetchedUserInfo:(FBLoginView *) loginView
-                            user:(id <FBGraphUser>) user
-{
-    [ZLACredentialsStorage setUserEmail:user[@"email"]];
-    [ZLACredentialsStorage setSocialAccessToken:FBSession.activeSession.accessTokenData.accessToken];
-    [ZLACredentialsStorage setSocialUserIdentifier:user.id];
-
-    [self performLoginWithFirstName:user[@"first_name"]
-                           lastName:user[@"last_name"]
-              profilePictureAddress:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large",
-                                     user.id]];
-
-}
 
 -(void) performLoginWithFirstName:(NSString *) firstName
                          lastName:(NSString *) lastName
@@ -172,6 +155,7 @@
                                                                              self.completionBlock = nil;
                                                                          }];
 }
+
 @end
 
 /////////////////////////////////////////////////////

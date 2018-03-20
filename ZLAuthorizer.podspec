@@ -11,9 +11,9 @@ Pod::Spec.new do |spec|
   spec.dependency 'NSString+Validation'
   spec.dependency 'AFNetworking'
   spec.dependency 'BlocksKit', '~> 2.2.0'
-  spec.preserve_paths = "Authorizer/Frameworks/*.framework"
-  spec.frameworks = 'Accounts', 'Social', 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
-  spec.vendored_frameworks = 'Authorizer/Frameworks/FacebookSDK.framework', 'Authorizer/Frameworks/GoogleOpenSource.framework', 'Authorizer/Frameworks/GooglePlus.framework'
+  spec.dependency 'FBSDKLoginKit'
+  spec.dependency 'GoogleSignIn'
+  spec.frameworks = 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
   spec.requires_arc = true
 
   non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
