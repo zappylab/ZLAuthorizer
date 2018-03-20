@@ -5,18 +5,10 @@
 
 #import "ZLAAppDelegate.h"
 
-#import "FacebookSDK.h"
-#import <Google/SignIn.h>
-
-/////////////////////////////////////////////////////
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <GoogleSignIn/GIDSignIn.h>
 
 @implementation ZLAAppDelegate
-
--(BOOL) application:(UIApplication *) application
-      handleOpenURL:(NSURL *) url
-{
-    return [FBSession.activeSession handleOpenURL:url];
-}
 
 -(BOOL) application:(UIApplication *) application
             openURL:(NSURL *) url
@@ -28,8 +20,10 @@
     if ([url.scheme rangeOfString:@"fb"
                           options:NSCaseInsensitiveSearch].location != NSNotFound)
     {
-        result = [FBAppCall handleOpenURL:url
-                        sourceApplication:sourceApplication];
+//        result = [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                                openURL:url
+//                                                      sourceApplication:sourceApplication
+//                                                             annotation:annotation];
     }
     else
     {
@@ -42,5 +36,3 @@
 }
 
 @end
-
-/////////////////////////////////////////////////////

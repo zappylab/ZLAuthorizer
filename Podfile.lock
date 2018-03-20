@@ -33,41 +33,64 @@ PODS:
   - BlocksKit/UIKit (2.2.2):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - Bolts (1.2.2):
-    - Bolts/AppLinks (= 1.2.2)
-    - Bolts/Tasks (= 1.2.2)
-  - Bolts/AppLinks (1.2.2):
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.2)
+  - Bolts/Tasks (1.8.4)
   - Expecta (0.3.0)
-  - Facebook-iOS-SDK (3.24.0):
-    - Bolts (~> 1.2)
-  - Google/Core (1.1.0):
-    - GoogleInterchangeUtilities (~> 1.0)
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleSymbolUtilities (~> 1.0)
-    - GoogleUtilities (~> 1.1)
-  - Google/SignIn (1.1.0):
-    - Google/Core
-    - GoogleSignIn (~> 2.0)
-  - GoogleAppUtilities (1.0.0):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleAuthUtilities (1.0.1):
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleInterchangeUtilities (1.0.0):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleNetworkingUtilities (1.0.0):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSignIn (2.2.0):
-    - GoogleAppUtilities (~> 1)
-    - GoogleAuthUtilities (~> 1)
-    - GoogleNetworkingUtilities (~> 1)
-    - GoogleUtilities (~> 1)
-  - GoogleSymbolUtilities (1.0.0)
-  - GoogleUtilities (1.1.0):
-    - GoogleSymbolUtilities (~> 1.0.0)
+  - FBSDKCoreKit (4.31.1):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.31.1):
+    - FBSDKCoreKit
+  - Firebase/Auth (4.10.1):
+    - Firebase/Core
+    - FirebaseAuth (= 4.4.4)
+  - Firebase/Core (4.10.1):
+    - FirebaseAnalytics (= 4.1.0)
+    - FirebaseCore (= 4.0.17)
+  - FirebaseAnalytics (4.1.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.4.4):
+    - FirebaseAnalytics (~> 4.1)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (4.0.17):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (2.0.9):
+    - FirebaseCore (~> 4.0)
+  - GoogleSignIn (4.1.2):
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GTMOAuth2 (1.1.6):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.14):
+    - GTMSessionFetcher/Full (= 1.1.14)
+  - GTMSessionFetcher/Core (1.1.14)
+  - GTMSessionFetcher/Full (1.1.14):
+    - GTMSessionFetcher/Core (= 1.1.14)
   - Lockbox (1.4.8)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - NSString+Validation (1.0.1)
   - OHHTTPStubs (3.1.1)
   - Specta (0.2.1)
@@ -75,17 +98,17 @@ PODS:
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.0)
+  - AFNetworking
   - BlocksKit (~> 2.2.0)
   - Expecta
-  - Facebook-iOS-SDK (= 3.24.0)
-  - Google/SignIn
+  - FBSDKLoginKit
+  - Firebase/Auth
+  - GoogleSignIn
   - Lockbox
   - NSString+Validation
   - OHHTTPStubs
   - Specta
-  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`,
-    branch `master`)
+  - ZLNetworkRequestsPerformer (from `https://github.com/zappylab/ZLNetworkRequestsPerformer.git`, branch `master`)
 
 EXTERNAL SOURCES:
   ZLNetworkRequestsPerformer:
@@ -99,22 +122,27 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: fd6df10652c90fe082b188b5af0660f123423f80
-  BlocksKit: 8557ca36d58151724e4027b81e429812ed7dc06c
-  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  BlocksKit: 65ed7a76d0939f8b480063d2043cc8457d355d56
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Expecta: 917bda2935b63ca7175741b8cf1b26796db6205f
-  Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
-  Google: ec6c7729037b9579e52a4880ba06eb38ddb1de68
-  GoogleAppUtilities: c01c6a5671e9da8b9d690fdaec5959d6c2aac699
-  GoogleAuthUtilities: 049ffd3a297cdffd271451b82fd4e75304f15ef3
-  GoogleInterchangeUtilities: fe088bea8c936218e52324a004d279c4491b9d65
-  GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
-  GoogleSignIn: c45d8d1a873784a3283b4f47f331dc06d8a727b6
-  GoogleSymbolUtilities: a7b0feed1fe667c8d5e647177938d0ecd62d6948
-  GoogleUtilities: 8ed9134debe11719097881711464752900668f10
+  FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
+  FBSDKLoginKit: 99797ac39252fef6f72600b886f6ee60b4b29cab
+  Firebase: 92c6ba593e32db0defde464a9adc981d5cb49f97
+  FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
+  FirebaseAuth: d040bb7a9db6dfc29d0e7ec82d48be51352b2581
+  FirebaseCore: 872307b001bbefda1dfa0dbfffa50a6919023d4a
+  FirebaseInstanceID: d2058a35e9bebda1b6dd42486b84917bde552a9d
+  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   Lockbox: d1a05c873b775c43976d4dce898f3749c133e026
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NSString+Validation: 7ef1a5a42ac7a7d843f45d1018f952fc5f549587
   OHHTTPStubs: cc1b9cb45b963daf891aa736f35d29d74308f0c9
   Specta: 15a276a6343867b426d5ed135d5aa4d04123a573
   ZLNetworkRequestsPerformer: baefdd58da7e75f672a01795e67fe7acd2ccb0d0
 
-COCOAPODS: 0.37.2
+PODFILE CHECKSUM: 67165ed90f3c44deaa7421c5cd7d4e907f490749
+
+COCOAPODS: 1.4.0

@@ -16,7 +16,7 @@
 
 @interface ZLATwitterAPIRequestsPerformer ()
 
-@property (strong) AFHTTPRequestOperationManager *requestOperationManager;
+@property (strong) AFHTTPSessionManager *requestSessionManager;
 
 @end
 
@@ -39,8 +39,8 @@
 
 -(void) setup
 {
-    self.requestOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]];
-    self.requestOperationManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    self.requestSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]];
+    self.requestSessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
 }
 
 #pragma mark - Requests
@@ -94,30 +94,30 @@
                                                                              method:@"POST"
                                                                         accessToken:nil
                                                                        accessSecret:nil];
-
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-        if (completionHandler)
-        {
-            completionHandler(responseObject, nil);
-        }
-    }
-                                            failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                                            {
-                                                if (completionHandler)
-                                                {
-                                                    completionHandler(nil, error);
-                                                }
-                                            }];
-
-    [self.requestOperationManager.operationQueue addOperation:requestOperation];
+    
+//    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+//    {
+//        if (completionHandler)
+//        {
+//            completionHandler(responseObject, nil);
+//        }
+//    }
+//                                            failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//                                            {
+//                                                if (completionHandler)
+//                                                {
+//                                                    completionHandler(nil, error);
+//                                                }
+//                                            }];
+//
+//    [self.requestSessionManager.operationQueue addOperation:requestOperation];
 }
 
 -(NSURL *) URLForRequestWithRelativePath:(NSString *) requestPath
 {
     return [NSURL URLWithString:requestPath
-                  relativeToURL:self.requestOperationManager.baseURL];
+                  relativeToURL:self.requestSessionManager.baseURL];
 }
 
 -(void) getAccessTokenForAccount:(ACAccount *) account
@@ -178,25 +178,25 @@
                                                                              method:@"GET"
                                                                         accessToken:accessKey
                                                                        accessSecret:accessSecret];
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-        if (completionHandler) {
-            NSError *responseSerializationError = nil;
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                     options:kNilOptions
-                                                                       error:&responseSerializationError];
-            completionHandler(response, responseSerializationError);
-        }
-    }
-                                            failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                                            {
-                                                if (completionHandler) {
-                                                    completionHandler(nil, error);
-                                                }
-                                            }];
-
-    [self.requestOperationManager.operationQueue addOperation:requestOperation];
+//    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+//    {
+//        if (completionHandler) {
+//            NSError *responseSerializationError = nil;
+//            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseObject
+//                                                                     options:kNilOptions
+//                                                                       error:&responseSerializationError];
+//            completionHandler(response, responseSerializationError);
+//        }
+//    }
+//                                            failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//                                            {
+//                                                if (completionHandler) {
+//                                                    completionHandler(nil, error);
+//                                                }
+//                                            }];
+//
+//    [self.requestSessionManager.operationQueue addOperation:requestOperation];
 }
 
 @end

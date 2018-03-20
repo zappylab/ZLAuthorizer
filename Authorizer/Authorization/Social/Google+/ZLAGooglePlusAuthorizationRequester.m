@@ -2,7 +2,6 @@
 // Created by Ilya Dyakonov on 06/05/14.
 // Copyright (c) 2014 ZappyLab. All rights reserved.
 //
-//
 
 #import <AFNetworking/AFNetworking.h>
 
@@ -39,32 +38,29 @@
 
     NSURL *profilePictureRequestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://picasaweb.google.com/data/entry/api/user/%@?alt=json",
                                                                                          userIdentifier]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:profilePictureRequestURL];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *requestOperation, id responseObject)
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:profilePictureRequestURL.absoluteString
+      parameters:nil
+        progress:nil
+         success:^(NSURLSessionTask *task, id responseObject)
     {
         NSString *profilePictureAddress = [self getGooglePlusProfilePictureFromJSON:responseObject];
         if (completionBlock) {
             completionBlock(profilePictureAddress);
         }
     }
-                                     failure:^(AFHTTPRequestOperation *requestOperation, NSError *error)
-                                     {
-                                         if (completionBlock) {
-                                             completionBlock(nil);
-                                         }
-                                     }
-    ];
-
-    [operation start];
+         failure:^(NSURLSessionTask *operation, NSError *error)
+    {
+        if (completionBlock)
+        {
+            completionBlock(nil);
+        }
+    }];
 }
 
 -(NSString *) getGooglePlusProfilePictureFromJSON:(id) responseObject
 {
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:nil];
-    return response[@"entry"][@"gphoto$thumbnail"][@"$t"];
+    return responseObject[@"entry"][@"gphoto$thumbnail"][@"$t"];
 }
 
 @end
