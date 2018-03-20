@@ -13,6 +13,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'BlocksKit', '~> 2.2.0'
   spec.dependency 'FBSDKLoginKit'
   spec.dependency 'GoogleSignIn'
+  spec.dependency 'TwitterKit'
   spec.frameworks = 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
   spec.requires_arc = true
 
