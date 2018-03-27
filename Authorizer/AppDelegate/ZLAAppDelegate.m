@@ -7,6 +7,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleSignIn/GIDSignIn.h>
+#import <TwitterKit/TWTRTwitter.h>
 
 @implementation ZLAAppDelegate
 
@@ -15,47 +16,26 @@
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *) options
 {
     BOOL result = NO;
-    if (@available(iOS 9.0, *))
-    {
-        if ([url.scheme rangeOfString:@"fb"
-                              options:NSCaseInsensitiveSearch].location != NSNotFound)
-        {
-            result = [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                    openURL:url
-                                                          sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                                 annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-        }
-        else
-        {
-            result = [[GIDSignIn sharedInstance] handleURL:url
-                                         sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-        }
-    }
-    
-    return result;
-}
-
--(BOOL) application:(UIApplication *) application
-            openURL:(NSURL *) url
-  sourceApplication:(NSString *) sourceApplication
-         annotation:(id) annotation
-{
-    BOOL result = NO;
-    
     if ([url.scheme rangeOfString:@"fb"
                           options:NSCaseInsensitiveSearch].location != NSNotFound)
     {
         result = [[FBSDKApplicationDelegate sharedInstance] application:application
                                                                 openURL:url
-                                                      sourceApplication:sourceApplication
-                                                             annotation:annotation];
+                                                      sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                             annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    }
+    else if ([url.scheme rangeOfString:@"twitter"
+                               options:NSCaseInsensitiveSearch].location != NSNotFound)
+    {
+        result = [[TWTRTwitter sharedInstance] application:application
+                                                   openURL:url
+                                                   options:options];
     }
     else
     {
         result = [[GIDSignIn sharedInstance] handleURL:url
-                                     sourceApplication:sourceApplication
-                                            annotation:annotation];
+                                     sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                            annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
     }
     
     return result;

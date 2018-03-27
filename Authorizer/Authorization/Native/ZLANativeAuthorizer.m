@@ -17,7 +17,7 @@
 @interface ZLANativeAuthorizer ()
 
 @property (strong) ZLANativeAuthorizationRequester *requester;
-@property (strong) NSOperation *loginRequestOperation;
+@property (strong) NSURLSessionDataTask *loginRequestOperation;
 
 @end
 

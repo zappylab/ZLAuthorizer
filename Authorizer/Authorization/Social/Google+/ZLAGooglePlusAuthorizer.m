@@ -22,7 +22,7 @@
          >
 
 @property (strong) ZLAGooglePlusAuthorizationRequester *requester;
-@property (strong) NSOperation *loginRequestOperation;
+@property (strong) NSURLSessionDataTask *loginRequestOperation;
 
 @property (copy) ZLARequestCompletionBlock completionBlock;
 

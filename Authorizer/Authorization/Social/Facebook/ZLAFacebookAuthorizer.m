@@ -20,7 +20,7 @@
 
 @property (strong) ZLASocialAuthorizationRequester *requester;
 @property (strong) FBSDKLoginManager *loginManager;
-@property (strong) NSOperation *loginRequestOperation;
+@property (strong) NSURLSessionDataTask *loginRequestOperation;
 
 @property (copy) ZLARequestCompletionBlock completionBlock;
 

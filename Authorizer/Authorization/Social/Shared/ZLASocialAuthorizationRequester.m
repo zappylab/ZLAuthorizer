@@ -59,13 +59,13 @@
                completionHandler:completionBlock];
 }
 
--(NSOperation *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
-                                          userIdentifier:(NSString *) userName
-                                             accessToken:(NSString *) accessToken
-                                               firstName:(NSString *) firstName
-                                                lastName:(NSString *) lastName
-                                   profilePictureAddress:(NSString *) profilePictureAddress
-                                         completionBlock:(ZLARequestCompletionBlock) completionBlock
+-(NSURLSessionDataTask *) performLoginWithSocialNetworkIdentifier:(NSString *) socialNetworkKey
+                                                   userIdentifier:(NSString *) userName
+                                                      accessToken:(NSString *) accessToken
+                                                        firstName:(NSString *) firstName
+                                                         lastName:(NSString *) lastName
+                                            profilePictureAddress:(NSString *) profilePictureAddress
+                                                  completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSMutableDictionary *parameters = [self buildLoginParametersWithSocialNetworkIdentifier:socialNetworkKey
                                                                              userIdentifier:userName

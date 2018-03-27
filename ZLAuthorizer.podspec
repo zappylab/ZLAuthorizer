@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-  spec.platform = :ios, "7.0"
+  spec.platform = :ios, "9.0"
   spec.name = 'ZLAuthorizer'
   spec.version = '0.3'
   spec.homepage = 'https://github.com/zappylab/ZLAuthorizer'
@@ -14,13 +14,6 @@ Pod::Spec.new do |spec|
   spec.dependency 'FBSDKLoginKit'
   spec.dependency 'GoogleSignIn'
   spec.dependency 'TwitterKit'
-  spec.frameworks = 'AddressBook', 'Security', 'SystemConfiguration', 'MediaPlayer', 'CoreMotion', 'AssetsLibrary'
+  spec.frameworks = 'Security', 'SystemConfiguration', 'AssetsLibrary'
   spec.requires_arc = true
-
-  non_arc_files = 'Authorizer/Authorization/Social/Twitter/ABOAuthCore/*{h,m}'
-  spec.exclude_files = non_arc_files
-  spec.subspec 'no-arc' do |subspec|
-    subspec.source_files = non_arc_files
-    subspec.requires_arc = false
-  end
 end

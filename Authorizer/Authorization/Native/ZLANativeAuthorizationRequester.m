@@ -39,13 +39,13 @@ static NSString *const kZLAResetPasswordRequestPath = @"mresetpassword";
 
 #pragma mark - Requests
 
--(NSOperation *) performNativeLoginWithUserName:(NSString *) userName
-                                       password:(NSString *) password
-                                completionBlock:(ZLARequestCompletionBlock) completionBlock
+-(NSURLSessionDataTask *) performNativeLoginWithUserName:(NSString *) userName
+                                                password:(NSString *) password
+                                         completionBlock:(ZLARequestCompletionBlock) completionBlock
 {
     NSParameterAssert(userName);
     NSParameterAssert(password);
-
+    
     return [self.requestsPerformer POST:ZLALoginRequestPath
                              parameters:@{ZLAUserNameKey     : userName,
                                           ZLAUserPasswordKey : password}
