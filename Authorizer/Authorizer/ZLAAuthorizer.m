@@ -553,6 +553,11 @@ static NSDictionary *userInfoKeysAccodingToResponseKeys = nil;
             }];
 }
 
+-(void) synchUserAccount
+{
+    [self.userInfoPersistentStore persistUserInfoContainer:self.userInfo];
+}
+
 -(void) handleUpdatingUserInfoWithSerializedInfo:(NSDictionary *) serializedInfo
                                     withResponse:(NSDictionary *) response
 {

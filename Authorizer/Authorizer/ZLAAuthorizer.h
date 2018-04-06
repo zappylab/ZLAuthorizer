@@ -59,6 +59,7 @@ typedef void(^ZLAAuthorizationCompletionBlock)(BOOL success);
                    additionalInfo:(NSDictionary *) info
                          silently:(BOOL) silently
                   completionBlock:(ZLAAuthorizationCompletionBlock) completionBlock;
+-(void) synchUserAccount;
 
 -(void) handleUpdatingUserInfoWithSerializedInfo:(NSDictionary *) serializedInfo
                                     withResponse:(NSDictionary *) response;
