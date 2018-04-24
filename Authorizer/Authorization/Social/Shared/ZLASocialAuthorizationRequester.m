@@ -90,9 +90,10 @@
     NSParameterAssert(accessToken);
     NSAssert([ZLACredentialsStorage userEmail], @"user email required to complete social authorization");
 
-    NSMutableDictionary *parameters = [@{ZLAUserNameKey         : [ZLACredentialsStorage userEmail],
-                                         socialNetworkKey       : userIdentifier,
-                                         ZLAOAuthAccessTokenKey : accessToken} mutableCopy];
+    NSMutableDictionary *parameters =
+    @{ZLAUserNameKey         : [ZLASocialAuthorizationRequester nonEmptyString:[ZLACredentialsStorage userEmail]],
+      socialNetworkKey       : [ZLASocialAuthorizationRequester nonEmptyString:userIdentifier],
+      ZLAOAuthAccessTokenKey : [ZLASocialAuthorizationRequester nonEmptyString:accessToken]}.mutableCopy;
     if (firstName)
     {
         parameters[ZLAFirstNameKey] = firstName;
@@ -109,6 +110,25 @@
     }
 
     return parameters;
+}
+
++(NSString *) nonEmptyString:(id) value
+{
+    id stringValueOrNull = nil;
+    if ([value isKindOfClass:[NSString class]])
+    {
+        stringValueOrNull = value;
+    }
+    else if ([value isKindOfClass:[NSNumber class]])
+    {
+        stringValueOrNull = [value stringValue];
+    }
+    else
+    {
+        stringValueOrNull = [NSNull null];
+    }
+    
+    return stringValueOrNull;
 }
 
 @end
