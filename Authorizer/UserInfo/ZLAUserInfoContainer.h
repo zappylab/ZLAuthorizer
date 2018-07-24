@@ -33,7 +33,7 @@ withCompletionHandler:(void (^)(void)) completionHandler;
 @property (strong) NSString *username;
 @property (strong) NSString *bio;
 @property (strong) NSString *affiliation;
-@property (strong) NSURL *affiliationURL;
+@property (strong) NSString *affiliationURL;
 @property (strong) NSURL *profilePictureURL;
 
 @property (strong) NSDate *userDataSynchTimestamp;

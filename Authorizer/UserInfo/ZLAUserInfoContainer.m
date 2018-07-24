@@ -187,11 +187,11 @@
     }
 }
 
--(void) setAffiliationURL:(NSURL *) affiliationURL
+-(void) setAffiliationURL:(NSString *) affiliationURL
 {
-    if ([affiliationURL isKindOfClass:[NSString class]])
+    if ([affiliationURL isKindOfClass:[NSURL class]])
     {
-        _affiliationURL = [NSURL URLWithString:(NSString *)affiliationURL];
+        _affiliationURL = [(NSURL *)affiliationURL absoluteString];
     }
     else
     {
@@ -199,7 +199,7 @@
     }
 }
 
--(NSURL *) affiliationURL
+-(NSString *) affiliationURL
 {
     return _affiliationURL;
 }
@@ -283,17 +283,8 @@ withCompletionHandler:(void (^)(void)) completionHandler
                          ofDictionary:data];
     self.username = [self stringValueOfKey:ZLAUsernameKey
                               ofDictionary:data];
-    
-    NSString *affiliationURL = [self stringValueOfKey:ZLAUserAffiliationURLKey
-                                         ofDictionary:data];
-    if (affiliationURL.length > 0)
-    {
-        self.affiliationURL = [NSURL URLWithString:affiliationURL];
-    }
-    else
-    {
-        self.affiliationURL = nil;
-    }
+    self.affiliationURL = [self stringValueOfKey:ZLAUserAffiliationURLKey
+                                    ofDictionary:data];
     
     NSString *profilePicture = [self stringValueOfKey:ZLAProfilePictureKey
                                          ofDictionary:data];
