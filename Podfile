@@ -6,7 +6,7 @@ install! 'cocoapods', :deterministic_uuids => false
 
 pod 'Lockbox'
 pod 'ZLNetworkRequestsPerformer', :git => 'https://github.com/zappylab/ZLNetworkRequestsPerformer.git', :branch => 'master'
-pod 'AFNetworking', '~> 3.0'
+pod 'AFNetworking'
 pod 'NSString+Validation'
 pod 'BlocksKit', '~> 2.2.0'
 pod 'GoogleSignIn'
